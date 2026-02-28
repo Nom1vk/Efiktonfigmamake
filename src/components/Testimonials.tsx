@@ -1,3 +1,5 @@
+import { useInView } from '../hooks/useInView';
+
 const proofPoints = [
   {
     metric: '5×',
@@ -33,6 +35,10 @@ const ownerQuotes = [
 ];
 
 export function Testimonials() {
+  const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
+  const [metricsRef, metricsVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
+  const [quotesRef, quotesVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
+
   return (
     <section
       id="results"
@@ -42,10 +48,13 @@ export function Testimonials() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="flex items-end justify-between mb-20 flex-wrap gap-6">
+        <div
+          ref={headerRef}
+          className={`flex items-end justify-between mb-16 md:mb-20 flex-wrap gap-6 animate-reveal${headerVisible ? ' is-visible' : ''}`}
+        >
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div style={{ width: '24px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
+            <div className="flex items-center gap-3 mb-6" aria-hidden="true">
+              <div style={{ width: '24px', height: '1px', backgroundColor: '#B87333' }} />
               <span
                 className="text-xs font-semibold uppercase tracking-widest"
                 style={{ color: '#B87333', letterSpacing: '0.15em' }}
@@ -67,21 +76,24 @@ export function Testimonials() {
               Numbers don't firefight.
             </h2>
             <p className="text-base" style={{ color: '#4A4A4A', lineHeight: 1.75 }}>
-              These are the outcomes Efikton clients experience — measurable, operational, and sustained.
+              These are the outcomes Efikton clients experience — measurable, operational, and
+              sustained.
             </p>
           </div>
         </div>
 
-        {/* Metric cards — sharp, architectural */}
+        {/* Metric cards */}
         <div
-          className="grid sm:grid-cols-3 mb-20"
+          ref={metricsRef}
+          className={`grid sm:grid-cols-3 mb-16 md:mb-20 animate-reveal-stagger${metricsVisible ? ' is-visible' : ''}`}
           style={{ borderTop: '1px solid rgba(0,43,92,0.1)', borderLeft: '1px solid rgba(0,43,92,0.1)' }}
           role="list"
+          aria-label="Proof metrics"
         >
           {proofPoints.map((point, i) => (
             <article
               key={i}
-              className="p-8 flex flex-col transition-colors duration-200"
+              className="p-7 md:p-8 flex flex-col transition-colors duration-200"
               style={{
                 borderRight: '1px solid rgba(0,43,92,0.1)',
                 borderBottom: '1px solid rgba(0,43,92,0.1)',
@@ -89,17 +101,14 @@ export function Testimonials() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#fff';
-                (e.currentTarget.querySelector('.metric-accent') as HTMLElement | null)?.style.setProperty('border-top-color', '#B87333');
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = '#F8F6F3';
-                (e.currentTarget.querySelector('.metric-accent') as HTMLElement | null)?.style.setProperty('border-top-color', 'transparent');
               }}
               role="listitem"
             >
-              {/* Top copper accent line on hover (via pseudo approach inline) */}
+              {/* Copper accent bar */}
               <div
-                className="metric-accent"
                 style={{
                   height: '2px',
                   backgroundColor: '#B87333',
@@ -112,7 +121,7 @@ export function Testimonials() {
 
               {/* Tag */}
               <div
-                className="text-xs font-bold uppercase tracking-widest mb-6"
+                className="text-xs font-bold uppercase tracking-widest mb-5 md:mb-6"
                 style={{ color: '#B87333', letterSpacing: '0.12em' }}
               >
                 {point.tag}
@@ -124,19 +133,21 @@ export function Testimonials() {
                 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   color: '#B87333',
-                  fontSize: 'clamp(3rem, 6vw, 4rem)',
+                  fontSize: 'clamp(2.75rem, 6vw, 4rem)',
                   letterSpacing: '-0.04em',
                 }}
+                aria-label={`${point.metric} — ${point.label}`}
               >
                 {point.metric}
               </div>
               <div
                 className="font-semibold mb-1"
                 style={{ color: '#002B5C', fontSize: '1rem', letterSpacing: '-0.01em' }}
+                aria-hidden="true"
               >
                 {point.label}
               </div>
-              <div className="text-xs mb-6" style={{ color: '#4A4A4A', opacity: 0.7 }}>
+              <div className="text-xs mb-5 md:mb-6" style={{ color: '#4A4A4A', opacity: 0.7 }}>
                 {point.timeframe}
               </div>
 
@@ -146,7 +157,7 @@ export function Testimonials() {
               </p>
 
               <button
-                className="mt-6 text-xs font-semibold uppercase tracking-wider transition-colors"
+                className="mt-5 md:mt-6 text-xs font-semibold uppercase tracking-wider transition-colors text-left"
                 style={{ color: '#0066CC', letterSpacing: '0.1em' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#002B5C')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#0066CC')}
@@ -158,13 +169,15 @@ export function Testimonials() {
           ))}
         </div>
 
-        {/* Owner quotes — dark, architectural */}
+        {/* Owner quotes — dark */}
         <div
+          ref={quotesRef}
+          className={`animate-reveal${quotesVisible ? ' is-visible' : ''}`}
           style={{ backgroundColor: '#002B5C' }}
-          aria-label="Client testimonial quotes"
+          aria-label="What factory owners say after implementing Efikton"
         >
           <div
-            className="px-8 py-6"
+            className="px-6 md:px-8 py-5 md:py-6"
             style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
           >
             <span
@@ -178,14 +191,14 @@ export function Testimonials() {
             {ownerQuotes.map((quote, i) => (
               <blockquote
                 key={i}
-                className="p-8"
+                className="p-6 md:p-8"
                 style={{
                   color: 'rgba(255,255,255,0.8)',
                   borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                   borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                   fontStyle: 'italic',
                   lineHeight: 1.7,
-                  fontSize: '0.9375rem',
+                  fontSize: 'clamp(0.875rem, 1.5vw, 0.9375rem)',
                   borderLeft: '2px solid #B87333',
                 }}
               >
@@ -196,7 +209,7 @@ export function Testimonials() {
 
           {/* Tagline */}
           <div
-            className="px-8 py-6 text-center"
+            className="px-6 md:px-8 py-5 md:py-6 text-center"
             style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
           >
             <p
@@ -207,6 +220,7 @@ export function Testimonials() {
                 fontSize: '1.5rem',
                 letterSpacing: '-0.02em',
               }}
+              lang="el"
             >
               Εφικτόν.
             </p>
