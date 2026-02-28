@@ -43,7 +43,7 @@ export function Testimonials() {
     <section
       id="results"
       className="py-24 lg:py-32"
-      style={{ backgroundColor: '#F8F6F3' }}
+      style={{ backgroundColor: '#F8F6F3', scrollMarginTop: '64px' }}
       aria-labelledby="results-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -191,16 +191,19 @@ export function Testimonials() {
             {ownerQuotes.map((quote, i) => (
               <blockquote
                 key={i}
-                className="p-6 md:p-8"
+                className="p-6 md:p-8 transition-colors duration-200"
                 style={{
                   color: 'rgba(255,255,255,0.8)',
                   borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                  borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
                   fontStyle: 'italic',
                   lineHeight: 1.7,
                   fontSize: 'clamp(0.875rem, 1.5vw, 0.9375rem)',
                   borderLeft: '2px solid #B87333',
+                  paddingLeft: '1.5rem',
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
               >
                 {quote}
               </blockquote>

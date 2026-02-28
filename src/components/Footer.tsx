@@ -23,7 +23,8 @@ const links = {
 export function Footer() {
   return (
     <footer
-      style={{ backgroundColor: '#001226', color: 'rgba(255,255,255,0.45)' }}
+      id="about"
+      style={{ backgroundColor: '#001226', color: 'rgba(255,255,255,0.45)', scrollMarginTop: '64px' }}
       aria-label="Site footer"
     >
       <div

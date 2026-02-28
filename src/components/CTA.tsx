@@ -8,7 +8,7 @@ export function CTA() {
     <section
       id="contact"
       className="py-16 md:py-24 lg:py-32"
-      style={{ backgroundColor: '#fff' }}
+      style={{ backgroundColor: '#fff', scrollMarginTop: '64px' }}
       aria-labelledby="cta-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

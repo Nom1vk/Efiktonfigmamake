@@ -38,7 +38,7 @@ export function Features() {
     <section
       id="method"
       className="py-24 lg:py-32"
-      style={{ backgroundColor: '#fff' }}
+      style={{ backgroundColor: '#fff', scrollMarginTop: '64px' }}
       aria-labelledby="features-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

@@ -52,7 +52,7 @@ export function Solutions() {
     <section
       id="solutions"
       className="py-24 lg:py-32"
-      style={{ backgroundColor: '#F8F6F3' }}
+      style={{ backgroundColor: '#F8F6F3', scrollMarginTop: '64px' }}
       aria-labelledby="solutions-heading"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -147,13 +147,18 @@ export function Solutions() {
           {pillars.map((pillar, index) => (
             <article
               key={index}
-              className="group p-7 md:p-8 flex flex-col transition-colors duration-200"
-              style={{ backgroundColor: '#F8F6F3' }}
+              className="group p-7 md:p-8 flex flex-col transition-all duration-200"
+              style={{
+                backgroundColor: '#F8F6F3',
+                borderLeft: '2px solid transparent',
+              }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#fff';
+                e.currentTarget.style.borderLeftColor = '#B87333';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = '#F8F6F3';
+                e.currentTarget.style.borderLeftColor = 'transparent';
               }}
               role="listitem"
             >

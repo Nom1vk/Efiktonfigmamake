@@ -1416,6 +1416,11 @@ html {
     transform: none !important;
     transition: none !important;
   }
+
+  /* Suppress bounce animation */
+  .animate-bounce {
+    animation: none !important;
+  }
 }
 
 /* ── Mobile scroll smoothing ────────────────────────────────────────────────── */
