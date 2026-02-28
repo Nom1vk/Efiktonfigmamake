@@ -1,63 +1,165 @@
-import { ArrowRight } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ArrowRight, ChevronDown } from 'lucide-react';
+
+const stats = [
+  { value: '5×', label: 'Profit increase', sub: 'in 2 years' },
+  { value: '90%', label: 'Fewer problems', sub: 'ongoing' },
+  { value: 'OTIF', label: 'On-time delivery', sub: 'within 1 year' },
+];
 
 export function Hero() {
   return (
-    <div className="pt-16 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <div className="inline-block px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm">
-              Manufacturing Excellence Through Technology
-            </div>
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-tight">
-              Transform Your Manufacturing Operations
-            </h1>
-            
-            <p className="text-lg text-gray-600 max-w-xl">
-              Specialized software solutions designed to streamline complex manufacturing processes, 
-              optimize production planning, and deliver real-time inventory management across your entire operation.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group">
-                Get Started
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="px-8 py-4 border border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 transition-colors">
-                Schedule Consultation
-              </button>
-            </div>
+    <section
+      className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #002B5C 0%, #001a38 60%, #002B5C 100%)',
+      }}
+      aria-label="Hero section"
+    >
+      {/* Background texture */}
+      <div
+        className="absolute inset-0 opacity-5"
+        style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, #B87333 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, #0066CC 0%, transparent 40%)`,
+        }}
+      />
 
-            <div className="flex items-center gap-8 pt-4">
-              <div>
-                <div className="text-3xl text-gray-900">500+</div>
-                <div className="text-sm text-gray-600">Active Clients</div>
-              </div>
-              <div className="w-px h-12 bg-gray-300"></div>
-              <div>
-                <div className="text-3xl text-gray-900">99.9%</div>
-                <div className="text-sm text-gray-600">Uptime</div>
-              </div>
-              <div className="w-px h-12 bg-gray-300"></div>
-              <div>
-                <div className="text-3xl text-gray-900">24/7</div>
-                <div className="text-sm text-gray-600">Support</div>
-              </div>
-            </div>
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `linear-gradient(rgba(184,115,51,0.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(184,115,51,0.3) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Eyebrow */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8"
+            style={{
+              backgroundColor: 'rgba(184,115,51,0.15)',
+              border: '1px solid rgba(184,115,51,0.4)',
+              color: '#B87333',
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full animate-pulse"
+              style={{ backgroundColor: '#B87333' }}
+            />
+            Manufacturing Operating System
           </div>
 
-          <div className="relative">
-            <div className="absolute inset-0 bg-blue-200 rounded-2xl transform rotate-3"></div>
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1768796372343-99ed316eb5ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtYW51ZmFjdHVyaW5nJTIwZmFjdG9yeSUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzY5NTM4MjUzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-              alt="Modern manufacturing facility"
-              className="relative rounded-2xl shadow-2xl object-cover w-full h-[500px]"
-            />
+          {/* Headline */}
+          <h1
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6"
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#fff' }}
+          >
+            Deliver on time.{' '}
+            <span style={{ color: '#B87333' }}>Eliminate</span> problems.{' '}
+            Protect margin.
+          </h1>
+
+          {/* Subheadline */}
+          <p
+            className="text-lg sm:text-xl lg:text-2xl mb-4 max-w-3xl mx-auto"
+            style={{ color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}
+          >
+            The manufacturing operating system that turns chaos into control.
+          </p>
+
+          <p
+            className="text-base sm:text-lg mb-10 max-w-2xl mx-auto"
+            style={{ color: 'rgba(255,255,255,0.55)' }}
+          >
+            Efikton is the complete manufacturing OS — from order to cash, from supplier
+            to shipment. One method. One system. Proven results.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <a
+              href="#results"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333]"
+              style={{ backgroundColor: '#B87333', color: '#fff' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#a0652c';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(184,115,51,0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#B87333';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              See the Results
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              style={{
+                backgroundColor: 'transparent',
+                border: '2px solid rgba(255,255,255,0.3)',
+                color: '#fff',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)';
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+            >
+              Book a Demo
+            </a>
+          </div>
+
+          {/* Stats */}
+          <div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto"
+            role="list"
+            aria-label="Key results"
+          >
+            {stats.map((stat, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center p-6 rounded-2xl"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(184,115,51,0.25)',
+                }}
+                role="listitem"
+              >
+                <div
+                  className="text-4xl sm:text-5xl font-bold mb-1"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#B87333' }}
+                >
+                  {stat.value}
+                </div>
+                <div className="text-sm font-semibold mb-0.5" style={{ color: '#fff' }}>
+                  {stat.label}
+                </div>
+                <div className="text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                  {stat.sub}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+          <span className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            Scroll to explore
+          </span>
+          <ChevronDown className="w-5 h-5 text-white animate-bounce" aria-hidden="true" />
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
