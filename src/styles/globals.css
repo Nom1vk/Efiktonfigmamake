@@ -1,9 +1,33 @@
 @custom-variant dark (&:is(.dark *));
 
+/* ─── Efikton Design Tokens ─── */
+:root {
+  /* Brand palette */
+  --ef-navy: #002B5C;
+  --ef-navy-deep: #001B3A;
+  --ef-navy-darkest: #001226;
+  --ef-copper: #B87333;
+  --ef-copper-dark: #9e632c;
+  --ef-gray: #4A4A4A;
+  --ef-blue: #0066CC;
+  --ef-offwhite: #F8F6F3;
+
+  /* Spacing base: 4px */
+  --ef-unit: 4px;
+
+  /* Typography */
+  --ef-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --ef-font-display: 'Space Grotesk', system-ui, sans-serif;
+
+  /* Transitions */
+  --ef-transition: 150ms ease;
+  --ef-transition-slow: 300ms ease;
+}
+
 :root {
   --font-size: 16px;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
+  --background: #F8F6F3;
+  --foreground: #002B5C;
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -120,12 +144,20 @@
 }
 
 @layer base {
-  * {
+  *, *::before, *::after {
+    box-sizing: border-box;
     @apply border-border outline-ring/50;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
+    margin: 0;
+    padding: 0;
     @apply bg-background text-foreground;
+    font-family: var(--ef-font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

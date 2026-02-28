@@ -4,87 +4,100 @@ export function CTA() {
   return (
     <section
       id="contact"
-      className="py-20 lg:py-28"
+      className="py-24 lg:py-32"
       style={{ backgroundColor: '#fff' }}
       aria-labelledby="cta-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Main CTA block — architectural, no rounding */}
         <div
-          className="relative rounded-3xl overflow-hidden p-8 sm:p-12 lg:p-16 text-center"
-          style={{
-            background: 'linear-gradient(135deg, #002B5C 0%, #001a38 100%)',
-          }}
+          className="relative overflow-hidden"
+          style={{ backgroundColor: '#001B3A' }}
         >
-          {/* Background accent */}
+          {/* Geometric accent — subtle grid overlay */}
           <div
-            className="absolute inset-0 opacity-10"
+            className="absolute inset-0"
             style={{
-              backgroundImage: `radial-gradient(circle at 10% 90%, #B87333 0%, transparent 50%),
-                radial-gradient(circle at 90% 10%, #0066CC 0%, transparent 40%)`,
+              backgroundImage: `
+                linear-gradient(rgba(184,115,51,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(184,115,51,0.04) 1px, transparent 1px)
+              `,
+              backgroundSize: '72px 72px',
             }}
             aria-hidden="true"
           />
 
-          <div className="relative max-w-3xl mx-auto">
-            <div
-              className="inline-block px-4 py-2 rounded-full text-sm font-medium mb-6"
-              style={{ backgroundColor: 'rgba(184,115,51,0.2)', color: '#B87333' }}
-            >
-              Ready to make the shift?
+          {/* Left copper accent bar */}
+          <div
+            className="absolute top-0 left-0 bottom-0"
+            style={{ width: '3px', backgroundColor: '#B87333' }}
+            aria-hidden="true"
+          />
+
+          <div className="relative px-12 sm:px-16 lg:px-24 py-20 lg:py-28 max-w-4xl">
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-8">
+              <div style={{ width: '24px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
+              <span
+                className="text-xs font-semibold uppercase tracking-widest"
+                style={{ color: '#B87333', letterSpacing: '0.15em' }}
+              >
+                Ready to make the shift?
+              </span>
             </div>
 
             <h2
               id="cta-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              className="font-bold text-white mb-5"
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.05,
+              }}
             >
               Stop firefighting.{' '}
+              <br className="hidden sm:block" />
               <span style={{ color: '#B87333' }}>Start running the plant.</span>
             </h2>
 
             <p
-              className="text-lg mb-10"
-              style={{ color: 'rgba(255,255,255,0.7)' }}
+              className="mb-10 text-base"
+              style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, maxWidth: '480px' }}
             >
-              See how Efikton turns chaos into control — in your factory. We'll show you
-              the method, the system, and exactly how it applies to your operation.
+              See how Efikton turns chaos into control — in your factory. We'll show you the
+              method, the system, and exactly how it applies to your operation.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="mailto:hello@efikton.com"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333]"
-                style={{ backgroundColor: '#B87333', color: '#fff' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#a0652c';
-                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(184,115,51,0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#B87333';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
+                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 font-semibold text-sm transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333]"
+                style={{ backgroundColor: '#B87333', color: '#fff', letterSpacing: '0.01em' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#9e632c')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B87333')}
               >
                 Book a Demo
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
               </a>
               <a
                 href="tel:+302101234567"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 font-semibold text-sm transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 style={{
-                  backgroundColor: 'transparent',
-                  border: '2px solid rgba(255,255,255,0.3)',
-                  color: '#fff',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: 'rgba(255,255,255,0.85)',
+                  letterSpacing: '0.01em',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)';
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)';
+                  e.currentTarget.style.color = '#fff';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
-                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.85)';
                 }}
               >
-                <Phone className="w-5 h-5" aria-hidden="true" />
+                <Phone className="w-4 h-4" aria-hidden="true" />
                 Talk to an Expert
               </a>
             </div>
@@ -92,12 +105,14 @@ export function CTA() {
             {/* Market regions */}
             <p
               className="mt-10 text-xs"
-              style={{ color: 'rgba(255,255,255,0.35)' }}
+              style={{ color: 'rgba(255,255,255,0.25)', letterSpacing: '0.05em' }}
             >
               Serving manufacturers in{' '}
-              <span style={{ color: 'rgba(255,255,255,0.6)' }}>Greece & EU</span> •{' '}
-              <span style={{ color: 'rgba(255,255,255,0.6)' }}>Middle East</span> •{' '}
-              <span style={{ color: 'rgba(255,255,255,0.6)' }}>Egypt</span>
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>Greece & EU</span>
+              {'  ·  '}
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>Middle East</span>
+              {'  ·  '}
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>Egypt</span>
             </p>
           </div>
         </div>

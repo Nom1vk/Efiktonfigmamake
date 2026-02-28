@@ -1,32 +1,27 @@
-import { TrendingUp, Clock, Shield } from 'lucide-react';
-
 const proofPoints = [
   {
     metric: '5×',
     label: 'Profit Increase',
     timeframe: 'In 2 years',
-    icon: TrendingUp,
     description:
-      'How a Greek auto parts manufacturer transformed margins by running all four Efikton pillars as one system.',
-    tag: 'Case Study: Automotive',
+      'A Greek auto parts manufacturer transformed margins by running all four Efikton pillars as one system.',
+    tag: 'Automotive Manufacturing',
   },
   {
     metric: '90%',
     label: 'Fewer Problems',
     timeframe: 'Ongoing, sustained',
-    icon: Shield,
     description:
-      'Reducing production chaos by 90% — an Efikton implementation story. Early warnings surface issues before they become crises.',
-    tag: 'Case Study: Industrial',
+      'Early warnings surface issues before they become crises. Production chaos reduced by 90% — an Efikton implementation story.',
+    tag: 'Industrial Manufacturing',
   },
   {
     metric: 'OTIF',
     label: 'On-Time In-Full',
     timeframe: 'Within 1 year',
-    icon: Clock,
     description:
-      'Streamlined delivery across the full order-to-cash cycle. Customers trust dates again. The plant runs, not the firefighters.',
-    tag: 'Case Study: Multi-site',
+      'Delivery streamlined across the full order-to-cash cycle. Customers trust dates again. The plant runs, not the firefighters.',
+    tag: 'Multi-Site Operations',
   },
 ];
 
@@ -41,129 +36,157 @@ export function Testimonials() {
   return (
     <section
       id="results"
-      className="py-20 lg:py-28"
+      className="py-24 lg:py-32"
       style={{ backgroundColor: '#F8F6F3' }}
       aria-labelledby="results-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div
-            className="inline-block px-4 py-2 rounded-full text-sm font-medium mb-4"
-            style={{ backgroundColor: 'rgba(184,115,51,0.12)', color: '#B87333' }}
-          >
-            Proven Results
+        <div className="flex items-end justify-between mb-20 flex-wrap gap-6">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div style={{ width: '24px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
+              <span
+                className="text-xs font-semibold uppercase tracking-widest"
+                style={{ color: '#B87333', letterSpacing: '0.15em' }}
+              >
+                Proven Results
+              </span>
+            </div>
+            <h2
+              id="results-heading"
+              className="font-bold mb-4"
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                color: '#002B5C',
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
+              }}
+            >
+              Numbers don't firefight.
+            </h2>
+            <p className="text-base" style={{ color: '#4A4A4A', lineHeight: 1.75 }}>
+              These are the outcomes Efikton clients experience — measurable, operational, and sustained.
+            </p>
           </div>
-          <h2
-            id="results-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
-            style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#002B5C' }}
-          >
-            Numbers don't firefight.
-          </h2>
-          <p className="text-lg" style={{ color: '#4A4A4A' }}>
-            Lead with results. These are the outcomes Efikton clients experience — measurable,
-            operational, and sustained.
-          </p>
         </div>
 
-        {/* Proof points */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" role="list">
+        {/* Metric cards — sharp, architectural */}
+        <div
+          className="grid sm:grid-cols-3 mb-20"
+          style={{ borderTop: '1px solid rgba(0,43,92,0.1)', borderLeft: '1px solid rgba(0,43,92,0.1)' }}
+          role="list"
+        >
           {proofPoints.map((point, i) => (
             <article
               key={i}
-              className="rounded-2xl p-6 flex flex-col transition-all duration-300"
+              className="p-8 flex flex-col transition-colors duration-200"
               style={{
-                backgroundColor: '#fff',
-                border: '1px solid rgba(0,43,92,0.09)',
-                boxShadow: '0 2px 8px rgba(0,43,92,0.05)',
+                borderRight: '1px solid rgba(0,43,92,0.1)',
+                borderBottom: '1px solid rgba(0,43,92,0.1)',
+                backgroundColor: '#F8F6F3',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,43,92,0.12)';
-                e.currentTarget.style.borderColor = 'rgba(184,115,51,0.35)';
-                e.currentTarget.style.transform = 'translateY(-3px)';
+                e.currentTarget.style.backgroundColor = '#fff';
+                (e.currentTarget.querySelector('.metric-accent') as HTMLElement | null)?.style.setProperty('border-top-color', '#B87333');
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,43,92,0.05)';
-                e.currentTarget.style.borderColor = 'rgba(0,43,92,0.09)';
-                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.backgroundColor = '#F8F6F3';
+                (e.currentTarget.querySelector('.metric-accent') as HTMLElement | null)?.style.setProperty('border-top-color', 'transparent');
               }}
               role="listitem"
             >
+              {/* Top copper accent line on hover (via pseudo approach inline) */}
+              <div
+                className="metric-accent"
+                style={{
+                  height: '2px',
+                  backgroundColor: '#B87333',
+                  marginBottom: '24px',
+                  width: '32px',
+                  opacity: 0.8,
+                }}
+                aria-hidden="true"
+              />
+
               {/* Tag */}
               <div
-                className="text-xs font-bold uppercase tracking-widest mb-4"
-                style={{ color: '#B87333' }}
+                className="text-xs font-bold uppercase tracking-widest mb-6"
+                style={{ color: '#B87333', letterSpacing: '0.12em' }}
               >
                 {point.tag}
               </div>
 
-              {/* Metric */}
-              <div className="flex items-start gap-4 mb-4">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: 'rgba(0,43,92,0.07)' }}
-                  aria-hidden="true"
-                >
-                  <point.icon className="w-6 h-6" style={{ color: '#002B5C' }} />
-                </div>
-                <div>
-                  <div
-                    className="text-4xl font-bold leading-none"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#B87333' }}
-                  >
-                    {point.metric}
-                  </div>
-                  <div className="font-semibold text-sm mt-1" style={{ color: '#002B5C' }}>
-                    {point.label}
-                  </div>
-                  <div className="text-xs mt-0.5" style={{ color: '#4A4A4A' }}>
-                    {point.timeframe}
-                  </div>
-                </div>
+              {/* Metric — dominant */}
+              <div
+                className="font-bold leading-none mb-2"
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  color: '#B87333',
+                  fontSize: 'clamp(3rem, 6vw, 4rem)',
+                  letterSpacing: '-0.04em',
+                }}
+              >
+                {point.metric}
+              </div>
+              <div
+                className="font-semibold mb-1"
+                style={{ color: '#002B5C', fontSize: '1rem', letterSpacing: '-0.01em' }}
+              >
+                {point.label}
+              </div>
+              <div className="text-xs mb-6" style={{ color: '#4A4A4A', opacity: 0.7 }}>
+                {point.timeframe}
               </div>
 
               {/* Description */}
-              <p className="text-sm flex-grow" style={{ color: '#4A4A4A', lineHeight: 1.7 }}>
+              <p className="text-sm flex-grow" style={{ color: '#4A4A4A', lineHeight: 1.75 }}>
                 {point.description}
               </p>
 
               <button
-                className="mt-4 text-sm font-semibold flex items-center gap-1 transition-colors"
-                style={{ color: '#0066CC' }}
+                className="mt-6 text-xs font-semibold uppercase tracking-wider transition-colors"
+                style={{ color: '#0066CC', letterSpacing: '0.1em' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#002B5C')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#0066CC')}
                 aria-label={`Read full case study: ${point.tag}`}
               >
-                Read full case study →
+                Read case study →
               </button>
             </article>
           ))}
         </div>
 
-        {/* Owner quotes */}
+        {/* Owner quotes — dark, architectural */}
         <div
-          className="rounded-2xl p-8 sm:p-12"
           style={{ backgroundColor: '#002B5C' }}
           aria-label="Client testimonial quotes"
         >
-          <p
-            className="text-xs font-bold uppercase tracking-widest mb-6 text-center"
-            style={{ color: 'rgba(184,115,51,0.8)' }}
+          <div
+            className="px-8 py-6"
+            style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
           >
-            What factory owners say after Efikton
-          </p>
-          <div className="grid sm:grid-cols-2 gap-4">
+            <span
+              className="text-xs font-bold uppercase tracking-widest"
+              style={{ color: 'rgba(184,115,51,0.8)', letterSpacing: '0.15em' }}
+            >
+              What factory owners say after Efikton
+            </span>
+          </div>
+          <div className="grid sm:grid-cols-2">
             {ownerQuotes.map((quote, i) => (
               <blockquote
                 key={i}
-                className="p-4 rounded-xl text-sm sm:text-base"
+                className="p-8"
                 style={{
-                  backgroundColor: 'rgba(255,255,255,0.06)',
-                  color: 'rgba(255,255,255,0.85)',
-                  borderLeft: '3px solid #B87333',
+                  color: 'rgba(255,255,255,0.8)',
+                  borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                  borderBottom: i < 2 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                   fontStyle: 'italic',
-                  lineHeight: 1.6,
+                  lineHeight: 1.7,
+                  fontSize: '0.9375rem',
+                  borderLeft: '2px solid #B87333',
                 }}
               >
                 {quote}
@@ -172,14 +195,22 @@ export function Testimonials() {
           </div>
 
           {/* Tagline */}
-          <div className="text-center mt-8">
+          <div
+            className="px-8 py-6 text-center"
+            style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
+          >
             <p
-              className="text-2xl sm:text-3xl font-bold"
-              style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#B87333' }}
+              className="font-bold"
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                color: '#B87333',
+                fontSize: '1.5rem',
+                letterSpacing: '-0.02em',
+              }}
             >
               Εφικτόν.
             </p>
-            <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
               Achievable. It's what the name means.
             </p>
           </div>

@@ -1,11 +1,11 @@
-import { Linkedin, Twitter, Mail, Globe } from 'lucide-react';
+import { Linkedin, Twitter, Mail } from 'lucide-react';
 
 const links = {
   Solutions: [
-    { label: 'Manufacturing Management', href: '#solutions' },
-    { label: 'Quality Management', href: '#solutions' },
-    { label: 'The Efikton Platform', href: '#solutions' },
-    { label: 'Extended Capabilities', href: '#solutions' },
+    { label: 'Materials Management', href: '#solutions' },
+    { label: 'Time & Scheduling', href: '#solutions' },
+    { label: 'Cost & Margin', href: '#solutions' },
+    { label: 'Knowledge & Quality', href: '#solutions' },
   ],
   Company: [
     { label: 'The Method', href: '#method' },
@@ -23,32 +23,35 @@ const links = {
 export function Footer() {
   return (
     <footer
-      style={{ backgroundColor: '#001a38', color: 'rgba(255,255,255,0.6)' }}
+      style={{ backgroundColor: '#001226', color: 'rgba(255,255,255,0.45)' }}
       aria-label="Site footer"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div
+        className="max-w-7xl mx-auto px-6 lg:px-8 py-14 lg:py-16"
+        style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+      >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <a
               href="#"
-              className="inline-block mb-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333] rounded"
+              className="inline-block mb-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333]"
               aria-label="Efikton home"
             >
               <span
-                className="text-2xl font-bold"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#fff' }}
+                className="text-xl font-bold"
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#fff', letterSpacing: '-0.02em' }}
               >
                 e<span style={{ color: '#B87333' }}>φ</span>ikton
               </span>
             </a>
-            <p className="text-sm mb-4" style={{ lineHeight: 1.7 }}>
-              The manufacturing operating system that turns chaos into predictable control. Manage
-              Materials, Time, Money, and Knowledge as one system.
+            <p className="text-sm mb-5" style={{ lineHeight: 1.75 }}>
+              The manufacturing operating system. Manage Materials, Time, Money, and Knowledge as
+              one system.
             </p>
             <div
-              className="inline-block px-3 py-1 rounded-full text-xs font-medium"
-              style={{ backgroundColor: 'rgba(184,115,51,0.15)', color: '#B87333' }}
+              className="text-xs font-semibold uppercase tracking-widest"
+              style={{ color: '#B87333', letterSpacing: '0.12em' }}
             >
               Εφικτόν — Achievable
             </div>
@@ -57,15 +60,18 @@ export function Footer() {
           {/* Link columns */}
           {Object.entries(links).map(([heading, items]) => (
             <div key={heading}>
-              <h3 className="font-semibold text-sm mb-4" style={{ color: '#fff' }}>
+              <h3
+                className="text-xs font-semibold uppercase tracking-widest mb-5"
+                style={{ color: 'rgba(255,255,255,0.6)', letterSpacing: '0.12em' }}
+              >
                 {heading}
               </h3>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-3 text-sm">
                 {items.map((item) => (
                   <li key={item.label}>
                     <a
                       href={item.href}
-                      className="transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333] rounded"
+                      className="transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333]"
                       onMouseEnter={(e) => (e.currentTarget.style.color = '#fff')}
                       onMouseLeave={(e) => (e.currentTarget.style.color = '')}
                     >
@@ -78,36 +84,34 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Divider + bottom bar */}
+        {/* Bottom bar */}
         <div
-          className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
-          style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+          className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 text-xs items-center">
-            <p style={{ color: 'rgba(255,255,255,0.4)' }}>
-              © 2026 Efikton. All rights reserved.
-            </p>
-            <div className="flex gap-1 text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
-              <Globe className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Greece & EU • Middle East • Egypt</span>
-            </div>
-          </div>
+          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+            © 2026 Efikton. All rights reserved.{' '}
+            <span style={{ color: 'rgba(255,255,255,0.2)' }}>
+              · Greece & EU · Middle East · Egypt
+            </span>
+          </p>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             {[
               { Icon: Linkedin, label: 'LinkedIn', href: '#' },
-              { Icon: Twitter, label: 'Twitter / X', href: '#' },
+              { Icon: Twitter, label: 'X / Twitter', href: '#' },
               { Icon: Mail, label: 'Email', href: 'mailto:hello@efikton.com' },
             ].map(({ Icon, label, href }) => (
               <a
                 key={label}
                 href={href}
                 aria-label={label}
-                className="transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333] rounded p-1"
+                className="transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333]"
+                style={{ color: 'rgba(255,255,255,0.3)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#B87333')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = '')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
               >
-                <Icon className="w-5 h-5" aria-hidden="true" />
+                <Icon className="w-4 h-4" aria-hidden="true" />
               </a>
             ))}
           </div>
