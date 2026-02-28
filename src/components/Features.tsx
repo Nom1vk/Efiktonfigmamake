@@ -115,6 +115,7 @@ export function Features() {
                 {flowSteps.map((step, i) => (
                   <div key={step.label} className="flex items-center" role="listitem">
                     <div
+                      className={step.accent ? '' : 'flow-step'}
                       style={{
                         padding: '10px 20px',
                         fontSize: '13px',
@@ -124,7 +125,6 @@ export function Features() {
                         color: step.accent ? '#ffffff' : '#E8E4DF',
                         letterSpacing: '0.02em',
                         borderLeft: step.accent ? 'none' : '1px solid rgba(184, 115, 51, 0.15)',
-                        transition: 'background-color 0.2s ease',
                       }}
                     >
                       {step.label}
@@ -204,12 +204,14 @@ export function Features() {
               {stopUsing.map((item, i) => (
                 <li
                   key={i}
+                  className="stop-using-item"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '16px',
-                    padding: '16px 0',
+                    padding: '16px 8px',
                     borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
+                    borderRadius: '2px',
                   }}
                 >
                   <span

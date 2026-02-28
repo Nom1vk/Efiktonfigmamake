@@ -192,6 +192,7 @@ export function CTA() {
                       name="name"
                       type="text"
                       required
+                      aria-required="true"
                       autoComplete="name"
                       placeholder="Your name"
                       style={inputStyle}
@@ -216,6 +217,7 @@ export function CTA() {
                       name="company"
                       type="text"
                       required
+                      aria-required="true"
                       autoComplete="organization"
                       placeholder="Factory / company name"
                       style={inputStyle}
@@ -241,6 +243,7 @@ export function CTA() {
                     name="email"
                     type="email"
                     required
+                    aria-required="true"
                     autoComplete="email"
                     placeholder="you@company.com"
                     style={inputStyle}
@@ -263,6 +266,7 @@ export function CTA() {
                   <select
                     id="cta-industry"
                     name="industry"
+                    className="ef-select"
                     style={{ ...inputStyle, cursor: 'pointer' }}
                     defaultValue=""
                     onFocus={(e) => {

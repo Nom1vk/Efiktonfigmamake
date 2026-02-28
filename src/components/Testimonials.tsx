@@ -65,6 +65,7 @@ const ownerQuotes = [
 ];
 
 export function Testimonials() {
+  const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [numbersRef, numbersVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [quotesRef, quotesVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
 
@@ -79,6 +80,10 @@ export function Testimonials() {
         className="w-full px-6 lg:px-10"
         style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '80px' }}
       >
+        <div
+          ref={headerRef}
+          className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
+        >
         <div className="flex items-center gap-3 mb-8">
           <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
           <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
@@ -102,6 +107,7 @@ export function Testimonials() {
         <p style={{ color: '#8B8680', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '440px' }}>
           Measurable, operational, sustained. These are the outcomes Efikton clients experience.
         </p>
+        </div>
       </div>
 
       {/* Proof point metrics — responsive grid */}
@@ -120,8 +126,9 @@ export function Testimonials() {
             <div
               key={i}
               className={`proof-point-item${i === 0 ? ' proof-point-first' : i === 1 ? ' proof-point-mid' : ' proof-point-last'}`}
-              data-index={i}
               role="listitem"
+              aria-label={`${point.metric} ${point.label} — ${point.timeframe}`}
+              data-index={i}
             >
               <div>
                 {/* Giant metric */}
@@ -213,14 +220,12 @@ export function Testimonials() {
             {ownerQuotes.map((quote, i) => (
               <blockquote
                 key={i}
+                className="ef-quote-card"
                 style={{
                   padding: '28px 32px 28px 24px',
                   borderLeft: '2px solid #B87333',
                   backgroundColor: 'rgba(10, 22, 40, 0.04)',
-                  transition: 'background-color 0.2s ease',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(184, 115, 51, 0.06)')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(10, 22, 40, 0.04)')}
               >
                 <p
                   style={{

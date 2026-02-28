@@ -241,3 +241,112 @@
 .group:hover .pillar-outcome-bar {
   border-left-color: #CA8A4B;
 }
+
+/* ─── Proof point items — Testimonials section ─── */
+.proof-point-item {
+  padding: 48px 0;
+  border-bottom: 1px solid rgba(10, 22, 40, 0.1);
+}
+
+@media (min-width: 768px) {
+  .proof-point-item {
+    padding: 64px 40px 64px 0;
+    border-bottom: none;
+    border-right: 1px solid rgba(10, 22, 40, 0.1);
+  }
+
+  .proof-point-last {
+    border-right: none;
+    padding-right: 0;
+    padding-left: 40px;
+  }
+
+  .proof-point-mid {
+    padding-left: 40px;
+  }
+}
+
+/* ─── Flow step hover — Features section ─── */
+.flow-step {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.flow-step:hover {
+  background-color: rgba(184, 115, 51, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+/* ─── Stop-using list item hover ─── */
+.stop-using-item {
+  transition: background-color 0.15s ease;
+}
+
+.stop-using-item:hover {
+  background-color: rgba(184, 115, 51, 0.04);
+}
+
+/* ─── Copper focus ring for interactive elements ─── */
+:focus-visible {
+  outline: 2px solid rgba(184, 115, 51, 0.7);
+  outline-offset: 3px;
+}
+
+/* ─── Custom select arrow ─── */
+.ef-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%238B8680' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px !important;
+}
+
+/* ─── Narrative arc — mobile 2-col grid fix ─── */
+@media (max-width: 767px) {
+  .narrative-arc-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .narrative-arc-item:nth-child(1),
+  .narrative-arc-item:nth-child(3) {
+    border-right: 1px solid rgba(10, 22, 40, 0.1);
+  }
+
+  .narrative-arc-item:nth-child(1),
+  .narrative-arc-item:nth-child(2) {
+    border-bottom: 1px solid rgba(10, 22, 40, 0.1);
+  }
+}
+
+/* ─── Copper line draw animation ─── */
+@keyframes line-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.ef-line-draw {
+  transform-origin: left;
+  animation: line-draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ─── Quote hover lift ─── */
+.ef-quote-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ef-quote-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── Staggered reveal for 4+ items ─── */
+.animate-reveal-stagger.is-visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.40s; }
+.animate-reveal-stagger.is-visible > *:nth-child(7) { opacity: 1; transform: none; transition-delay: 0.48s; }
+.animate-reveal-stagger.is-visible > *:nth-child(8) { opacity: 1; transform: none; transition-delay: 0.56s; }
+
+/* ─── Mobile touch targets — ensure 44px minimum ─── */
+@media (max-width: 767px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+  }
+}

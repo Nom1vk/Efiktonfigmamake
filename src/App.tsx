@@ -21,9 +21,41 @@ export default function App() {
       <Navigation />
       <main id="main-content">
         <Hero />
+        {/* Section transition: navy → off-white */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.35) 30%, rgba(184, 115, 51, 0.5) 50%, rgba(184, 115, 51, 0.35) 70%, transparent 100%)',
+          }}
+        />
         <Solutions />
+        {/* Section transition: off-white → navy */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
+          }}
+        />
         <Features />
+        {/* Section transition: navy → off-white */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
+          }}
+        />
         <Testimonials />
+        {/* Section transition: off-white → navy */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
+          }}
+        />
         <CTA />
       </main>
       <Footer />

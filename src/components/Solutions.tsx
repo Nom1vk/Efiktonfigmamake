@@ -102,15 +102,14 @@ export function Solutions() {
           role="list"
           aria-label="The journey from chaos to results"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4">
+          <div className="narrative-arc-grid grid grid-cols-2 md:grid-cols-4">
             {narrativeSteps.map((step, i) => (
               <div
                 key={step.label}
+                className={`narrative-arc-item`}
                 style={{
-                  padding: '28px 0',
-                  paddingRight: i < narrativeSteps.length - 1 ? '24px' : '0',
+                  padding: '24px',
                   borderRight: i < narrativeSteps.length - 1 ? '1px solid rgba(10, 22, 40, 0.1)' : 'none',
-                  paddingLeft: i > 0 ? '24px' : '0',
                 }}
                 role="listitem"
               >

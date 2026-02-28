@@ -208,6 +208,7 @@ export function Hero() {
           ...fade(0.45),
         }}
         aria-label="Key proof metrics"
+        role="region"
       >
         <div
           className="grid grid-cols-3 w-full"
