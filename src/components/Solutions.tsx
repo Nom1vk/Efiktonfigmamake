@@ -106,7 +106,7 @@ export function Solutions() {
             {narrativeSteps.map((step, i) => (
               <div
                 key={step.label}
-                className={`narrative-arc-item`}
+                className="narrative-arc-item"
                 style={{
                   padding: '24px',
                   borderRight: i < narrativeSteps.length - 1 ? '1px solid rgba(10, 22, 40, 0.1)' : 'none',

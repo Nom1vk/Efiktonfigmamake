@@ -1690,6 +1690,13 @@ html {
   initial-value: 0;
 }
 
+/* Proof point grid — ensure 3-col on tablet+ */
+@media (min-width: 768px) {
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* Proof point items — responsive padding/borders */
 .proof-point-item {
   padding: 48px 0;
@@ -1729,4 +1736,120 @@ html {
     gap: 40px;
     align-items: start;
   }
+}
+
+/* ── Efikton φ Ambient Float ───────────────────────────────────────────────── */
+@keyframes phi-float {
+  0%   { transform: translateY(-50%) translateX(0px); }
+  33%  { transform: translateY(calc(-50% - 18px)) translateX(6px); }
+  66%  { transform: translateY(calc(-50% + 12px)) translateX(-4px); }
+  100% { transform: translateY(-50%) translateX(0px); }
+}
+
+.phi-ambient {
+  animation: phi-float 18s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phi-ambient {
+    animation: none !important;
+  }
+}
+
+/* ── Scroll indicator bounce ───────────────────────────────────────────────── */
+@keyframes ef-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+.scroll-bounce {
+  animation: ef-bounce 1.8s ease-in-out infinite;
+}
+
+/* ── Narrative arc: responsive borders ─────────────────────────────────────── */
+/* Inline border-rights are overridden on mobile (2-col grid) */
+.narrative-arc-grid {
+  /* nothing extra — tailwind handles col layout */
+}
+
+/* On mobile 2-col: item at position 1 (index 1) is far-right — hide its border */
+@media (max-width: 767px) {
+  .narrative-arc-item:nth-child(2),
+  .narrative-arc-item:nth-child(4) {
+    border-right: none !important;
+  }
+}
+
+/* ── Flow step hover (order-to-cash pipeline) ───────────────────────────────── */
+.flow-step {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.flow-step:hover {
+  background-color: rgba(184, 115, 51, 0.12) !important;
+  color: #E8E4DF !important;
+}
+
+/* ── Stop-using list items hover ─────────────────────────────────────────────── */
+.stop-using-item {
+  transition: background-color 0.2s ease;
+}
+
+.stop-using-item:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ── Quote cards hover polish ────────────────────────────────────────────────── */
+.ef-quote-card {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.ef-quote-card:hover {
+  background-color: rgba(10, 22, 40, 0.07) !important;
+  border-color: rgba(184, 115, 51, 0.5);
+}
+
+/* ── Pillar outcome bar — left accent rule ────────────────────────────────────── */
+.pillar-outcome-bar {
+  transition: border-color 0.2s ease;
+}
+
+article.group:hover .pillar-outcome-bar {
+  border-color: #CA8A4B;
+}
+
+/* ── Select appearance ───────────────────────────────────────────────────────── */
+.ef-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B87333' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px !important;
+}
+
+/* ── Mobile hero: stat labels wrap gracefully ─────────────────────────────────── */
+@media (max-width: 480px) {
+  /* Tighten stat row on very small screens */
+  .hero-stat-value {
+    font-size: 1.75rem !important;
+  }
+}
+
+/* ── Focus-visible copper ring for interactive elements ─────────────────────── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #B87333;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Link underline accessibility ────────────────────────────────────────────── */
+/* Ensure in-body content links are distinguishable beyond color alone */
+main a:not([class]) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
