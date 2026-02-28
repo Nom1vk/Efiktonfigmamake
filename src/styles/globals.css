@@ -1,0 +1,192 @@
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Efikton Design Tokens — v2 φ-inspired redesign ─── */
+:root {
+  /* Brand palette */
+  --ef-navy: #0A1628;
+  --ef-charcoal: #1A1F2E;
+  --ef-copper: #C17F3E;
+  --ef-copper-light: #D4A574;
+  --ef-copper-dark: #A06830;
+  --ef-copper-border: rgba(193, 127, 62, 0.2);
+  --ef-text-primary: #E8E4DF;
+  --ef-text-secondary: #8B8680;
+  --ef-surface: #F5F2ED;
+  --ef-surface-alt: #EDEAE5;
+
+  /* Spacing base: 4px */
+  --ef-unit: 4px;
+
+  /* Typography — Inter only */
+  --ef-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Max content width */
+  --ef-max-width: 1200px;
+
+  /* Transitions */
+  --ef-transition: 150ms ease;
+  --ef-transition-slow: 300ms ease;
+
+  /* Tailwind compat vars */
+  --font-size: 16px;
+  --background: #F5F2ED;
+  --foreground: #0A1628;
+  --card: #ffffff;
+  --card-foreground: #0A1628;
+  --popover: #ffffff;
+  --popover-foreground: #0A1628;
+  --primary: #0A1628;
+  --primary-foreground: #E8E4DF;
+  --secondary: #F5F2ED;
+  --secondary-foreground: #0A1628;
+  --muted: #EDEAE5;
+  --muted-foreground: #8B8680;
+  --accent: #C17F3E;
+  --accent-foreground: #ffffff;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(10, 22, 40, 0.1);
+  --input: transparent;
+  --input-background: #EDEAE5;
+  --switch-background: #8B8680;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #C17F3E;
+  --radius: 0px;
+  --sidebar: #0A1628;
+  --sidebar-foreground: #E8E4DF;
+  --sidebar-primary: #C17F3E;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1A1F2E;
+  --sidebar-accent-foreground: #E8E4DF;
+  --sidebar-border: rgba(193, 127, 62, 0.15);
+  --sidebar-ring: #C17F3E;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 2px;
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    font-size: var(--font-size);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--ef-font-sans);
+    background-color: var(--ef-navy);
+    color: var(--ef-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* ─── Animation utilities ─── */
+.ef-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ef-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.ef-reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ef-reveal-stagger.is-visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+.ef-reveal-stagger.is-visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.08s; }
+.ef-reveal-stagger.is-visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.16s; }
+.ef-reveal-stagger.is-visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.24s; }
+.ef-reveal-stagger.is-visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.32s; }
+
+/* Legacy animation classes for backward compat */
+.animate-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.animate-reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-reveal-stagger.is-visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+.animate-reveal-stagger.is-visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.08s; }
+.animate-reveal-stagger.is-visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.16s; }
+.animate-reveal-stagger.is-visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.24s; }
+.animate-reveal-stagger.is-visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.32s; }
+
+/* ─── φ spin animation ─── */
+@keyframes phi-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.phi-spin {
+  animation: phi-rotate 20s linear infinite;
+  transform-origin: center;
+}
+
+/* ─── Number count pulse ─── */
+@keyframes copper-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}

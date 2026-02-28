@@ -1,0 +1,165 @@
+import { Linkedin, Twitter, Mail } from 'lucide-react';
+
+const links = {
+  Platform: [
+    { label: 'Materials', href: '#solutions' },
+    { label: 'Time & Scheduling', href: '#solutions' },
+    { label: 'Cost & Margin', href: '#solutions' },
+    { label: 'Knowledge & Quality', href: '#solutions' },
+  ],
+  Company: [
+    { label: 'The Method', href: '#method' },
+    { label: 'Results', href: '#results' },
+    { label: 'Contact', href: '#contact' },
+  ],
+};
+
+export function Footer() {
+  return (
+    <footer
+      id="about"
+      style={{ backgroundColor: '#080E1A', scrollMarginTop: '64px' }}
+      aria-label="Site footer"
+    >
+      <div
+        className="px-6 lg:px-10"
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          paddingTop: '64px',
+          paddingBottom: '48px',
+          borderTop: '1px solid rgba(193, 127, 62, 0.1)',
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '2fr 1fr 1fr',
+            gap: '64px',
+            marginBottom: '56px',
+          }}
+          className="grid-cols-1 md:grid-cols-3"
+        >
+          {/* Brand */}
+          <div>
+            <a
+              href="#"
+              style={{ display: 'inline-block', marginBottom: '20px' }}
+              aria-label="eφikton home"
+            >
+              <span
+                style={{
+                  fontSize: '22px',
+                  fontWeight: 800,
+                  letterSpacing: '-0.03em',
+                  color: '#E8E4DF',
+                }}
+              >
+                e<span style={{ color: '#C17F3E' }}>φ</span>ikton
+              </span>
+            </a>
+            <p
+              style={{
+                fontSize: '14px',
+                color: 'rgba(139, 134, 128, 0.8)',
+                lineHeight: 1.75,
+                maxWidth: '280px',
+                marginBottom: '24px',
+              }}
+            >
+              The manufacturing operating system. Materials, Time, Money, and Knowledge — managed as one.
+            </p>
+            <div
+              style={{
+                fontSize: '11px',
+                fontWeight: 600,
+                color: '#C17F3E',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Εφικτόν — Achievable
+            </div>
+          </div>
+
+          {/* Link columns */}
+          {Object.entries(links).map(([heading, items]) => (
+            <div key={heading}>
+              <h3
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: 'rgba(232, 228, 223, 0.4)',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  marginBottom: '20px',
+                }}
+              >
+                {heading}
+              </h3>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {items.map((item) => (
+                  <li key={item.label} style={{ marginBottom: '12px' }}>
+                    <a
+                      href={item.href}
+                      style={{
+                        fontSize: '14px',
+                        color: 'rgba(139, 134, 128, 0.8)',
+                        textDecoration: 'none',
+                        transition: 'color 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = '#E8E4DF')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.8)')}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          style={{
+            paddingTop: '32px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '16px',
+            flexWrap: 'wrap',
+          }}
+        >
+          <p style={{ fontSize: '12px', color: 'rgba(139, 134, 128, 0.5)' }}>
+            © 2026 Efikton. All rights reserved.{' '}
+            <span style={{ color: 'rgba(139, 134, 128, 0.3)' }}>
+              · Greece & EU · Middle East · Egypt
+            </span>
+          </p>
+
+          <div className="flex items-center gap-5">
+            {[
+              { Icon: Linkedin, label: 'LinkedIn', href: '#' },
+              { Icon: Twitter, label: 'X / Twitter', href: '#' },
+              { Icon: Mail, label: 'Email', href: 'mailto:hello@efikton.com' },
+            ].map(({ Icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                style={{ color: 'rgba(139, 134, 128, 0.4)', transition: 'color 0.15s ease' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#C17F3E')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.4)')}
+              >
+                <Icon className="w-4 h-4" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
