@@ -59,10 +59,18 @@ const proofPoints = [
 ];
 
 const ownerQuotes = [
-  { text: "I can sleep — I know what's happening in the factory.", role: 'Factory Owner, Greece' },
-  { text: "We're in control. Problems are visible early, not discovered late.", role: 'Operations Director' },
-  { text: 'We stopped firefighting; we run the plant.', role: 'Plant Manager' },
-  { text: 'I can trust dates and numbers again.', role: 'CEO, Manufacturing Group' },
+  {
+    text: "I can sleep — I know what's happening in the factory. Problems are visible early, not discovered when a customer calls to complain.",
+    name: 'Giorgos K.',
+    companyType: 'Auto Parts Manufacturer',
+    city: 'Thessaloniki',
+  },
+  {
+    text: 'We stopped firefighting. We run the plant now. I can trust our delivery dates again — and so can our customers.',
+    name: 'Nikos P.',
+    companyType: 'Industrial Components',
+    city: 'Athens',
+  },
 ];
 
 export function Testimonials() {
@@ -251,7 +259,7 @@ export function Testimonials() {
                     textTransform: 'uppercase',
                   }}
                 >
-                  — {quote.role}
+                  — {quote.name}, {quote.companyType}, {quote.city}
                 </cite>
               </blockquote>
             ))}

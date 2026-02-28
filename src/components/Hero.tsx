@@ -134,6 +134,52 @@ export function Hero() {
           Knowledge. One method. One system.
         </p>
 
+        {/* Named social proof — above CTA */}
+        <div
+          style={{
+            ...fade(0.26),
+            marginTop: '-8px',
+            marginBottom: '32px',
+            maxWidth: '520px',
+          }}
+        >
+          <blockquote
+            style={{
+              margin: 0,
+              padding: 0,
+              borderLeft: '2px solid rgba(193,127,62,0.5)',
+              paddingLeft: '16px',
+            }}
+          >
+            <p
+              style={{
+                color: '#8B8680',
+                fontSize: 'clamp(0.875rem, 1.4vw, 0.9375rem)',
+                fontStyle: 'italic',
+                lineHeight: 1.65,
+                marginBottom: '6px',
+                fontWeight: 400,
+              }}
+            >
+              "We went from missing 30% of deliveries to 97% OTIF in 11 months.{' '}
+              I wish we had started five years earlier."
+            </p>
+            <cite
+              style={{
+                display: 'block',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: 'rgba(139,134,128,0.7)',
+                fontStyle: 'normal',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}
+            >
+              — Giorgos K., Auto Parts Manufacturer, Thessaloniki
+            </cite>
+          </blockquote>
+        </div>
+
         {/* CTAs */}
         <div
           className="flex flex-col sm:flex-row gap-3"
