@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 const stats = [
   { value: '5×', label: 'Profit increase', sub: 'in 2 years' },
-  { value: '90%', label: 'Fewer problems', sub: 'sustained' },
-  { value: 'OTIF', label: 'On-time delivery', sub: 'within 1 year' },
+  { value: '90%', label: 'Fewer problems', sub: 'ongoing, sustained' },
+  { value: 'OTIF', label: 'On-Time In-Full', sub: 'within 1 year' },
 ];
 
 export function Hero() {

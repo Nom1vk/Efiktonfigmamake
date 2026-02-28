@@ -169,8 +169,8 @@ export function Features() {
               aria-hidden="true"
             />
           </div>
-          <p className="lg:hidden" style={{ fontSize: '11px', color: 'rgba(139, 134, 128, 0.5)', marginTop: '10px', letterSpacing: '0.04em' }}>
-            ← scroll to see full pipeline →
+          <p className="lg:hidden" style={{ fontSize: '11px', color: 'rgba(139, 134, 128, 0.35)', marginTop: '10px', letterSpacing: '0.06em', textAlign: 'center' }}>
+            · · ·
           </p>
         </div>
 

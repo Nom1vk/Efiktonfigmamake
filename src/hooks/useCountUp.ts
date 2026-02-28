@@ -21,12 +21,22 @@ export function useCountUp({
   suffix = '',
   enabled = false,
 }: UseCountUpOptions): string {
+  const prefersReducedMotion =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const [value, setValue] = useState(0);
   const rafRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!enabled) return;
+
+    // Respect reduced-motion: snap to end value immediately
+    if (prefersReducedMotion) {
+      setValue(end);
+      return;
+    }
 
     const animate = (timestamp: number) => {
       if (!startTimeRef.current) startTimeRef.current = timestamp;

@@ -24,7 +24,8 @@ function AnimatedMetric({
     // Non-numeric metric (e.g. OTIF) — just reveal with fade
     return <>{metric}</>;
   }
-  return <>{visible ? count : `0${suffix}`}</>;
+  // Always show the final value as fallback; animate once visible
+  return <>{visible ? count : metric}</>;
 }
 
 const proofPoints = [
