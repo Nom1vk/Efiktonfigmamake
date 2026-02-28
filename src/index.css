@@ -1430,13 +1430,13 @@ html {
 
 /* ── Focus ring — Efikton brand ─────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid #B87333;
+  outline: 2px solid #C17F3E;
   outline-offset: 3px;
 }
 
 /* ── Selection color ────────────────────────────────────────────────────────── */
 ::selection {
-  background-color: rgba(184, 115, 51, 0.25);
+  background-color: rgba(193, 127, 62, 0.25);
   color: #002B5C;
 }
 
@@ -1786,7 +1786,7 @@ html {
 }
 
 .flow-step:hover {
-  background-color: rgba(184, 115, 51, 0.12) !important;
+  background-color: rgba(193, 127, 62, 0.12) !important;
   color: #E8E4DF !important;
 }
 
@@ -1806,7 +1806,7 @@ html {
 
 .ef-quote-card:hover {
   background-color: rgba(10, 22, 40, 0.07) !important;
-  border-color: rgba(184, 115, 51, 0.5);
+  border-color: rgba(193, 127, 62, 0.5);
 }
 
 /* ── Pillar outcome bar — left accent rule ────────────────────────────────────── */
@@ -1815,7 +1815,7 @@ html {
 }
 
 article.group:hover .pillar-outcome-bar {
-  border-color: #CA8A4B;
+  border-color: #D4A574;
 }
 
 /* ── Select appearance ───────────────────────────────────────────────────────── */
@@ -1842,7 +1842,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #B87333;
+  outline: 2px solid #C17F3E;
   outline-offset: 3px;
   border-radius: 2px;
 }

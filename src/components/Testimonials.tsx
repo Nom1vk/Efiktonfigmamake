@@ -94,8 +94,8 @@ export function Testimonials() {
           className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
         >
         <div className="flex items-center gap-3 mb-8">
-          <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
-          <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
+          <span style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Proven Results
           </span>
         </div>
@@ -142,16 +142,7 @@ export function Testimonials() {
               <div>
                 {/* Giant metric */}
                 <div
-                  style={{
-                    fontSize: 'clamp(4rem, 8vw, 7rem)',
-                    fontWeight: 800,
-                    letterSpacing: '-0.04em',
-                    lineHeight: 1,
-                    color: '#B87333',
-                    marginBottom: '16px',
-                    fontFamily: "var(--ef-font-heading, 'Space Grotesk', sans-serif)",
-                    fontVariantNumeric: 'tabular-nums',
-                  }}
+                  className="ef-proof-metric"
                   aria-label={`${point.metric} — ${point.label}`}
                 >
                   <AnimatedMetric
@@ -183,7 +174,7 @@ export function Testimonials() {
                     marginTop: '16px',
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: '#B87333',
+                    color: '#C17F3E',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
                   }}
@@ -232,7 +223,7 @@ export function Testimonials() {
                 className="ef-quote-card"
                 style={{
                   padding: '28px 32px 28px 24px',
-                  borderLeft: '2px solid #B87333',
+                  borderLeft: '2px solid var(--ef-copper)',
                   backgroundColor: 'rgba(10, 22, 40, 0.04)',
                 }}
               >
@@ -272,7 +263,7 @@ export function Testimonials() {
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: 800,
                 letterSpacing: '-0.03em',
-                color: '#B87333',
+                color: '#C17F3E',
               }}
               lang="el"
             >
