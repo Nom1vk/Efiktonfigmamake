@@ -50,8 +50,8 @@ export function Features() {
           style={{ marginBottom: '80px' }}
         >
           <div className="flex items-center gap-3 mb-8">
-            <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
-            <span style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
+            <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               Complete System of Record
             </span>
           </div>
@@ -120,10 +120,10 @@ export function Features() {
                         fontSize: '13px',
                         fontWeight: 600,
                         whiteSpace: 'nowrap',
-                        backgroundColor: step.accent ? '#C17F3E' : 'rgba(255, 255, 255, 0.06)',
+                        backgroundColor: step.accent ? '#B87333' : 'rgba(255, 255, 255, 0.06)',
                         color: step.accent ? '#ffffff' : '#E8E4DF',
                         letterSpacing: '0.02em',
-                        borderLeft: step.accent ? 'none' : '1px solid rgba(193, 127, 62, 0.15)',
+                        borderLeft: step.accent ? 'none' : '1px solid rgba(184, 115, 51, 0.15)',
                         transition: 'background-color 0.2s ease',
                       }}
                     >
@@ -134,7 +134,7 @@ export function Features() {
                         style={{
                           width: '24px',
                           height: '1px',
-                          backgroundColor: 'rgba(193, 127, 62, 0.3)',
+                          backgroundColor: 'rgba(184, 115, 51, 0.3)',
                           position: 'relative',
                           flexShrink: 0,
                         }}
@@ -150,7 +150,7 @@ export function Features() {
                             height: 0,
                             borderTop: '4px solid transparent',
                             borderBottom: '4px solid transparent',
-                            borderLeft: '5px solid rgba(193, 127, 62, 0.4)',
+                            borderLeft: '5px solid rgba(184, 115, 51, 0.4)',
                           }}
                         />
                       </div>
@@ -217,7 +217,7 @@ export function Features() {
                       fontSize: '14px',
                       color: '#8B8680',
                       textDecoration: 'line-through',
-                      textDecorationColor: 'rgba(193, 127, 62, 0.5)',
+                      textDecorationColor: 'rgba(184, 115, 51, 0.5)',
                       textDecorationThickness: '1.5px',
                     }}
                   >
@@ -263,7 +263,7 @@ export function Features() {
                     style={{
                       fontSize: '12px',
                       fontWeight: 700,
-                      color: 'rgba(193, 127, 62, 0.5)',
+                      color: 'rgba(184, 115, 51, 0.5)',
                       flexShrink: 0,
                       width: '28px',
                       paddingTop: '2px',
@@ -283,7 +283,7 @@ export function Features() {
                       style={{
                         fontSize: '12px',
                         fontWeight: 600,
-                        color: '#C17F3E',
+                        color: '#B87333',
                       }}
                     >
                       → {phase.win}

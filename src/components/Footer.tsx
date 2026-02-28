@@ -28,7 +28,7 @@ export function Footer() {
           margin: '0 auto',
           paddingTop: '64px',
           paddingBottom: '48px',
-          borderTop: '1px solid rgba(193, 127, 62, 0.1)',
+          borderTop: '1px solid rgba(184, 115, 51, 0.1)',
         }}
       >
         {/* Responsive grid: stacked on mobile, 3-col on md+ */}
@@ -51,7 +51,7 @@ export function Footer() {
                   color: '#E8E4DF',
                 }}
               >
-                e<span style={{ color: '#C17F3E' }}>φ</span>ikton
+                e<span style={{ color: '#B87333' }}>φ</span>ikton
               </span>
             </a>
             <p
@@ -69,7 +69,7 @@ export function Footer() {
               style={{
                 fontSize: '11px',
                 fontWeight: 600,
-                color: '#C17F3E',
+                color: '#B87333',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
               }}
@@ -153,7 +153,7 @@ export function Footer() {
                   minWidth: '44px',
                   minHeight: '44px',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#C17F3E')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#B87333')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.4)')}
               >
                 <Icon className="w-4 h-4" aria-hidden="true" />

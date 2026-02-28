@@ -63,8 +63,8 @@ export function Solutions() {
           className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
         >
           <div className="flex items-center gap-3 mb-8">
-            <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
-            <span style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
+            <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               The Efikton Method
             </span>
           </div>
@@ -120,7 +120,7 @@ export function Solutions() {
                       width: '8px',
                       height: '8px',
                       borderRadius: '50%',
-                      backgroundColor: i === 3 ? '#C17F3E' : i === 0 ? 'rgba(10, 22, 40, 0.25)' : 'rgba(10, 22, 40, 0.15)',
+                      backgroundColor: i === 3 ? '#B87333' : i === 0 ? 'rgba(10, 22, 40, 0.25)' : 'rgba(10, 22, 40, 0.15)',
                       flexShrink: 0,
                     }}
                     aria-hidden="true"
@@ -131,7 +131,7 @@ export function Solutions() {
                       fontWeight: 700,
                       letterSpacing: '0.1em',
                       textTransform: 'uppercase',
-                      color: i === 3 ? '#C17F3E' : i === 0 ? '#0A1628' : '#8B8680',
+                      color: i === 3 ? '#B87333' : i === 0 ? '#0A1628' : '#8B8680',
                     }}
                   >
                     {step.label}
@@ -152,7 +152,7 @@ export function Solutions() {
                 top: 0,
                 height: '100%',
                 width: '100%',
-                backgroundColor: '#C17F3E',
+                backgroundColor: '#B87333',
                 transformOrigin: 'left',
                 transform: arcVisible ? 'scaleX(1)' : 'scaleX(0)',
                 transition: 'transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
@@ -183,7 +183,7 @@ export function Solutions() {
                 borderRadius: '2px',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(193, 127, 62, 0.035)';
+                (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(184, 115, 51, 0.035)';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
@@ -202,7 +202,7 @@ export function Solutions() {
                     style={{
                       fontSize: '13px',
                       fontWeight: 700,
-                      color: '#C17F3E',
+                      color: '#B87333',
                       letterSpacing: '0.05em',
                       opacity: 0.65,
                     }}
@@ -215,7 +215,7 @@ export function Solutions() {
                 <div style={{ paddingRight: '40px' }}>
                   {/* Mobile number inline */}
                   <div className="flex items-center gap-3 lg:hidden" style={{ marginBottom: '12px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#C17F3E', opacity: 0.65, letterSpacing: '0.05em' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#B87333', opacity: 0.65, letterSpacing: '0.05em' }}>
                       {pillar.num}
                     </span>
                     <span
@@ -224,7 +224,7 @@ export function Solutions() {
                         fontWeight: 700,
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
-                        color: '#C17F3E',
+                        color: '#B87333',
                       }}
                     >
                       {pillar.title}
@@ -238,7 +238,7 @@ export function Solutions() {
                         fontWeight: 700,
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
-                        color: '#C17F3E',
+                        color: '#B87333',
                       }}
                     >
                       {pillar.title}
@@ -277,7 +277,7 @@ export function Solutions() {
                       color: '#0A1628',
                       letterSpacing: '0.02em',
                       paddingLeft: '12px',
-                      borderLeft: '2px solid #C17F3E',
+                      borderLeft: '2px solid #B87333',
                       lineHeight: 1.5,
                     }}
                   >
@@ -307,7 +307,7 @@ export function Solutions() {
             }}
           >
             "Quality becomes stable —{' '}
-            <span style={{ color: '#C17F3E' }}>not a daily fight.</span>"
+            <span style={{ color: '#B87333' }}>not a daily fight.</span>"
           </p>
           <p style={{ marginTop: '12px', fontSize: '14px', color: '#8B8680' }}>
             When you control Materials, Time, and Money — Quality follows.

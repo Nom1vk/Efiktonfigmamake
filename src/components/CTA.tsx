@@ -100,8 +100,8 @@ export function CTA() {
       >
         {/* Eyebrow */}
         <div className="flex items-center gap-3 mb-10">
-          <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
-          <span style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
+          <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Ready to make the shift?
           </span>
         </div>
@@ -120,7 +120,7 @@ export function CTA() {
           }}
         >
           Stop firefighting.{' '}
-          <span style={{ color: '#C17F3E' }}>Start running the plant.</span>
+          <span style={{ color: '#B87333' }}>Start running the plant.</span>
         </h2>
         <p
           style={{
@@ -154,7 +154,7 @@ export function CTA() {
                 }}
               >
                 <CheckCircle2
-                  style={{ color: '#C17F3E', margin: '0 auto 16px', width: '40px', height: '40px' }}
+                  style={{ color: '#B87333', margin: '0 auto 16px', width: '40px', height: '40px' }}
                   aria-hidden="true"
                 />
                 <p style={{ color: '#E8E4DF', fontWeight: 700, fontSize: '1.125rem', marginBottom: '8px' }}>
@@ -164,7 +164,7 @@ export function CTA() {
                   Expect a response within 1 business day. For urgent inquiries, reach us at{' '}
                   <a
                     href="mailto:hello@efikton.com"
-                    style={{ color: '#C17F3E', textDecoration: 'none' }}
+                    style={{ color: '#B87333', textDecoration: 'none' }}
                   >
                     hello@efikton.com
                   </a>
@@ -316,7 +316,7 @@ export function CTA() {
                   disabled={formState === 'submitting'}
                   className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto"
                   style={{
-                    backgroundColor: formState === 'submitting' ? '#8B6432' : '#C17F3E',
+                    backgroundColor: formState === 'submitting' ? '#8B6432' : '#B87333',
                     color: '#ffffff',
                     padding: '16px 36px',
                     fontSize: '15px',
@@ -331,11 +331,11 @@ export function CTA() {
                   }}
                   onMouseEnter={(e) => {
                     if (formState !== 'submitting')
-                      e.currentTarget.style.backgroundColor = '#D4A574';
+                      e.currentTarget.style.backgroundColor = '#CA8A4B';
                   }}
                   onMouseLeave={(e) => {
                     if (formState !== 'submitting')
-                      e.currentTarget.style.backgroundColor = '#C17F3E';
+                      e.currentTarget.style.backgroundColor = '#B87333';
                   }}
                 >
                   {formState === 'submitting' ? (
@@ -386,7 +386,7 @@ export function CTA() {
                 >
                   <span
                     style={{
-                      color: '#C17F3E',
+                      color: '#B87333',
                       fontSize: '11px',
                       fontWeight: 700,
                       letterSpacing: '0.08em',
@@ -426,7 +426,7 @@ export function CTA() {
               <a
                 href="mailto:hello@efikton.com"
                 style={{
-                  color: '#C17F3E',
+                  color: '#B87333',
                   fontSize: '15px',
                   fontWeight: 500,
                   textDecoration: 'none',

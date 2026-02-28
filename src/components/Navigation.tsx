@@ -42,7 +42,7 @@ export function Navigation() {
           : 'transparent',
         backdropFilter: scrolled || mobileOpen ? 'blur(16px) saturate(1.5)' : 'none',
         borderBottom: scrolled || mobileOpen
-          ? '1px solid rgba(193, 127, 62, 0.12)'
+          ? '1px solid rgba(184, 115, 51, 0.12)'
           : '1px solid transparent',
       }}
       aria-label="Main navigation"
@@ -65,7 +65,7 @@ export function Navigation() {
               color: '#E8E4DF',
             }}
           >
-            e<span style={{ color: '#C17F3E' }}>φ</span>ikton
+            e<span style={{ color: '#B87333' }}>φ</span>ikton
           </span>
         </a>
 
@@ -87,7 +87,7 @@ export function Navigation() {
             href="#contact"
             className="text-sm font-semibold transition-all duration-150"
             style={{
-              backgroundColor: '#C17F3E',
+              backgroundColor: '#B87333',
               color: '#ffffff',
               padding: '9px 20px',
               letterSpacing: '0.01em',
@@ -95,8 +95,8 @@ export function Navigation() {
               display: 'inline-flex',
               alignItems: 'center',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#D4A574')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C17F3E')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#CA8A4B')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B87333')}
           >
             Book a Demo
           </a>
@@ -129,7 +129,7 @@ export function Navigation() {
         <div
           className="py-6"
           style={{
-            borderTop: '1px solid rgba(193, 127, 62, 0.12)',
+            borderTop: '1px solid rgba(184, 115, 51, 0.12)',
             padding: '24px 24px',
           }}
         >
@@ -153,11 +153,11 @@ export function Navigation() {
               <a
                 href="#contact"
                 className="flex items-center justify-center text-sm font-semibold transition-colors"
-                style={{ backgroundColor: '#C17F3E', color: '#fff', minHeight: '48px' }}
+                style={{ backgroundColor: '#B87333', color: '#fff', minHeight: '48px' }}
                 onClick={() => setMobileOpen(false)}
                 tabIndex={mobileOpen ? 0 : -1}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#D4A574')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C17F3E')}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#CA8A4B')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B87333')}
               >
                 Book a Demo
               </a>

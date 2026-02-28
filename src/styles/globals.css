@@ -5,10 +5,10 @@
   /* Brand palette */
   --ef-navy: #0A1628;
   --ef-charcoal: #1A1F2E;
-  --ef-copper: #C17F3E;
-  --ef-copper-light: #D4A574;
-  --ef-copper-dark: #A06830;
-  --ef-copper-border: rgba(193, 127, 62, 0.2);
+  --ef-copper: #B87333;
+  --ef-copper-light: #CA8A4B;
+  --ef-copper-dark: #8A5826;
+  --ef-copper-border: rgba(184, 115, 51, 0.2);
   --ef-text-primary: #E8E4DF;
   --ef-text-secondary: #8B8680;
   --ef-surface: #F5F2ED;
@@ -42,7 +42,7 @@
   --secondary-foreground: #0A1628;
   --muted: #EDEAE5;
   --muted-foreground: #8B8680;
-  --accent: #C17F3E;
+  --accent: #B87333;
   --accent-foreground: #ffffff;
   --destructive: #d4183d;
   --destructive-foreground: #ffffff;
@@ -52,16 +52,16 @@
   --switch-background: #8B8680;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #C17F3E;
+  --ring: #B87333;
   --radius: 0px;
   --sidebar: #0A1628;
   --sidebar-foreground: #E8E4DF;
-  --sidebar-primary: #C17F3E;
+  --sidebar-primary: #B87333;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1A1F2E;
   --sidebar-accent-foreground: #E8E4DF;
-  --sidebar-border: rgba(193, 127, 62, 0.15);
-  --sidebar-ring: #C17F3E;
+  --sidebar-border: rgba(184, 115, 51, 0.15);
+  --sidebar-ring: #B87333;
 }
 
 @theme inline {
@@ -239,5 +239,5 @@
 }
 
 .group:hover .pillar-outcome-bar {
-  border-left-color: #D4A574;
+  border-left-color: #CA8A4B;
 }

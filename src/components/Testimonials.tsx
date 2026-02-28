@@ -80,8 +80,8 @@ export function Testimonials() {
         style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '80px' }}
       >
         <div className="flex items-center gap-3 mb-8">
-          <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
-          <span style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
+          <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Proven Results
           </span>
         </div>
@@ -131,7 +131,7 @@ export function Testimonials() {
                     fontWeight: 800,
                     letterSpacing: '-0.04em',
                     lineHeight: 1,
-                    color: '#C17F3E',
+                    color: '#B87333',
                     marginBottom: '16px',
                     fontFamily: "var(--ef-font-heading, 'Space Grotesk', sans-serif)",
                     fontVariantNumeric: 'tabular-nums',
@@ -167,7 +167,7 @@ export function Testimonials() {
                     marginTop: '16px',
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: '#C17F3E',
+                    color: '#B87333',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
                   }}
@@ -215,11 +215,11 @@ export function Testimonials() {
                 key={i}
                 style={{
                   padding: '28px 32px 28px 24px',
-                  borderLeft: '2px solid #C17F3E',
+                  borderLeft: '2px solid #B87333',
                   backgroundColor: 'rgba(10, 22, 40, 0.04)',
                   transition: 'background-color 0.2s ease',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(193, 127, 62, 0.06)')}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(184, 115, 51, 0.06)')}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(10, 22, 40, 0.04)')}
               >
                 <p
@@ -258,7 +258,7 @@ export function Testimonials() {
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: 800,
                 letterSpacing: '-0.03em',
-                color: '#C17F3E',
+                color: '#B87333',
               }}
               lang="el"
             >

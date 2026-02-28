@@ -46,7 +46,7 @@ export function Hero() {
           transform: 'translateY(-50%)',
           fontSize: '320px',
           fontWeight: 800,
-          color: 'rgba(193, 127, 62, 0.045)',
+          color: 'rgba(184, 115, 51, 0.045)',
           lineHeight: 1,
           letterSpacing: '-0.05em',
           fontFamily: "'Space Grotesk', serif",
@@ -84,10 +84,10 @@ export function Hero() {
           className="flex items-center gap-3 mb-8"
           style={fade(0.05)}
         >
-          <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
+          <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
           <span
             style={{
-              color: '#C17F3E',
+              color: '#B87333',
               fontSize: '11px',
               fontWeight: 600,
               letterSpacing: '0.12em',
@@ -113,7 +113,7 @@ export function Hero() {
         >
           Deliver on time.{' '}
           <br />
-          <span style={{ color: '#C17F3E' }}>Eliminate</span> chaos.
+          <span style={{ color: '#B87333' }}>Eliminate</span> problems.
           <br />
           Protect margin.
         </h1>
@@ -143,7 +143,7 @@ export function Hero() {
             href="#contact"
             className="group inline-flex items-center justify-center gap-2"
             style={{
-              backgroundColor: '#C17F3E',
+              backgroundColor: '#B87333',
               color: '#ffffff',
               padding: '14px 28px',
               fontSize: '14px',
@@ -152,8 +152,8 @@ export function Hero() {
               minHeight: '48px',
               transition: 'background-color 0.15s ease',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#D4A574')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#C17F3E')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#CA8A4B')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B87333')}
           >
             Book a Demo
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
@@ -195,7 +195,7 @@ export function Hero() {
           />
           <ChevronDown
             className="w-3.5 h-3.5 scroll-bounce"
-            style={{ color: '#C17F3E' }}
+            style={{ color: '#B87333' }}
           />
         </div>
       </div>
@@ -203,7 +203,7 @@ export function Hero() {
       {/* Stats bar */}
       <div
         style={{
-          borderTop: '1px solid rgba(193, 127, 62, 0.15)',
+          borderTop: '1px solid rgba(184, 115, 51, 0.15)',
           marginTop: '80px',
           ...fade(0.45),
         }}
@@ -218,14 +218,14 @@ export function Hero() {
               key={i}
               className="flex flex-col items-center py-6 sm:py-8 px-2"
               style={{
-                borderRight: i < 2 ? '1px solid rgba(193, 127, 62, 0.12)' : 'none',
+                borderRight: i < 2 ? '1px solid rgba(184, 115, 51, 0.12)' : 'none',
               }}
               role="figure"
               aria-label={`${stat.value} — ${stat.label}`}
             >
               <div
                 style={{
-                  color: '#C17F3E',
+                  color: '#B87333',
                   fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
                   fontWeight: 700,
                   letterSpacing: '-0.03em',
