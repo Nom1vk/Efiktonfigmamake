@@ -1,35 +1,104 @@
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ArrowRight, Phone } from 'lucide-react';
 
 export function CTA() {
   return (
-    <section className="py-20 bg-white">
+    <section
+      id="contact"
+      className="py-20 lg:py-28"
+      style={{ backgroundColor: '#fff' }}
+      aria-labelledby="cta-heading"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-2xl overflow-hidden">
-          <div className="absolute inset-0">
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1716703432455-3045789de738?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHRlYW0lMjBtZWV0aW5nJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3Njk1MzgyNTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-              alt="Business team collaboration"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-blue-900/90"></div>
-          </div>
+        <div
+          className="relative rounded-3xl overflow-hidden p-8 sm:p-12 lg:p-16 text-center"
+          style={{
+            background: 'linear-gradient(135deg, #002B5C 0%, #001a38 100%)',
+          }}
+        >
+          {/* Background accent */}
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `radial-gradient(circle at 10% 90%, #B87333 0%, transparent 50%),
+                radial-gradient(circle at 90% 10%, #0066CC 0%, transparent 40%)`,
+            }}
+            aria-hidden="true"
+          />
 
-          <div className="relative px-8 py-16 sm:px-12 sm:py-20 text-center">
-            <h2 className="text-3xl sm:text-4xl text-white mb-4 max-w-3xl mx-auto">
-              Ready to Optimize Your Manufacturing Operations?
-            </h2>
-            <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join hundreds of manufacturers who have transformed their operations with our 
-              comprehensive software solutions. Schedule a personalized demo today.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors">
-                Request a Demo
-              </button>
-              <button className="px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors">
-                Contact Sales
-              </button>
+          <div className="relative max-w-3xl mx-auto">
+            <div
+              className="inline-block px-4 py-2 rounded-full text-sm font-medium mb-6"
+              style={{ backgroundColor: 'rgba(184,115,51,0.2)', color: '#B87333' }}
+            >
+              Ready to make the shift?
             </div>
+
+            <h2
+              id="cta-heading"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              Stop firefighting.{' '}
+              <span style={{ color: '#B87333' }}>Start running the plant.</span>
+            </h2>
+
+            <p
+              className="text-lg mb-10"
+              style={{ color: 'rgba(255,255,255,0.7)' }}
+            >
+              See how Efikton turns chaos into control — in your factory. We'll show you
+              the method, the system, and exactly how it applies to your operation.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="mailto:hello@efikton.com"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B87333]"
+                style={{ backgroundColor: '#B87333', color: '#fff' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#a0652c';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(184,115,51,0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#B87333';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                Book a Demo
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </a>
+              <a
+                href="tel:+302101234567"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                style={{
+                  backgroundColor: 'transparent',
+                  border: '2px solid rgba(255,255,255,0.3)',
+                  color: '#fff',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
+                <Phone className="w-5 h-5" aria-hidden="true" />
+                Talk to an Expert
+              </a>
+            </div>
+
+            {/* Market regions */}
+            <p
+              className="mt-10 text-xs"
+              style={{ color: 'rgba(255,255,255,0.35)' }}
+            >
+              Serving manufacturers in{' '}
+              <span style={{ color: 'rgba(255,255,255,0.6)' }}>Greece & EU</span> •{' '}
+              <span style={{ color: 'rgba(255,255,255,0.6)' }}>Middle East</span> •{' '}
+              <span style={{ color: 'rgba(255,255,255,0.6)' }}>Egypt</span>
+            </p>
           </div>
         </div>
       </div>

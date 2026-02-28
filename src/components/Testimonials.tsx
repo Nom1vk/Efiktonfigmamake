@@ -1,113 +1,188 @@
-import { ArrowRight, TrendingUp, Clock, DollarSign } from 'lucide-react';
+import { TrendingUp, Clock, Shield } from 'lucide-react';
 
-const testimonials = [
+const proofPoints = [
   {
-    quote: "ManufactureSoft transformed our production planning process. We've seen a 40% reduction in downtime and our inventory accuracy has improved dramatically.",
-    author: "Sarah Chen",
-    role: "VP of Operations",
-    company: "Precision AutoParts Inc.",
-    industry: "Automotive Manufacturing",
-    metrics: [
-      { icon: TrendingUp, label: "40% less downtime", color: "text-green-600" },
-      { icon: Clock, label: "30% faster delivery", color: "text-blue-600" },
-    ],
+    metric: '5×',
+    label: 'Profit Increase',
+    timeframe: 'In 2 years',
+    icon: TrendingUp,
+    description:
+      'How a Greek auto parts manufacturer transformed margins by running all four Efikton pillars as one system.',
+    tag: 'Case Study: Automotive',
   },
   {
-    quote: "The real-time visibility across our supply chain has been a game-changer. We can now anticipate issues before they become problems and keep our customers informed.",
-    author: "Michael Rodriguez",
-    role: "Supply Chain Director",
-    company: "TechComponents Global",
-    industry: "Electronics Manufacturing",
-    metrics: [
-      { icon: DollarSign, label: "$2M cost savings", color: "text-green-600" },
-      { icon: TrendingUp, label: "25% efficiency gain", color: "text-blue-600" },
-    ],
+    metric: '90%',
+    label: 'Fewer Problems',
+    timeframe: 'Ongoing, sustained',
+    icon: Shield,
+    description:
+      'Reducing production chaos by 90% — an Efikton implementation story. Early warnings surface issues before they become crises.',
+    tag: 'Case Study: Industrial',
   },
   {
-    quote: "Implementing this solution was seamless, and the support team has been exceptional. Our quality metrics have never been better, and compliance reporting is now automated.",
-    author: "Jennifer Park",
-    role: "Quality Assurance Manager",
-    company: "MedDevice Solutions",
-    industry: "Medical Device Manufacturing",
-    metrics: [
-      { icon: TrendingUp, label: "99.8% quality rate", color: "text-green-600" },
-      { icon: Clock, label: "80% faster reporting", color: "text-blue-600" },
-    ],
+    metric: 'OTIF',
+    label: 'On-Time In-Full',
+    timeframe: 'Within 1 year',
+    icon: Clock,
+    description:
+      'Streamlined delivery across the full order-to-cash cycle. Customers trust dates again. The plant runs, not the firefighters.',
+    tag: 'Case Study: Multi-site',
   },
+];
+
+const ownerQuotes = [
+  '"I can sleep — I know what\'s happening in the factory."',
+  '"We\'re in control. Problems are visible early, not discovered late."',
+  '"We stopped firefighting; we run the plant."',
+  '"I can trust dates and numbers again."',
 ];
 
 export function Testimonials() {
   return (
-    <section className="py-20 bg-white">
+    <section
+      id="results"
+      className="py-20 lg:py-28"
+      style={{ backgroundColor: '#F8F6F3' }}
+      aria-labelledby="results-heading"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-block px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm mb-4">
-            Client Success Stories
+          <div
+            className="inline-block px-4 py-2 rounded-full text-sm font-medium mb-4"
+            style={{ backgroundColor: 'rgba(184,115,51,0.12)', color: '#B87333' }}
+          >
+            Proven Results
           </div>
-          <h2 className="text-3xl sm:text-4xl text-gray-900 mb-4">
-            Trusted by Industry Leaders
+          <h2
+            id="results-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#002B5C' }}
+          >
+            Numbers don't firefight.
           </h2>
-          <p className="text-lg text-gray-600">
-            See how manufacturers across industries are achieving operational excellence 
-            with our solutions.
+          <p className="text-lg" style={{ color: '#4A4A4A' }}>
+            Lead with results. These are the outcomes Efikton clients experience — measurable,
+            operational, and sustained.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="bg-gray-50 rounded-xl p-8 hover:shadow-xl transition-shadow duration-300 flex flex-col"
+        {/* Proof points */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" role="list">
+          {proofPoints.map((point, i) => (
+            <article
+              key={i}
+              className="rounded-2xl p-6 flex flex-col transition-all duration-300"
+              style={{
+                backgroundColor: '#fff',
+                border: '1px solid rgba(0,43,92,0.09)',
+                boxShadow: '0 2px 8px rgba(0,43,92,0.05)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,43,92,0.12)';
+                e.currentTarget.style.borderColor = 'rgba(184,115,51,0.35)';
+                e.currentTarget.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,43,92,0.05)';
+                e.currentTarget.style.borderColor = 'rgba(0,43,92,0.09)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+              role="listitem"
             >
-              {/* Company Logo Placeholder */}
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg mb-6 flex items-center justify-center">
-                <span className="text-white font-semibold text-lg">
-                  {testimonial.company.charAt(0)}
-                </span>
+              {/* Tag */}
+              <div
+                className="text-xs font-bold uppercase tracking-widest mb-4"
+                style={{ color: '#B87333' }}
+              >
+                {point.tag}
               </div>
 
-              {/* Quote */}
-              <blockquote className="text-gray-700 mb-6 flex-grow">
-                "{testimonial.quote}"
-              </blockquote>
-
-              {/* Metrics */}
-              <div className="space-y-3 mb-6 pb-6 border-b border-gray-200">
-                {testimonial.metrics.map((metric, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <metric.icon className={`w-5 h-5 ${metric.color}`} />
-                    <span className="text-sm font-semibold text-gray-900">
-                      {metric.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Author Info */}
-              <div className="mb-4">
-                <div className="text-gray-900 font-semibold">
-                  {testimonial.author}
+              {/* Metric */}
+              <div className="flex items-start gap-4 mb-4">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'rgba(0,43,92,0.07)' }}
+                  aria-hidden="true"
+                >
+                  <point.icon className="w-6 h-6" style={{ color: '#002B5C' }} />
                 </div>
-                <div className="text-sm text-gray-600">{testimonial.role}</div>
-                <div className="text-sm text-gray-600">{testimonial.company}</div>
-                <div className="text-xs text-gray-500 mt-1">{testimonial.industry}</div>
+                <div>
+                  <div
+                    className="text-4xl font-bold leading-none"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#B87333' }}
+                  >
+                    {point.metric}
+                  </div>
+                  <div className="font-semibold text-sm mt-1" style={{ color: '#002B5C' }}>
+                    {point.label}
+                  </div>
+                  <div className="text-xs mt-0.5" style={{ color: '#4A4A4A' }}>
+                    {point.timeframe}
+                  </div>
+                </div>
               </div>
 
-              {/* Case Study Link */}
-              <button className="group flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors text-sm font-semibold mt-auto">
-                Read Full Case Study
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              {/* Description */}
+              <p className="text-sm flex-grow" style={{ color: '#4A4A4A', lineHeight: 1.7 }}>
+                {point.description}
+              </p>
+
+              <button
+                className="mt-4 text-sm font-semibold flex items-center gap-1 transition-colors"
+                style={{ color: '#0066CC' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#002B5C')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#0066CC')}
+                aria-label={`Read full case study: ${point.tag}`}
+              >
+                Read full case study →
               </button>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* View All Case Studies */}
-        <div className="text-center mt-12">
-          <button className="inline-flex items-center gap-2 px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors">
-            View All Case Studies
-            <ArrowRight className="w-5 h-5" />
-          </button>
+        {/* Owner quotes */}
+        <div
+          className="rounded-2xl p-8 sm:p-12"
+          style={{ backgroundColor: '#002B5C' }}
+          aria-label="Client testimonial quotes"
+        >
+          <p
+            className="text-xs font-bold uppercase tracking-widest mb-6 text-center"
+            style={{ color: 'rgba(184,115,51,0.8)' }}
+          >
+            What factory owners say after Efikton
+          </p>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {ownerQuotes.map((quote, i) => (
+              <blockquote
+                key={i}
+                className="p-4 rounded-xl text-sm sm:text-base"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                  color: 'rgba(255,255,255,0.85)',
+                  borderLeft: '3px solid #B87333',
+                  fontStyle: 'italic',
+                  lineHeight: 1.6,
+                }}
+              >
+                {quote}
+              </blockquote>
+            ))}
+          </div>
+
+          {/* Tagline */}
+          <div className="text-center mt-8">
+            <p
+              className="text-2xl sm:text-3xl font-bold"
+              style={{ fontFamily: "'Space Grotesk', sans-serif", color: '#B87333' }}
+            >
+              Εφικτόν.
+            </p>
+            <p className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              Achievable. It's what the name means.
+            </p>
+          </div>
         </div>
       </div>
     </section>
