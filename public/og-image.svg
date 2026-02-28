@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#0D1F3C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle φ geometry — large background phi -->
+  <text
+    x="920" y="520"
+    font-family="serif"
+    font-size="480"
+    font-weight="400"
+    fill="#B87333"
+    opacity="0.06"
+    text-anchor="middle"
+  >φ</text>
+
+  <!-- Copper accent line -->
+  <rect x="80" y="200" width="48" height="2" fill="#B87333"/>
+
+  <!-- Eyebrow -->
+  <text
+    x="80" y="240"
+    font-family="'Space Grotesk', 'Inter', sans-serif"
+    font-size="14"
+    font-weight="600"
+    letter-spacing="0.14em"
+    fill="#B87333"
+    text-transform="uppercase"
+  >MANUFACTURING OPERATING SYSTEM</text>
+
+  <!-- Wordmark -->
+  <text
+    x="80" y="340"
+    font-family="'Space Grotesk', 'Inter', sans-serif"
+    font-size="72"
+    font-weight="800"
+    letter-spacing="-0.04em"
+    fill="#E8E4DF"
+  >e<tspan fill="#C17F3E">φ</tspan>ikton</text>
+
+  <!-- Tagline -->
+  <text
+    x="80" y="400"
+    font-family="'Inter', sans-serif"
+    font-size="28"
+    font-weight="500"
+    fill="#8B8680"
+    letter-spacing="-0.01em"
+  >From chaos to control.</text>
+
+  <!-- Proof metrics row -->
+  <!-- 5× -->
+  <text x="80" y="510" font-family="'Space Grotesk','Inter',sans-serif" font-size="48" font-weight="800" fill="#B87333" letter-spacing="-0.04em">5×</text>
+  <text x="80" y="535" font-family="'Inter',sans-serif" font-size="13" font-weight="600" fill="#8B8680" letter-spacing="0.06em">PROFIT IN 2 YEARS</text>
+
+  <!-- divider -->
+  <rect x="240" y="480" width="1" height="60" fill="rgba(184,115,51,0.25)"/>
+
+  <!-- 90% -->
+  <text x="260" y="510" font-family="'Space Grotesk','Inter',sans-serif" font-size="48" font-weight="800" fill="#B87333" letter-spacing="-0.04em">90%</text>
+  <text x="260" y="535" font-family="'Inter',sans-serif" font-size="13" font-weight="600" fill="#8B8680" letter-spacing="0.06em">FEWER PROBLEMS</text>
+
+  <!-- divider -->
+  <rect x="460" y="480" width="1" height="60" fill="rgba(184,115,51,0.25)"/>
+
+  <!-- OTIF -->
+  <text x="480" y="510" font-family="'Space Grotesk','Inter',sans-serif" font-size="48" font-weight="800" fill="#B87333" letter-spacing="-0.04em">OTIF</text>
+  <text x="480" y="535" font-family="'Inter',sans-serif" font-size="13" font-weight="600" fill="#8B8680" letter-spacing="0.06em">WITHIN 1 YEAR</text>
+
+  <!-- Bottom copper rule -->
+  <rect x="0" y="620" width="1200" height="3" fill="#B87333" opacity="0.4"/>
+</svg>
