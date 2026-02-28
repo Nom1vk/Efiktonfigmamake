@@ -31,17 +31,13 @@ export function Footer() {
           borderTop: '1px solid rgba(193, 127, 62, 0.1)',
         }}
       >
+        {/* Responsive grid: stacked on mobile, 3-col on md+ */}
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '2fr 1fr 1fr',
-            gap: '64px',
-            marginBottom: '56px',
-          }}
-          className="grid-cols-1 md:grid-cols-3"
+          className="grid grid-cols-1 md:grid-cols-3"
+          style={{ gap: '48px', marginBottom: '56px' }}
         >
           {/* Brand */}
-          <div>
+          <div className="md:col-span-1">
             <a
               href="#"
               style={{ display: 'inline-block', marginBottom: '20px' }}
@@ -107,6 +103,8 @@ export function Footer() {
                         color: 'rgba(139, 134, 128, 0.8)',
                         textDecoration: 'none',
                         transition: 'color 0.15s ease',
+                        display: 'inline-block',
+                        minHeight: '24px',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = '#E8E4DF')}
                       onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.8)')}
@@ -122,15 +120,11 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between"
           style={{
             paddingTop: '32px',
             borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
             gap: '16px',
-            flexWrap: 'wrap',
           }}
         >
           <p style={{ fontSize: '12px', color: 'rgba(139, 134, 128, 0.5)' }}>
@@ -142,15 +136,23 @@ export function Footer() {
 
           <div className="flex items-center gap-5">
             {[
-              { Icon: Linkedin, label: 'LinkedIn', href: '#' },
-              { Icon: Twitter, label: 'X / Twitter', href: '#' },
-              { Icon: Mail, label: 'Email', href: 'mailto:hello@efikton.com' },
+              { Icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/efikton' },
+              { Icon: Twitter, label: 'X / Twitter', href: 'https://x.com/efikton' },
+              { Icon: Mail, label: 'Email Efikton', href: 'mailto:hello@efikton.com' },
             ].map(({ Icon, label, href }) => (
               <a
                 key={label}
                 href={href}
                 aria-label={label}
-                style={{ color: 'rgba(139, 134, 128, 0.4)', transition: 'color 0.15s ease' }}
+                style={{
+                  color: 'rgba(139, 134, 128, 0.4)',
+                  transition: 'color 0.15s ease',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minWidth: '44px',
+                  minHeight: '44px',
+                }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#C17F3E')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.4)')}
               >

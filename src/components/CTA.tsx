@@ -80,7 +80,7 @@ export function CTA() {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
               </a>
               <a
-                href="tel:+302101234567"
+                href="mailto:hello@efikton.com?subject=Talk to an Expert"
                 className="inline-flex items-center justify-center gap-2"
                 style={{
                   color: '#E8E4DF',

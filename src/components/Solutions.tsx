@@ -108,14 +108,13 @@ export function Solutions() {
                 key={step.label}
                 style={{
                   padding: '28px 0',
-                  paddingRight: i < narrativeSteps.length - 1 ? '32px' : '0',
+                  paddingRight: i < narrativeSteps.length - 1 ? '24px' : '0',
                   borderRight: i < narrativeSteps.length - 1 ? '1px solid rgba(10, 22, 40, 0.1)' : 'none',
-                  paddingLeft: i > 0 ? '32px' : '0',
+                  paddingLeft: i > 0 ? '24px' : '0',
                 }}
                 role="listitem"
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                  {/* Connector dot */}
                   <div
                     style={{
                       width: '8px',
@@ -164,7 +163,7 @@ export function Solutions() {
         </div>
       </div>
 
-      {/* Pillars — editorial rows */}
+      {/* Pillars — editorial rows with 3-col desktop grid */}
       <div
         ref={pillarsRef}
         className={`w-full px-6 lg:px-10 animate-reveal-stagger${pillarsVisible ? ' is-visible' : ''}`}
@@ -176,86 +175,113 @@ export function Solutions() {
           {pillars.map((pillar, index) => (
             <article
               key={index}
-              className="group pillar-row"
+              className="group"
               style={{
-                padding: '48px 0',
                 borderBottom: '1px solid rgba(10, 22, 40, 0.1)',
                 cursor: 'default',
-                transition: 'background-color 0.2s ease',
+                transition: 'background-color 0.25s ease',
+                borderRadius: '2px',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(193, 127, 62, 0.04)';
+                (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(193, 127, 62, 0.035)';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
               }}
               role="listitem"
             >
-              {/* Number */}
+              {/* Mobile: stacked. Desktop: 3-col grid */}
               <div
-                style={{
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  color: '#C17F3E',
-                  letterSpacing: '0.05em',
-                  paddingTop: '4px',
-                  opacity: 0.7,
-                }}
+                className="grid lg:grid-cols-[80px_1fr_1fr]"
+                style={{ padding: '40px 0', gap: '0' }}
               >
-                {pillar.num}
-              </div>
-
-              {/* Title block */}
-              <div>
-                <div
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: '#C17F3E',
-                    marginBottom: '10px',
-                  }}
-                >
-                  {pillar.title}
+                {/* Number + title (mobile: row; desktop: two separate cols) */}
+                {/* Col 1: Number */}
+                <div className="hidden lg:flex" style={{ alignItems: 'flex-start', paddingTop: '4px' }}>
+                  <span
+                    style={{
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      color: '#C17F3E',
+                      letterSpacing: '0.05em',
+                      opacity: 0.65,
+                    }}
+                  >
+                    {pillar.num}
+                  </span>
                 </div>
-                <h3
-                  style={{
-                    fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
-                    fontWeight: 700,
-                    letterSpacing: '-0.02em',
-                    color: '#0A1628',
-                    lineHeight: 1.2,
-                    marginBottom: '0',
-                  }}
-                >
-                  {pillar.headline}
-                </h3>
-              </div>
 
-              {/* Description + outcome */}
-              <div>
-                <p
-                  style={{
-                    fontSize: '15px',
-                    color: '#8B8680',
-                    lineHeight: 1.75,
-                    marginBottom: '20px',
-                  }}
-                >
-                  {pillar.description}
-                </p>
-                <div
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    color: '#0A1628',
-                    letterSpacing: '0.02em',
-                    paddingLeft: '12px',
-                    borderLeft: '2px solid #C17F3E',
-                  }}
-                >
-                  {pillar.outcome}
+                {/* Col 2: Title */}
+                <div style={{ paddingRight: '40px' }}>
+                  {/* Mobile number inline */}
+                  <div className="flex items-center gap-3 lg:hidden" style={{ marginBottom: '12px' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#C17F3E', opacity: 0.65, letterSpacing: '0.05em' }}>
+                      {pillar.num}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: '#C17F3E',
+                      }}
+                    >
+                      {pillar.title}
+                    </span>
+                  </div>
+
+                  <div className="hidden lg:block" style={{ marginBottom: '10px' }}>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: '#C17F3E',
+                      }}
+                    >
+                      {pillar.title}
+                    </span>
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
+                      fontWeight: 700,
+                      letterSpacing: '-0.02em',
+                      color: '#0A1628',
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {pillar.headline}
+                  </h3>
+                </div>
+
+                {/* Col 3: Description + outcome */}
+                <div style={{ marginTop: '20px' }} className="lg:mt-0">
+                  <p
+                    style={{
+                      fontSize: '15px',
+                      color: '#8B8680',
+                      lineHeight: 1.75,
+                      marginBottom: '20px',
+                    }}
+                  >
+                    {pillar.description}
+                  </p>
+                  <div
+                    style={{
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      color: '#0A1628',
+                      letterSpacing: '0.02em',
+                      paddingLeft: '12px',
+                      borderLeft: '2px solid #C17F3E',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {pillar.outcome}
+                  </div>
                 </div>
               </div>
             </article>

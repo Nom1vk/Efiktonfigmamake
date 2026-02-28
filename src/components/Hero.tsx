@@ -180,7 +180,7 @@ export function Hero() {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="flex flex-col items-center py-6 sm:py-8"
+              className="flex flex-col items-center py-6 sm:py-8 px-2"
               style={{
                 borderRight: i < 2 ? '1px solid rgba(193, 127, 62, 0.12)' : 'none',
               }}
@@ -190,7 +190,7 @@ export function Hero() {
               <div
                 style={{
                   color: '#C17F3E',
-                  fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+                  fontSize: 'clamp(1.5rem, 4vw, 2.75rem)',
                   fontWeight: 700,
                   letterSpacing: '-0.03em',
                   lineHeight: 1,
@@ -203,11 +203,12 @@ export function Hero() {
               <div
                 style={{
                   color: '#E8E4DF',
-                  fontSize: '12px',
+                  fontSize: 'clamp(9px, 1.5vw, 12px)',
                   fontWeight: 600,
-                  letterSpacing: '0.04em',
+                  letterSpacing: '0.03em',
                   textTransform: 'uppercase',
                   marginBottom: '2px',
+                  textAlign: 'center',
                 }}
                 aria-hidden="true"
               >
@@ -216,7 +217,8 @@ export function Hero() {
               <div
                 style={{
                   color: '#8B8680',
-                  fontSize: '11px',
+                  fontSize: 'clamp(9px, 1.2vw, 11px)',
+                  textAlign: 'center',
                 }}
                 aria-hidden="true"
               >

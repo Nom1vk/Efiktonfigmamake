@@ -25,8 +25,8 @@ const proofPoints = [
 ];
 
 const ownerQuotes = [
-  { text: 'I can sleep — I know what\'s happening in the factory.', role: 'Factory Owner, Greece' },
-  { text: 'We\'re in control. Problems are visible early, not discovered late.', role: 'Operations Director' },
+  { text: "I can sleep — I know what's happening in the factory.", role: 'Factory Owner, Greece' },
+  { text: "We're in control. Problems are visible early, not discovered late.", role: 'Operations Director' },
   { text: 'We stopped firefighting; we run the plant.', role: 'Plant Manager' },
   { text: 'I can trust dates and numbers again.', role: 'CEO, Manufacturing Group' },
 ];
@@ -71,7 +71,7 @@ export function Testimonials() {
         </p>
       </div>
 
-      {/* Huge numbers — breathe in space */}
+      {/* Proof point metrics — responsive grid */}
       <div
         ref={numbersRef}
         className={`w-full px-6 lg:px-10 animate-reveal-stagger${numbersVisible ? ' is-visible' : ''}`}
@@ -80,73 +80,75 @@ export function Testimonials() {
         aria-label="Proof metrics"
       >
         <div
-          className="grid grid-cols-1 md:grid-cols-3"
-          style={{
-            gap: '0',
-            borderTop: '1px solid rgba(10, 22, 40, 0.12)',
-          }}
+          style={{ borderTop: '1px solid rgba(10, 22, 40, 0.12)' }}
         >
+          <div className="grid grid-cols-1 md:grid-cols-3">
           {proofPoints.map((point, i) => (
             <div
               key={i}
-              className="proof-point-item"
+              className={[
+                'py-12',
+                i < 2 ? 'md:pr-10 md:border-r' : '',
+                i > 0 ? 'md:pl-10' : '',
+              ].join(' ')}
               style={{
-                padding: '48px 0',
                 borderBottom: '1px solid rgba(10, 22, 40, 0.08)',
+                borderRightColor: 'rgba(10, 22, 40, 0.08)',
               }}
-              data-index={i}
               role="listitem"
             >
-              {/* Giant metric */}
-              <div
-                style={{
-                  fontSize: 'clamp(4rem, 8vw, 7rem)',
-                  fontWeight: 800,
-                  letterSpacing: '-0.04em',
-                  lineHeight: 1,
-                  color: '#C17F3E',
-                  marginBottom: '16px',
-                  display: 'block',
-                }}
-                aria-label={`${point.metric} — ${point.label}`}
-              >
-                {point.metric}
-              </div>
-              <div
-                style={{
-                  fontSize: '16px',
-                  fontWeight: 700,
-                  color: '#0A1628',
-                  letterSpacing: '-0.01em',
-                  marginBottom: '4px',
-                }}
-              >
-                {point.label}
-              </div>
-              <div style={{ fontSize: '13px', color: '#8B8680', marginBottom: '20px' }}>
-                {point.timeframe}
-              </div>
-              <p style={{ fontSize: '14px', color: '#8B8680', lineHeight: 1.7, maxWidth: '280px' }}>
-                {point.description}
-              </p>
-              <div
-                style={{
-                  marginTop: '16px',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  color: '#C17F3E',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {point.industry}
+              <div>
+                {/* Giant metric */}
+                <div
+                  style={{
+                    fontSize: 'clamp(4rem, 8vw, 7rem)',
+                    fontWeight: 800,
+                    letterSpacing: '-0.04em',
+                    lineHeight: 1,
+                    color: '#C17F3E',
+                    marginBottom: '16px',
+                  }}
+                  aria-label={`${point.metric} — ${point.label}`}
+                >
+                  {point.metric}
+                </div>
+                <div
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: 700,
+                    color: '#0A1628',
+                    letterSpacing: '-0.01em',
+                    marginBottom: '4px',
+                  }}
+                >
+                  {point.label}
+                </div>
+                <div style={{ fontSize: '13px', color: '#8B8680', marginBottom: '20px' }}>
+                  {point.timeframe}
+                </div>
+                <p style={{ fontSize: '14px', color: '#8B8680', lineHeight: 1.7, maxWidth: '280px' }}>
+                  {point.description}
+                </p>
+                <div
+                  style={{
+                    marginTop: '16px',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    color: '#C17F3E',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {point.industry}
+                </div>
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
 
-      {/* Owner quotes — elegant pull quotes */}
+      {/* Owner quotes */}
       <div
         ref={quotesRef}
         className={`w-full px-6 lg:px-10 animate-reveal${quotesVisible ? ' is-visible' : ''}`}
@@ -173,23 +175,26 @@ export function Testimonials() {
           </p>
           <div
             className="grid grid-cols-1 md:grid-cols-2"
-            style={{ gap: '0' }}
+            style={{ gap: '32px' }}
           >
             {ownerQuotes.map((quote, i) => (
               <blockquote
                 key={i}
                 style={{
-                  padding: '32px 40px 32px 24px',
+                  padding: '28px 32px 28px 24px',
                   borderLeft: '2px solid #C17F3E',
-                  marginBottom: '32px',
+                  backgroundColor: 'rgba(10, 22, 40, 0.04)',
+                  transition: 'background-color 0.2s ease',
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(193, 127, 62, 0.06)')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(10, 22, 40, 0.04)')}
               >
                 <p
                   style={{
-                    fontSize: 'clamp(1rem, 1.5vw, 1.1875rem)',
+                    fontSize: 'clamp(0.9375rem, 1.5vw, 1.125rem)',
                     fontWeight: 500,
                     color: '#0A1628',
-                    lineHeight: 1.65,
+                    lineHeight: 1.7,
                     letterSpacing: '-0.01em',
                     fontStyle: 'italic',
                     marginBottom: '16px',
@@ -199,22 +204,22 @@ export function Testimonials() {
                 </p>
                 <cite
                   style={{
-                    fontSize: '12px',
+                    fontSize: '11px',
                     fontWeight: 600,
                     color: '#8B8680',
                     fontStyle: 'normal',
-                    letterSpacing: '0.05em',
+                    letterSpacing: '0.06em',
                     textTransform: 'uppercase',
                   }}
                 >
-                  {quote.role}
+                  — {quote.role}
                 </cite>
               </blockquote>
             ))}
           </div>
 
           {/* Greek anchor */}
-          <div style={{ marginTop: '48px', paddingTop: '48px', borderTop: '1px solid rgba(10, 22, 40, 0.1)' }}>
+          <div style={{ marginTop: '64px', paddingTop: '48px', borderTop: '1px solid rgba(10, 22, 40, 0.1)' }}>
             <p
               style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',

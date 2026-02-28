@@ -93,56 +93,85 @@ export function Features() {
           >
             Order-to-Cash in Efikton
           </p>
-          <div className="overflow-x-auto -mx-2 px-2">
+          {/* Scroll container with fade-right hint on mobile */}
+          <div
+            style={{
+              position: 'relative',
+            }}
+          >
             <div
-              className="flex items-center"
-              style={{ gap: '0', minWidth: 'max-content' }}
+              className="overflow-x-auto"
+              style={{
+                WebkitOverflowScrolling: 'touch',
+                paddingBottom: '4px',
+              }}
             >
-              {flowSteps.map((step, i) => (
-                <div key={step.label} className="flex items-center">
-                  <div
-                    style={{
-                      padding: '10px 20px',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      whiteSpace: 'nowrap',
-                      backgroundColor: step.accent ? '#C17F3E' : 'rgba(255, 255, 255, 0.06)',
-                      color: step.accent ? '#ffffff' : '#E8E4DF',
-                      letterSpacing: '0.02em',
-                      borderLeft: step.accent ? 'none' : '1px solid rgba(193, 127, 62, 0.15)',
-                    }}
-                  >
-                    {step.label}
-                  </div>
-                  {i < flowSteps.length - 1 && (
+              <div
+                className="flex items-center"
+                style={{ gap: '0', minWidth: 'max-content', paddingRight: '1px' }}
+                role="list"
+                aria-label="Efikton order-to-cash stages"
+              >
+                {flowSteps.map((step, i) => (
+                  <div key={step.label} className="flex items-center" role="listitem">
                     <div
                       style={{
-                        width: '24px',
-                        height: '1px',
-                        backgroundColor: 'rgba(193, 127, 62, 0.3)',
-                        position: 'relative',
-                        flexShrink: 0,
+                        padding: '10px 20px',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        whiteSpace: 'nowrap',
+                        backgroundColor: step.accent ? '#C17F3E' : 'rgba(255, 255, 255, 0.06)',
+                        color: step.accent ? '#ffffff' : '#E8E4DF',
+                        letterSpacing: '0.02em',
+                        borderLeft: step.accent ? 'none' : '1px solid rgba(193, 127, 62, 0.15)',
+                        transition: 'background-color 0.2s ease',
                       }}
                     >
+                      {step.label}
+                    </div>
+                    {i < flowSteps.length - 1 && (
                       <div
                         style={{
-                          position: 'absolute',
-                          right: '-1px',
-                          top: '50%',
-                          transform: 'translateY(-50%)',
-                          width: 0,
-                          height: 0,
-                          borderTop: '4px solid transparent',
-                          borderBottom: '4px solid transparent',
-                          borderLeft: '5px solid rgba(193, 127, 62, 0.4)',
+                          width: '24px',
+                          height: '1px',
+                          backgroundColor: 'rgba(193, 127, 62, 0.3)',
+                          position: 'relative',
+                          flexShrink: 0,
                         }}
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
+                        aria-hidden="true"
+                      >
+                        <div
+                          style={{
+                            position: 'absolute',
+                            right: '-1px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            width: 0,
+                            height: 0,
+                            borderTop: '4px solid transparent',
+                            borderBottom: '4px solid transparent',
+                            borderLeft: '5px solid rgba(193, 127, 62, 0.4)',
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
+            {/* Fade-right scroll hint — only visible on small screens where content overflows */}
+            <div
+              className="lg:hidden pointer-events-none absolute right-0 top-0 bottom-0"
+              style={{
+                width: '48px',
+                background: 'linear-gradient(to right, transparent, #0A1628)',
+              }}
+              aria-hidden="true"
+            />
           </div>
+          <p className="lg:hidden" style={{ fontSize: '11px', color: 'rgba(139, 134, 128, 0.5)', marginTop: '10px', letterSpacing: '0.04em' }}>
+            ← scroll to see full pipeline →
+          </p>
         </div>
 
         {/* Two columns */}
@@ -183,27 +212,17 @@ export function Features() {
                     borderBottom: '1px solid rgba(255, 255, 255, 0.07)',
                   }}
                 >
-                  {/* Strikethrough line */}
-                  <div
+                  <span
                     style={{
-                      position: 'relative',
-                      flex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
+                      fontSize: '14px',
+                      color: '#8B8680',
+                      textDecoration: 'line-through',
+                      textDecorationColor: 'rgba(193, 127, 62, 0.5)',
+                      textDecorationThickness: '1.5px',
                     }}
                   >
-                    <span
-                      style={{
-                        fontSize: '14px',
-                        color: '#8B8680',
-                        textDecoration: 'line-through',
-                        textDecorationColor: 'rgba(193, 127, 62, 0.5)',
-                        textDecorationThickness: '1.5px',
-                      }}
-                    >
-                      {item}
-                    </span>
-                  </div>
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -249,6 +268,7 @@ export function Features() {
                       width: '28px',
                       paddingTop: '2px',
                     }}
+                    aria-hidden="true"
                   >
                     {phase.num}
                   </div>
