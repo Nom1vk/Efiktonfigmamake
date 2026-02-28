@@ -17,8 +17,9 @@
   /* Spacing base: 4px */
   --ef-unit: 4px;
 
-  /* Typography — Inter only */
+  /* Typography — Inter (body) + Space Grotesk (headings) */
   --ef-font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --ef-font-heading: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Max content width */
   --ef-max-width: 1200px;
@@ -119,6 +120,21 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--ef-font-heading);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 

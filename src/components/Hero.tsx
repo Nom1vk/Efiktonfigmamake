@@ -49,7 +49,7 @@ export function Hero() {
           color: 'rgba(193, 127, 62, 0.04)',
           lineHeight: 1,
           letterSpacing: '-0.05em',
-          fontFamily: 'Inter, system-ui, sans-serif',
+          fontFamily: "'Space Grotesk', serif",
           userSelect: 'none',
           opacity: mounted ? 1 : 0,
           transition: 'opacity 2s ease 0.5s',
@@ -58,6 +58,21 @@ export function Hero() {
       >
         φ
       </div>
+
+      {/* Geometric accent — diagonal copper rule */}
+      <div
+        className="absolute pointer-events-none hidden lg:block"
+        style={{
+          right: '0',
+          top: '0',
+          bottom: '0',
+          width: '1px',
+          background: `linear-gradient(to bottom, transparent 0%, rgba(193,127,62,0.2) 30%, rgba(193,127,62,0.08) 70%, transparent 100%)`,
+          opacity: mounted ? 1 : 0,
+          transition: 'opacity 1.5s ease 0.8s',
+        }}
+        aria-hidden="true"
+      />
 
       {/* Main content */}
       <div
@@ -195,6 +210,8 @@ export function Hero() {
                   letterSpacing: '-0.03em',
                   lineHeight: 1,
                   marginBottom: '6px',
+                  fontFamily: "'Space Grotesk', 'Inter', sans-serif",
+                  fontVariantNumeric: 'tabular-nums',
                 }}
                 aria-hidden="true"
               >

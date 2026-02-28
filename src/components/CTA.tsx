@@ -144,6 +144,8 @@ export function CTA() {
           <div>
             {formState === 'success' ? (
               <div
+                role="status"
+                aria-live="polite"
                 style={{
                   padding: '48px 32px',
                   border: '1px solid rgba(193,127,62,0.25)',

@@ -1,8 +1,37 @@
 import { useInView } from '../hooks/useInView';
+import { useCountUp } from '../hooks/useCountUp';
+
+// Animated metric component
+function AnimatedMetric({
+  metric,
+  countEnd,
+  suffix,
+  visible,
+}: {
+  metric: string;
+  countEnd: number | null;
+  suffix: string;
+  visible: boolean;
+}) {
+  const count = useCountUp({
+    end: countEnd ?? 0,
+    duration: 1400,
+    suffix,
+    enabled: visible && countEnd !== null,
+  });
+
+  if (countEnd === null) {
+    // Non-numeric metric (e.g. OTIF) — just reveal with fade
+    return <>{metric}</>;
+  }
+  return <>{visible ? count : `0${suffix}`}</>;
+}
 
 const proofPoints = [
   {
     metric: '5×',
+    countEnd: 5,
+    suffix: '×',
     label: 'Profit Increase',
     timeframe: 'In 2 years',
     description: 'A Greek auto parts manufacturer transformed margins by running all four Efikton pillars as one system.',
@@ -10,6 +39,8 @@ const proofPoints = [
   },
   {
     metric: '90%',
+    countEnd: 90,
+    suffix: '%',
     label: 'Fewer Problems',
     timeframe: 'Ongoing, sustained',
     description: 'Early warnings surface issues before they become crises. Production chaos reduced by 90%.',
@@ -17,6 +48,8 @@ const proofPoints = [
   },
   {
     metric: 'OTIF',
+    countEnd: null,
+    suffix: '',
     label: 'On-Time In-Full',
     timeframe: 'Within 1 year',
     description: 'Delivery streamlined across the full order-to-cash cycle. Customers trust dates again.',
@@ -107,10 +140,17 @@ export function Testimonials() {
                     lineHeight: 1,
                     color: '#C17F3E',
                     marginBottom: '16px',
+                    fontFamily: "var(--ef-font-heading, 'Space Grotesk', sans-serif)",
+                    fontVariantNumeric: 'tabular-nums',
                   }}
                   aria-label={`${point.metric} — ${point.label}`}
                 >
-                  {point.metric}
+                  <AnimatedMetric
+                    metric={point.metric}
+                    countEnd={point.countEnd}
+                    suffix={point.suffix}
+                    visible={numbersVisible}
+                  />
                 </div>
                 <div
                   style={{
