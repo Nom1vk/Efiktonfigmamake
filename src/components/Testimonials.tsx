@@ -119,15 +119,8 @@ export function Testimonials() {
           {proofPoints.map((point, i) => (
             <div
               key={i}
-              className={[
-                'py-12',
-                i < 2 ? 'md:pr-10 md:border-r' : '',
-                i > 0 ? 'md:pl-10' : '',
-              ].join(' ')}
-              style={{
-                borderBottom: '1px solid rgba(10, 22, 40, 0.08)',
-                borderRightColor: 'rgba(10, 22, 40, 0.08)',
-              }}
+              className={`proof-point-item${i === 0 ? ' proof-point-first' : i === 1 ? ' proof-point-mid' : ' proof-point-last'}`}
+              data-index={i}
               role="listitem"
             >
               <div>

@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const stats = [
@@ -37,16 +37,16 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* φ — floating ambient symbol */}
+      {/* φ — floating ambient symbol with subtle drift */}
       <div
-        className="absolute pointer-events-none select-none hidden lg:flex items-center justify-center"
+        className="absolute pointer-events-none select-none hidden lg:flex items-center justify-center phi-ambient"
         style={{
           right: '8%',
           top: '50%',
           transform: 'translateY(-50%)',
           fontSize: '320px',
           fontWeight: 800,
-          color: 'rgba(193, 127, 62, 0.04)',
+          color: 'rgba(193, 127, 62, 0.045)',
           lineHeight: 1,
           letterSpacing: '-0.05em',
           fontFamily: "'Space Grotesk', serif",
@@ -176,6 +176,27 @@ export function Hero() {
           >
             See Results →
           </a>
+        </div>
+        {/* Scroll indicator */}
+        <div
+          className="hidden md:flex items-center gap-2 mt-16"
+          style={{
+            opacity: mounted ? 0.35 : 0,
+            transition: `opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.6s`,
+          }}
+          aria-hidden="true"
+        >
+          <div
+            style={{
+              width: '1px',
+              height: '32px',
+              background: 'linear-gradient(to bottom, transparent, rgba(193,127,62,0.6))',
+            }}
+          />
+          <ChevronDown
+            className="w-3.5 h-3.5 scroll-bounce"
+            style={{ color: '#C17F3E' }}
+          />
         </div>
       </div>
 

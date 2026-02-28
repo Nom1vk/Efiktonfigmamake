@@ -270,6 +270,7 @@ export function Solutions() {
                     {pillar.description}
                   </p>
                   <div
+                    className="pillar-outcome-bar"
                     style={{
                       fontSize: '12px',
                       fontWeight: 600,
