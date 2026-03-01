@@ -1,138 +1,103 @@
 # ROCKET-237 — CI Step 4 QA (Performance + Polish)
 
-Date: 2026-03-01 15:41 Europe/Athens  
-Reviewer: Anvil  
-Scope reviewed: latest commits through `cfdfbe5` in `/home/node/.openclaw/workspace/projects/efikton-website`
+## Scope reviewed
+- Latest commit: `8d5c8d4` (`src/components/Solutions.tsx`, `src/styles/globals.css`)
+- Build/lint run locally
+- Desktop + mobile render sanity check (OpenClaw browser)
+
+## Verdict
+**CHANGES REQUESTED** (1 blocking, 3 non-blocking)
 
 ---
 
-## Executive Verdict
+## 1) Animation performance (60fps / GPU / layout thrash)
 
-**Status: CHANGES_REQUESTED (performance polish + lint gate).**
+### ✅ What is good
+- Scroll linkage remains RAF-throttled and writes CSS vars directly (`useScrollProgress`) instead of triggering per-frame React renders.
+- Progress bar uses `transform: scaleX(...)` (compositor-friendly).
+- No forced synchronous layout reads/writes added in the new commit loop.
 
-The new scroll-driven phase timeline is solid in concept and mostly well-implemented (passive scroll listener, RAF scheduling, reduced-motion fallback, no dependency bloat). Visual style fits the φ-inspired precision aesthetic.
+### 🔴 Blocking
+- `chaos-blur-flicker` animates `filter: blur(...)` continuously on text (`.arc-step-0 p`).
+- `chaos-dot-pulse` animates `box-shadow` continuously on `.arc-dot-0`.
 
-Main issues are rendering-cost hotspots and one process-quality gap.
+Both are paint-heavy and can drop frames on mid/low-tier mobile GPUs during scroll + animation overlap.
 
----
-
-## 1) Animation PERFORMANCE (60fps / GPU / layout thrashing)
-
-### What is good
-- Hook uses `passive` scroll + `requestAnimationFrame` scheduling.
-- Phase row entrances are transform/opacity-based (GPU-friendly).
-- Progress is mostly decoupled from React re-render spam by rounded thresholds.
-
-### Findings
-- **🟡 Paint/layout-heavy property in hot path:** `.case-phase-timeline-fill` animates `height` continuously from scroll progress (`height: calc(var(--case-phase-progress) * 100%)`) plus glow shadow. Height updates on every scroll tick are more expensive than transform-based growth and can hurt low-end mobile smoothness.
-- **🟡 Extra transition churn:** `transition: height 0.05s linear` is applied while JS continuously updates the same value. This can introduce tiny trailing/jitter artifacts instead of truly locked scroll-sync.
-
-### Requested fix
-1. Replace height-based fill animation with transform (`scaleY`) and `transform-origin: top`; keep the element full-height and animate only transform.
-2. Remove the `height` transition for scroll-linked progress (direct mapping should be immediate).
-3. Consider toning down box-shadow glow during scroll-linked updates (or apply only near phase activation points).
+**Fix request:**
+- Replace blur flicker with opacity/transform micro-jitter (or very sparse one-shot blur) rather than continuous filter animation.
+- Replace animated `box-shadow` pulse with transform + opacity on a pseudo-element (compositor path).
 
 ---
 
-## 2) Reduced-motion (`prefers-reduced-motion`)
+## 2) Reduced motion
 
-### What is good
-- Hook snaps timeline progress to complete (`1`) and avoids scroll animation path when reduced motion is requested.
-- CSS reduced-motion block correctly disables transitions/keyframes and renders final states.
-
-### Findings
-- **🟢 No blocking issue** in reduced-motion behavior.
-
-### Suggested improvement
-- Optional: listen for runtime changes to `prefers-reduced-motion` (media query change event), not only initial mount.
+### ✅ Pass
+- `prefers-reduced-motion` disables turbulence animations (`animation: none !important`) including results expansion.
+- Dot calm-state fallback is applied.
+- Hook (`useScrollProgress`) snaps to final state and avoids registering scroll listeners in reduced-motion mode.
 
 ---
 
-## 3) Mobile / touch / scroll behavior
+## 3) Mobile/touch behavior
 
-### What is good
-- Timeline rail hidden under `max-width: 480px`, reducing clutter.
-- Scroll listener is passive; no obvious touch-blocking code added.
+### ✅ Pass (functional)
+- No obvious touch blockers introduced.
+- `touchAction: 'pan-y'` remains intact on pillar cards.
+- Mobile layout renders without overlap in reviewed viewport.
 
-### Findings
-- **🟡 Mobile threshold edge case:** timeline rail hide breakpoint (`480px`) is very narrow. Devices around 481–540px in portrait/small landscape may still show rail with cramped left gutter.
-
-### Requested fix
-1. Re-check rail visibility breakpoint against actual mobile QA targets (recommend testing 390/430/480/540 widths).
-2. If cramped, raise hide breakpoint (e.g., 640px) or dynamically reduce left-column spacing.
+### 🟡 Suggestion
+- Re-test on a physical low-end Android device for scroll smoothness after removing filter/box-shadow animation costs (see blocking item).
 
 ---
 
-## 4) Load time / bundle impact
+## 4) Load time / dependency weight
 
-### What is good
-- No new dependencies were added in this commit.
-- Production build is clean.
+### ✅ Pass
+- No new dependencies added.
+- Production build succeeded.
+- Bundle output:
+  - JS: `285.17 kB` (gzip `85.37 kB`)
+  - CSS: `119.98 kB` (gzip `20.27 kB`)
 
-### Build output (current)
-- `build/assets/index-BqClmQ-5.js`: **284.58 kB** (gzip **85.17 kB**)
-- `build/assets/index-B56DCehb.css`: **117.51 kB** (gzip **19.86 kB**)
-
-### Findings
-- **🟢 No dependency ballooning** in this change set.
-- **🟡 CSS continues growing in global stylesheet**; still manageable, but trend should be watched.
+No size balloon observed from this commit.
 
 ---
 
 ## 5) Design consistency (φ-inspired precision aesthetic)
 
-### What is good
-- Sequential reveals, copper accents, restrained timing, and per-phase rhythm are on-brand.
-- Phase pulse/checkmark choreography feels intentional and aligned with current visual language.
+### ✅ Mostly aligned
+- Narrative arc progression reads clearly (CHAOS → METHOD → CONTROL → RESULTS).
+- Motion language is restrained overall.
 
-### Findings
-- **🟢 No aesthetic blocker found.**
+### 🟡 Suggestion
+- Current CHAOS flicker treatment is slightly noisy versus the precision aesthetic; tone down frequency/visual harshness once performance fix is applied.
 
 ---
 
-## 6) Accessibility (keyboard + screen readers)
+## 6) Accessibility
 
-### What is good
-- Semantic headings/lists remain intact.
-- Decorative SVG checkmarks are `aria-hidden`.
-- No keyboard trap introduced by the animation layer.
+### ✅ Pass for this change set
+- Structural semantics for the arc (`role=list` + `listitem`) remain intact.
+- No keyboard trap introduced.
+- Screen-reader visible text remains stable.
 
-### Findings
-- **🟢 No direct a11y regression found** in reviewed files.
-- **🟡 Lint gate issue persists:** `npm run lint` fails due to missing `typescript` module in dev dependencies, so CI quality checks are not currently enforceable.
-
-### Requested fix
-1. Add `typescript` dev dependency (or align eslint config to avoid TS parser requirement) so lint can run in CI.
-2. Ensure lint is part of mandatory pre-merge checks for this branch.
+### 🟡 Existing repo-level a11y lint warnings (not introduced by this commit)
+- Redundant list roles, invalid anchor href, redundant alt wording, unused vars.
 
 ---
 
 ## 7) Build cleanliness
 
-- ✅ `npm run build` passes.
-- ⚠️ `npm run lint` fails with:
-  - `Error: Cannot find module 'typescript'`
+### ✅ Build pass
+- `npm run build` succeeded.
+
+### 🟡 Lint status
+- `npm run lint` passed under configured threshold, but 9 warnings remain repository-wide.
 
 ---
 
-## Required Actions Summary
+## Required before approval
+1. Replace continuous `filter` animation in CHAOS text with compositor-friendly alternative.
+2. Replace continuous `box-shadow` animation in CHAOS dot with compositor-friendly alternative.
 
-### 🔴 Blocking
-- None.
-
-### 🟡 Must-fix before Step 4 sign-off
-1. Convert timeline fill from `height` animation to transform (`scaleY`) for scroll-linked performance.
-2. Remove `height` transition from scroll-driven progress mapping.
-3. Fix lint gate by adding/aligning `typescript` dependency so `npm run lint` runs clean.
-4. Re-validate mobile breakpoint behavior around 481–540px widths for timeline rail/layout spacing.
-
-### 🟢 Follow-up (non-blocking)
-1. Consider runtime listener for reduced-motion preference changes.
-2. Continue CSS modularization to slow global stylesheet growth.
-
----
-
-## Final Recommendation
-
-**One more performance/lint polish pass is required before QA approval.**
-The implementation is close and visually strong, but scroll-linked rendering should be made fully transform-driven, and lint must be made operational in CI.
+After these are updated, rerun Step 4 QA for final sign-off.
