@@ -103,12 +103,13 @@ function AnimatedStat({
       <div
         style={{
           color: 'var(--ef-text-primary)',
-          fontSize: 'clamp(9px, 1.5vw, 12px)',
+          fontSize: 'clamp(10px, 1.5vw, 12px)',
           fontWeight: 600,
           letterSpacing: '0.03em',
           textTransform: 'uppercase',
-          marginBottom: '2px',
+          marginBottom: '3px',
           textAlign: 'center',
+          lineHeight: 1.3,
         }}
         aria-hidden="true"
       >
@@ -117,8 +118,9 @@ function AnimatedStat({
       <div
         style={{
           color: 'var(--ef-text-secondary)',
-          fontSize: 'clamp(9px, 1.2vw, 11px)',
+          fontSize: 'clamp(10px, 1.2vw, 11px)',
           textAlign: 'center',
+          lineHeight: 1.4,
           opacity: subVisible ? 1 : 0,
           transition: prefersReduced ? 'none' : 'opacity 0.4s ease',
         }}
@@ -387,12 +389,44 @@ export function Hero() {
         </div>
 
         {/* CTAs */}
-        <div className="ef-hero-item flex flex-wrap gap-2.5 sm:gap-3 pl-0" data-delay="5" style={{ marginLeft: 0 }}>
-          <a href="#contact" className="ef-cta-primary group" style={{ whiteSpace: 'nowrap', minWidth: 0, fontSize: 'clamp(13px, 2vw, 14px)' }}>
+        <div
+          className="ef-hero-item flex flex-wrap gap-2.5 sm:gap-3"
+          data-delay="5"
+          style={{ marginLeft: 0 }}
+        >
+          <a
+            href="#contact"
+            className="ef-cta-primary group touch-manipulation active:scale-98"
+            style={{
+              whiteSpace: 'nowrap',
+              minWidth: 0,
+              fontSize: 'clamp(13px, 2vw, 14px)',
+              transition: 'background-color 0.2s ease, transform 0.15s ease',
+            }}
+            onTouchStart={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
+            onTouchEnd={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
+          >
             <span style={{ whiteSpace: 'nowrap' }}>Book a Demo</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 flex-shrink-0" aria-hidden="true" />
           </a>
-          <a href="#results" className="ef-cta-secondary" style={{ whiteSpace: 'nowrap', minWidth: 0, fontSize: 'clamp(13px, 2vw, 14px)' }}>
+          <a
+            href="#results"
+            className="ef-cta-secondary touch-manipulation active:scale-98"
+            style={{
+              whiteSpace: 'nowrap',
+              minWidth: 0,
+              fontSize: 'clamp(13px, 2vw, 14px)',
+              transition: 'opacity 0.2s ease, border-color 0.2s ease, transform 0.15s ease',
+            }}
+            onTouchStart={(e) => {
+              e.currentTarget.style.opacity = '1';
+              e.currentTarget.style.borderColor = 'rgba(232, 228, 223, 0.35)';
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.opacity = '0.75';
+              e.currentTarget.style.borderColor = 'rgba(232, 228, 223, 0.2)';
+            }}
+          >
             See Results →
           </a>
         </div>
