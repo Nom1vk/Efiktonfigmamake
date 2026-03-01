@@ -75,7 +75,7 @@ export function CTA() {
     lineHeight: 1.5,
     borderRadius: '2px',
     outline: 'none',
-    transition: 'border-color 0.15s ease, background-color 0.15s ease',
+    transition: 'border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1)',
     fontFamily: 'inherit',
   };
 
@@ -199,12 +199,14 @@ export function CTA() {
                       placeholder="Your name"
                       style={inputStyle}
                       onFocus={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(193,127,62,0.5)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)';
+                        e.currentTarget.style.borderColor = 'rgba(193,127,62,0.6)';
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(193,127,62,0.12)';
                       }}
                       onBlur={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(232,228,223,0.12)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     />
                   </div>
@@ -224,12 +226,14 @@ export function CTA() {
                       placeholder="Factory / company name"
                       style={inputStyle}
                       onFocus={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(193,127,62,0.5)';
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)';
+                        e.currentTarget.style.borderColor = 'rgba(193,127,62,0.6)';
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                        e.currentTarget.style.boxShadow = '0 0 0 3px rgba(193,127,62,0.12)';
                       }}
                       onBlur={(e) => {
                         e.currentTarget.style.borderColor = 'rgba(232,228,223,0.12)';
                         e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     />
                   </div>
@@ -250,12 +254,14 @@ export function CTA() {
                     placeholder="you@company.com"
                     style={inputStyle}
                     onFocus={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(193,127,62,0.5)';
-                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)';
+                      e.currentTarget.style.borderColor = 'rgba(193,127,62,0.6)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(193,127,62,0.12)';
                     }}
                     onBlur={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(232,228,223,0.12)';
                       e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                      e.currentTarget.style.boxShadow = 'none';
                     }}
                   />
                 </div>
@@ -272,12 +278,14 @@ export function CTA() {
                     style={{ ...inputStyle, cursor: 'pointer' }}
                     defaultValue=""
                     onFocus={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(193,127,62,0.5)';
-                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)';
+                      e.currentTarget.style.borderColor = 'rgba(193,127,62,0.6)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(193,127,62,0.12)';
                     }}
                     onBlur={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(232,228,223,0.12)';
                       e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                      e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
                     <option value="" disabled style={{ backgroundColor: '#0A1628' }}>
@@ -306,12 +314,14 @@ export function CTA() {
                     placeholder="e.g. Inventory accuracy, hitting delivery dates, knowing true costs…"
                     style={{ ...inputStyle, resize: 'none' }}
                     onFocus={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(193,127,62,0.5)';
-                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.07)';
+                      e.currentTarget.style.borderColor = 'rgba(193,127,62,0.6)';
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(193,127,62,0.12)';
                     }}
                     onBlur={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(232,228,223,0.12)';
                       e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                      e.currentTarget.style.boxShadow = 'none';
                     }}
                   />
                 </div>
