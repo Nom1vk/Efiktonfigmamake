@@ -78,7 +78,7 @@ export function Footer() {
                 textTransform: 'uppercase',
               }}
             >
-              Εφικτόν. Achievable.
+              Εφικτον. Achievable.
             </div>
           </div>
 

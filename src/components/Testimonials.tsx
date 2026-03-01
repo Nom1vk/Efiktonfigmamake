@@ -409,7 +409,7 @@ export function Testimonials() {
               }}
               lang="el"
             >
-              Εφικτόν.
+              Εφικτον.
             </p>
             <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--ef-text-secondary)' }}>
               From the Greek, achievable. That is the promise.
