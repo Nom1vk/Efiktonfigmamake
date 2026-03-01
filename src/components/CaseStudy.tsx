@@ -1,6 +1,167 @@
 import { useInView } from '../hooks/useInView';
 import { useCountUp } from '../hooks/useCountUp';
+import { usePhaseScrollProgress } from '../hooks/usePhaseScrollProgress';
 import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+
+// φ timing constants
+const PHI_DURATION = 1618;
+const PHASE_DURATION = PHI_DURATION / 2; // 809ms per phase reveal
+
+// Activation thresholds per ticket spec
+const PHASE_THRESHOLDS = [0.15, 0.45, 0.75];
+
+/**
+ * A single animated win checkmark using SVG stroke-dashoffset draw
+ */
+function AnimatedCheckmark({
+  active,
+  delay,
+}: {
+  active: boolean;
+  delay: number;
+}) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      className={`case-phase-check${active ? ' case-phase-check--active' : ''}`}
+      style={{ '--check-delay': `${delay}ms` } as React.CSSProperties}
+      aria-hidden="true"
+    >
+      <path
+        d="M2.5 7L5.5 10L11.5 4"
+        stroke="var(--ef-copper)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        pathLength="1"
+        className="case-phase-check__path"
+      />
+    </svg>
+  );
+}
+
+/**
+ * A single implementation phase card that animates in when its threshold is crossed
+ */
+function PhaseCard({
+  phase,
+  index,
+  active,
+}: {
+  phase: Phase;
+  index: number;
+  active: boolean;
+}) {
+  // Track if we've ever activated (latch forward — don't un-animate on reverse scroll)
+  const [latched, setLatched] = useState(false);
+  const [pulseKey, setPulseKey] = useState(0);
+  const prevActive = useRef(false);
+
+  useEffect(() => {
+    if (active && !prevActive.current) {
+      setLatched(true);
+      setPulseKey((k) => k + 1); // trigger pulse re-animation
+    }
+    prevActive.current = active;
+  }, [active]);
+
+  const isVisible = latched;
+
+  return (
+    <div
+      className={`case-phase-row${isVisible ? ' case-phase-row--active' : ''}`}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '80px 1fr',
+        gap: '32px',
+        paddingTop: '40px',
+        paddingBottom: '40px',
+        borderTop: '1px solid rgba(232, 228, 223, 0.07)',
+      }}
+    >
+      {/* Phase number column */}
+      <div style={{ position: 'relative' }}>
+        <span
+          key={pulseKey}
+          className={`case-phase-number${isVisible ? ' case-phase-number--pulse' : ''}`}
+          style={{
+            fontSize: 'clamp(2rem, 3vw, 2.5rem)',
+            fontWeight: 800,
+            color: 'rgba(193, 127, 62, 0.25)',
+            letterSpacing: '-0.04em',
+            display: 'block',
+          }}
+        >
+          {phase.number}
+        </span>
+      </div>
+
+      {/* Content column */}
+      <div>
+        {/* Title + duration */}
+        <div
+          className="case-phase-title"
+          style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '12px', flexWrap: 'wrap' }}
+        >
+          <h4
+            style={{
+              color: 'var(--ef-text-primary)',
+              fontSize: '17px',
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            {phase.title}
+          </h4>
+          <span
+            style={{
+              fontSize: '12px',
+              color: 'var(--ef-text-secondary)',
+              fontWeight: 500,
+              letterSpacing: '0.04em',
+            }}
+          >
+            {phase.duration}
+          </span>
+        </div>
+
+        {/* Description */}
+        <p
+          className="case-phase-body"
+          style={{
+            color: 'rgba(232, 228, 223, 0.6)',
+            fontSize: '14px',
+            lineHeight: 1.8,
+            marginBottom: '20px',
+            maxWidth: '560px',
+          }}
+        >
+          {phase.description}
+        </p>
+
+        {/* Win items with animated checkmarks */}
+        <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', listStyle: 'none', padding: 0, margin: 0 }}>
+          {phase.wins.map((win, j) => (
+            <li
+              key={j}
+              className={`case-phase-win${isVisible ? ' case-phase-win--active' : ''}`}
+              style={{ '--win-delay': `${200 + j * 80}ms` } as React.CSSProperties}
+            >
+              <AnimatedCheckmark active={isVisible} delay={200 + j * 80} />
+              <span style={{ fontSize: '13px', color: 'rgba(232, 228, 223, 0.75)', lineHeight: 1.6 }}>
+                {win}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 // Parse metric string → { count, suffix } or null if not numeric
 function parseMetricCount(metric: string): { count: number; suffix: string } | null {
@@ -125,7 +286,7 @@ export function CaseStudy() {
   const homeHref = `/${paletteId || '1'}/#results`;
   const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [challengeRef, challengeVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
-  const [phasesRef, phasesVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
+  const [phaseScrollRef, phaseProgress] = usePhaseScrollProgress<HTMLDivElement>(0.1);
   const [resultsRef, resultsVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
   const [quoteRef, quoteVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
 
@@ -270,7 +431,7 @@ export function CaseStudy() {
         </div>
       </div>
 
-      {/* Implementation phases */}
+      {/* Implementation phases — scroll-driven timeline build */}
       <div
         className="w-full px-6 lg:px-10"
         style={{
@@ -282,8 +443,9 @@ export function CaseStudy() {
         }}
       >
         <div
-          ref={phasesRef}
-          className={`animate-reveal${phasesVisible ? ' is-visible' : ''}`}
+          ref={phaseScrollRef as React.RefObject<HTMLDivElement>}
+          className="case-phases-container"
+          style={{ '--case-phase-progress': '0' } as React.CSSProperties}
         >
           <h3 style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '48px' }}>
             The Implementation
@@ -292,61 +454,27 @@ export function CaseStudy() {
             Phased rollout over 4 months. Production never stopped. Each phase delivered measurable value before the next began.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-            {cs.phases.map((phase, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '80px 1fr',
-                  gap: '32px',
-                  paddingTop: '40px',
-                  paddingBottom: '40px',
-                  borderTop: '1px solid rgba(232, 228, 223, 0.07)',
-                }}
-              >
-                <div>
-                  <span style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', fontWeight: 800, color: 'rgba(193, 127, 62, 0.25)', letterSpacing: '-0.04em' }}>
-                    {phase.number}
-                  </span>
-                </div>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '12px', flexWrap: 'wrap' }}>
-                    <h4 style={{ color: 'var(--ef-text-primary)', fontSize: '17px', fontWeight: 700, letterSpacing: '-0.02em' }}>
-                      {phase.title}
-                    </h4>
-                    <span style={{ fontSize: '12px', color: 'var(--ef-text-secondary)', fontWeight: 500, letterSpacing: '0.04em' }}>
-                      {phase.duration}
-                    </span>
-                  </div>
-                  <p style={{ color: 'rgba(232, 228, 223, 0.6)', fontSize: '14px', lineHeight: 1.8, marginBottom: '20px', maxWidth: '560px' }}>
-                    {phase.description}
-                  </p>
-                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', listStyle: 'none', padding: 0, margin: 0 }}>
-                    {phase.wins.map((win, j) => (
-                      <li
-                        key={j}
-                        style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}
-                      >
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                          style={{ flexShrink: 0, marginTop: '3px' }}
-                          aria-hidden="true"
-                        >
-                          <path d="M2.5 7L5.5 10L11.5 4" stroke="var(--ef-copper)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <span style={{ fontSize: '13px', color: 'rgba(232, 228, 223, 0.75)', lineHeight: 1.6 }}>
-                          {win}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
+          {/* Timeline layout: copper line on left + phase cards */}
+          <div style={{ position: 'relative' }}>
+            {/* Copper progress line — draws downward with scroll */}
+            <div
+              className="case-phase-timeline-track"
+              aria-hidden="true"
+            >
+              <div className="case-phase-timeline-fill" />
+            </div>
+
+            {/* Phase cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+              {cs.phases.map((phase, i) => (
+                <PhaseCard
+                  key={i}
+                  phase={phase}
+                  index={i}
+                  active={phaseProgress >= PHASE_THRESHOLDS[i]}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
