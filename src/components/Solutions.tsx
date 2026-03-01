@@ -163,7 +163,7 @@ export function Solutions() {
             aria-hidden="true"
           />
 
-          <div className="narrative-arc-grid grid grid-cols-2 md:grid-cols-4">
+          <div className="narrative-arc-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
             {(['CHAOS', 'METHOD', 'CONTROL', 'RESULTS'] as const).map((label, i) => {
               const descs = [
                 'Firefighting, hidden losses, tribal knowledge, constant surprises',
@@ -181,7 +181,7 @@ export function Solutions() {
                   className={`narrative-arc-item arc-step arc-step-${i}${isActive ? ' arc-step-active' : ''}${i === arcStage ? ' arc-step-current' : ''}`}
                   data-step={i}
                   style={{
-                    padding: '24px',
+                    padding: '24px 20px',
                     borderRight: i < 3 ? '1px solid rgba(10, 22, 40, 0.1)' : 'none',
                     position: 'relative',
                     overflow: 'hidden',
@@ -303,19 +303,35 @@ export function Solutions() {
         <div style={{ borderTop: '1px solid rgba(10, 22, 40, 0.1)' }}>
           {pillars.map((pillar, index) => {
             const tiltRef = { current: null as HTMLElement | null };
+            const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+            
             const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
               const el = tiltRef.current;
-              if (!el || window.matchMedia('(hover: none)').matches) return;
+              if (!el || isTouchDevice) return;
               const rect = el.getBoundingClientRect();
               const x = (e.clientX - rect.left) / rect.width - 0.5;
               const y = (e.clientY - rect.top) / rect.height - 0.5;
               el.style.transform = `perspective(1200px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
             };
+            
             const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
               (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
-              (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-              if (tiltRef.current) tiltRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+              (e.currentTarget as HTMLElement).style.transform = isTouchDevice ? 'none' : 'scale(1)';
+              if (tiltRef.current && !isTouchDevice) {
+                tiltRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+              }
             };
+            
+            const handleTouchStart = (e: React.TouchEvent<HTMLElement>) => {
+              if (!isTouchDevice) return;
+              (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(184, 115, 51, 0.05)';
+            };
+            
+            const handleTouchEnd = (e: React.TouchEvent<HTMLElement>) => {
+              if (!isTouchDevice) return;
+              (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+            };
+            
             return (
               <article
                 key={index}
@@ -326,14 +342,18 @@ export function Solutions() {
                   cursor: 'default',
                   transition: 'background-color 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)',
                   borderRadius: '2px',
-                  willChange: 'transform',
+                  willChange: isTouchDevice ? 'auto' : 'transform',
+                  touchAction: 'pan-y',
                 }}
                 onMouseEnter={(e) => {
+                  if (isTouchDevice) return;
                   (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(184, 115, 51, 0.035)';
                   (e.currentTarget as HTMLElement).style.transform = 'scale(1.01)';
                 }}
                 onMouseLeave={handleMouseLeave}
                 onMouseMove={handleMouseMove}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
                 role="listitem"
               >
                 <div
