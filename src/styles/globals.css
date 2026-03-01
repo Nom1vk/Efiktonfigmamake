@@ -974,19 +974,19 @@ select:valid:focus:not(:placeholder-shown) {
   100% { transform: translate(0px,    0px)    rotate(0deg); }
 }
 
-/* ── CHAOS description blur flicker — ~3Hz stepped, max 0.4px ──────────── */
+/* ── CHAOS description opacity micro-jitter — compositor path, no paint ─── */
 .arc-container[data-arc-stage="0"] .arc-step-0 p {
-  animation: chaos-blur-flicker 0.34s steps(5) infinite;
-  will-change: filter;
+  animation: chaos-text-flicker 0.34s steps(5) infinite;
+  will-change: opacity, transform;
 }
 
-@keyframes chaos-blur-flicker {
-  0%   { filter: blur(0px); }
-  20%  { filter: blur(0.35px); }
-  40%  { filter: blur(0px); }
-  60%  { filter: blur(0.25px); }
-  80%  { filter: blur(0.4px); }
-  100% { filter: blur(0px); }
+@keyframes chaos-text-flicker {
+  0%   { opacity: 1;    transform: translateX(0px); }
+  20%  { opacity: 0.82; transform: translateX(0.3px); }
+  40%  { opacity: 1;    transform: translateX(0px); }
+  60%  { opacity: 0.88; transform: translateX(-0.2px); }
+  80%  { opacity: 0.78; transform: translateX(0.2px); }
+  100% { opacity: 1;    transform: translateX(0px); }
 }
 
 /* Blur resolves when stage advances — text snaps crisp */
@@ -998,18 +998,38 @@ select:valid:focus:not(:placeholder-shown) {
   transition: filter 0.4s ease;
 }
 
-/* ── CHAOS dot — arrhythmic pulse with stepped timing ──────────────────── */
+/* ── CHAOS dot — arrhythmic pulse via transform + pseudo-element opacity ── */
+/* Compositor-friendly: no box-shadow animation (paint-heavy) */
 .arc-container[data-arc-stage="0"] .arc-dot-0 {
-  animation: chaos-dot-pulse 0.55s steps(3) infinite !important;
+  animation: chaos-dot-scale 0.55s steps(3) infinite !important;
   background-color: rgba(180, 60, 30, 0.7) !important;
-  will-change: transform, box-shadow;
+  will-change: transform, opacity;
+  position: relative;
 }
 
-@keyframes chaos-dot-pulse {
-  0%   { transform: scale(1);    box-shadow: 0 0 0   0px rgba(180, 60, 30, 0); }
-  33%  { transform: scale(1.4);  box-shadow: 0 0 5px 2px rgba(180, 60, 30, 0.5); }
-  66%  { transform: scale(0.85); box-shadow: 0 0 0   0px rgba(180, 60, 30, 0); }
-  100% { transform: scale(1.2);  box-shadow: 0 0 3px 1px rgba(180, 60, 30, 0.3); }
+/* Glow effect via pseudo-element opacity — stays on compositor */
+.arc-container[data-arc-stage="0"] .arc-dot-0::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(180, 60, 30, 0.5) 0%, transparent 70%);
+  animation: chaos-dot-glow 0.55s steps(3) infinite;
+  will-change: opacity, transform;
+}
+
+@keyframes chaos-dot-scale {
+  0%   { transform: scale(1); }
+  33%  { transform: scale(1.4); }
+  66%  { transform: scale(0.85); }
+  100% { transform: scale(1.2); }
+}
+
+@keyframes chaos-dot-glow {
+  0%   { opacity: 0;   transform: scale(1); }
+  33%  { opacity: 1;   transform: scale(1.6); }
+  66%  { opacity: 0;   transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(1.3); }
 }
 
 /* Dot calms when stage advances */
@@ -1118,6 +1138,7 @@ select:valid:focus:not(:placeholder-shown) {
   .arc-container[data-arc-stage="0"] .arc-step-0,
   .arc-container[data-arc-stage="0"] .arc-step-0 p,
   .arc-container[data-arc-stage="0"] .arc-dot-0,
+  .arc-container[data-arc-stage="0"] .arc-dot-0::after,
   .arc-container[data-arc-stage="0"] .arc-step-0::after,
   .arc-container[data-arc-stage="0"] .arc-step-1::after,
   .arc-step,
