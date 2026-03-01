@@ -1,18 +1,13 @@
 import { useInView } from '../hooks/useInView';
 
 /** Fibonacci nested rectangles SVG — structural φ divider */
-export function FibonacciDivider({ rotation = 0, opacity = 0.055 }: { rotation?: number; opacity?: number }) {
+export function FibonacciDivider({ rotation = 0 }: { rotation?: number }) {
   const [ref, visible] = useInView<HTMLDivElement>({ threshold: 0.2 });
 
   return (
     <div
       ref={ref}
-      className="ef-phi-divider"
-      style={{
-        opacity: visible ? opacity : 0,
-        transition: 'opacity 0.8s ease',
-        padding: '20px 0',
-      }}
+      className={`ef-phi-divider${visible ? ' is-visible' : ''}`}
       aria-hidden="true"
     >
       <svg

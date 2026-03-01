@@ -673,12 +673,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px 0;
-  opacity: 0.055;
-  transition: opacity 0.6s ease;
+  padding: 8px 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
 }
 .ef-phi-divider.is-visible {
-  opacity: 0.065;
+  opacity: 0.35;
 }
 
 /* ── 5b. Golden spiral ───────────────────────────────────────────────────────── */

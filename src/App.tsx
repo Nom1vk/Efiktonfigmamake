@@ -25,29 +25,22 @@ export default function App() {
       <Navigation />
       <main id="main-content">
         <Hero />
-        {/* Section transition: navy → off-white — φ structural divider */}
-        <div aria-hidden="true" className="ef-section-divider ef-section-divider--strong" />
-        <FibonacciDivider rotation={0} opacity={0.06} />
+        {/* φ structural divider */}
+        <FibonacciDivider rotation={0} />
         <Solutions />
-        {/* Section transition: off-white → navy — copper draw + φ */}
+        {/* Section transition: off-white → navy */}
         <CopperDrawDivider />
-        <div aria-hidden="true" className="ef-section-divider" />
-        <FibonacciDivider rotation={45} opacity={0.055} />
+        <FibonacciDivider rotation={45} />
         <Features />
         {/* Section transition: navy → cream */}
-        <div aria-hidden="true" className="ef-section-divider" />
-        <FibonacciDivider rotation={90} opacity={0.06} />
+        <FibonacciDivider rotation={90} />
         <ERPReplacement />
         {/* Section transition: cream → off-white */}
         <CopperDrawDivider />
-        <div aria-hidden="true" className="ef-section-divider" />
         <Testimonials />
-        {/* Section transition: cream → charcoal + φ */}
-        <div aria-hidden="true" className="ef-section-divider" />
-        <FibonacciDivider rotation={135} opacity={0.055} />
+        {/* Section transition: cream → charcoal */}
+        <FibonacciDivider rotation={135} />
         <About />
-        {/* Section transition: charcoal → navy */}
-        <div aria-hidden="true" className="ef-section-divider" />
         <CTA />
       </main>
       <Footer />
