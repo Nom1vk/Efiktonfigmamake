@@ -61,14 +61,18 @@ const proofPoints = [
 const ownerQuotes = [
   {
     text: "I can sleep — I know what's happening in the factory. Problems are visible early, not discovered when a customer calls to complain.",
-    name: 'Giorgos K.',
+    name: 'Giorgos Konstantinidis',
+    title: 'Operations Director',
     companyType: 'Auto Parts Manufacturer',
+    companySize: '85 employees · €9M revenue',
     city: 'Thessaloniki',
   },
   {
     text: 'We stopped firefighting. We run the plant now. I can trust our delivery dates again — and so can our customers.',
-    name: 'Nikos P.',
+    name: 'Nikos Papadimitriou',
+    title: 'Managing Director',
     companyType: 'Industrial Components',
+    companySize: '140 employees · €18M revenue',
     city: 'Athens',
   },
 ];
@@ -240,17 +244,41 @@ export function Testimonials() {
                 >
                   "{quote.text}"
                 </p>
-                <cite
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    color: '#8B8680',
-                    fontStyle: 'normal',
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  — {quote.name}, {quote.companyType}, {quote.city}
+                <cite style={{ fontStyle: 'normal', display: 'block' }}>
+                  <span
+                    style={{
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      color: '#0A1628',
+                      letterSpacing: '-0.01em',
+                      display: 'block',
+                      marginBottom: '2px',
+                    }}
+                  >
+                    {quote.name}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      color: '#C17F3E',
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      display: 'block',
+                      marginBottom: '2px',
+                    }}
+                  >
+                    {quote.title} · {quote.companyType}, {quote.city}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '11px',
+                      color: '#8B8680',
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    {quote.companySize}
+                  </span>
                 </cite>
               </blockquote>
             ))}

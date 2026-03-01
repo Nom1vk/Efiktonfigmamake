@@ -3,6 +3,7 @@ import { Solutions } from './components/Solutions';
 import { Features } from './components/Features';
 import { ERPReplacement } from './components/ERPReplacement';
 import { Testimonials } from './components/Testimonials';
+import { About } from './components/About';
 import { CTA } from './components/CTA';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
@@ -58,12 +59,21 @@ export default function App() {
           }}
         />
         <Testimonials />
-        {/* Section transition: off-white → navy */}
+        {/* Section transition: cream → charcoal */}
         <div
           aria-hidden="true"
           style={{
             height: '1px',
             background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
+          }}
+        />
+        <About />
+        {/* Section transition: charcoal → navy */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.2) 30%, rgba(184, 115, 51, 0.35) 50%, rgba(184, 115, 51, 0.2) 70%, transparent 100%)',
           }}
         />
         <CTA />

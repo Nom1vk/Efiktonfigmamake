@@ -8,6 +8,7 @@ const links = {
     { label: 'Knowledge & Quality', href: '#solutions' },
   ],
   Company: [
+    { label: 'About', href: '#about' },
     { label: 'The Method', href: '#method' },
     { label: 'Results', href: '#results' },
     { label: 'Contact', href: '#contact' },
@@ -17,8 +18,7 @@ const links = {
 export function Footer() {
   return (
     <footer
-      id="about"
-      style={{ backgroundColor: '#080E1A', scrollMarginTop: '64px' }}
+      style={{ backgroundColor: '#080E1A' }}
       aria-label="Site footer"
     >
       <div
