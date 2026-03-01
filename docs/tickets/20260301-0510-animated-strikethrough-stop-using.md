@@ -116,5 +116,67 @@ When the list scrolls into view:
 
 ---
 
+## Salt Review (Ticket Triage)
+
+**Verdict:** **SHIP IT**
+
+### Feasibility (CSS/React)
+- Technically feasible with current stack and markup.
+- Existing `is-striking` state + `data-strike-index` wiring means implementation is mostly CSS.
+- No dependency on JS animation libraries required.
+- Recommend single replay only (trigger once on first in-view) to avoid repetitive distraction.
+
+### Conversion Impact
+- Supports conversion narrative by making the “remove old tools” moment emotionally legible.
+- If kept subtle, it strengthens trust and clarity; if overdone, it can feel theatrical.
+- Current proposal is directionally correct; timing needs guardrails to avoid drag.
+
+### Risks / Guardrails
+- Sequence can feel long on impatient scroll (~3.5s). Keep perceived completion under ~3.0s.
+- Ensure line rendering works on wrapped text and different font metrics.
+- Keep contrast/readability acceptable after fade (target min 4.5:1 where body text remains informational).
+
+## Polished Acceptance Criteria
+
+1. **Trigger behavior**
+   - Animation starts when `.stop-using-list` enters viewport at least 35% visibility.
+   - Sequence runs **once per page load** (no replay on minor scroll oscillation).
+
+2. **Timing & easing**
+   - Initial settle delay: **250–300ms**.
+   - Per-item stagger: **320–380ms** (target 350ms).
+   - Strike draw duration: **500–650ms** (target 600ms).
+   - Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)` or equivalent smooth deceleration.
+   - Total sequence (first strike start → summary visible): **≤ 3.0s target, 3.2s hard max**.
+
+3. **Per-item visual state**
+   - Copper strike line draws left→right via pseudo-element or mask (no abrupt on/off).
+   - Text opacity transitions to **0.4–0.5**.
+   - Horizontal nudge limited to **2–4px**.
+   - No layout shift/jank (CLS unaffected).
+
+4. **Summary line**
+   - After final item strike + 400–500ms pause, show: **“One system. Nothing else.”**
+   - Style: copper tone, uppercase, subtle tracking, non-dominant size.
+
+5. **Accessibility & user preferences**
+   - Under `prefers-reduced-motion: reduce`, skip staged animation and render final state immediately.
+   - Content remains fully readable with strike overlay.
+
+6. **Responsive quality**
+   - Verified at 375px, 768px, 1440px.
+   - Strike line remains correctly aligned for wrapped lines and variable text length.
+   - No horizontal overflow.
+
+7. **Performance**
+   - No additional runtime libraries.
+   - Animation uses composited-friendly properties where possible (opacity/transform); paint-heavy work minimized.
+
+8. **QA sign-off**
+   - Manual check confirms sequence is noticeable but not distracting.
+   - Animation supports (not competes with) nearby CTAs and comparison section.
+
+---
+
 *— Nikos Papadopoulos, Volos*
 *"My nephew showed me the Stripe website last week. Every number moves, every section breathes. That's what I want to feel when I look at YOUR site. You're almost there. Fix this list."*
