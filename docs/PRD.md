@@ -1,8 +1,9 @@
 # Efikton Website — Product Requirements Document
 
 **Epic:** ROCKET-237
-**Status:** In Progress
+**Status:** In Progress (Creative Development Phase)
 **Created:** 2026-02-28
+**Last Updated:** 2026-03-01
 
 ---
 
@@ -10,15 +11,26 @@
 
 Build the Efikton website — a marketing site for a manufacturing operating system. The site should convey:
 
-> **"Efikton turns manufacturing from firefighting into predictable control."**
+> **"From Chaos to Control."**
 
 ### Source Materials
 - **Figmamake scaffold:** React + Vite + Tailwind (from `AlexRFD/Efiktonfigmamake`)
 - **Rebrand research:** `/home/node/.openclaw/workspace/laboratory/efikton-rebrand/` (6 deliverables + synthesis)
 - **Key reference:** `05-AZOTH-SYNTHESIS.md` — the canonical positioning doc
 
-### What Exists Now
-The Figmamake export is a generic "ManufactureSoft" template with placeholder content. Every section needs to be rewritten with Efikton's actual brand, copy, and visual identity.
+### What's Built (as of 2026-03-01)
+- Full single-page marketing site with all sections
+- Route-based palette A/B testing system (5 palettes at /1/ through /5/)
+- Case study on separate subpage (`/:paletteId/case-study`)
+- Scroll-driven CHAOS→CONTROL transformation arc
+- Animated pipeline flow, phase timeline, counting stats
+- International copy (Europe, Middle East & Africa, Global)
+- Enterprise tone copy refresh
+
+### Live Preview
+- **URL:** https://efikton-preview.surge.sh
+- **Palette routes:** /1/ (Copper Navy default), /2/ (Bronze Charcoal), /3/ (Aegean Slate), /4/ (Steel Amber), /5/ (Marble Verde)
+- **Case study:** /1/case-study
 
 ---
 
@@ -27,225 +39,155 @@ The Figmamake export is a generic "ManufactureSoft" template with placeholder co
 ### Name Treatment
 - **Logo/Media:** eφikton (with Greek phi φ) — distinctive, ownable
 - **Copy/Text:** Efikton — readable, typeable
-- **Greek contexts:** εφικτόν — "achievable"
+- **Greek contexts:** εφικτόν — "achievable" (brand heritage, NOT geographic limitation)
 
-### Color Palette
+### Positioning
+- **Primary tagline:** "From Chaos to Control."
+- **Tone:** Enterprise, confident, professional. NOT startup-punchy.
+- **Geography:** International. Serviced factories in Greece, Italy, Poland, Egypt, Saudi Arabia, and Africa.
+- **No em dashes** in any visible copy.
+
+### Color Palette (Primary — Copper Navy)
 
 | Color | Hex | CSS Variable | Usage |
 |-------|-----|-------------|-------|
-| Deep Navy | `#002B5C` | `--color-navy` | Primary backgrounds, headings |
-| Forge Gray | `#4A4A4A` | `--color-gray` | Body text, secondary elements |
-| **Copper** | `#B87333` | `--color-copper` | **Key accent**, CTAs, phi symbol, highlights |
-| Precision Blue | `#0066CC` | `--color-blue` | Links, tech elements, interactive |
-| Safety Orange | `#FF6600` | `--color-orange` | Alerts, critical actions only |
-| Off-White | `#F8F6F3` | `--color-offwhite` | Warm background sections |
+| Deep Navy | `#0A1628` | `--ef-navy` | Primary backgrounds |
+| Charcoal | `#1A1F2E` | `--ef-charcoal` | Elevated surfaces |
+| **Copper** | `#C17F3E` | `--ef-copper` | Key accent, CTAs, highlights |
+| Copper Light | `#D4A574` | `--ef-copper-light` | Hover states |
+| Copper Dark | `#A06830` | `--ef-copper-dark` | Pressed states |
+| Text Primary | `#E8E4DF` | `--ef-text-primary` | Text on dark |
+| Text Secondary | `#B8B3AD` | `--ef-text-secondary` | Muted text |
+| Surface | `#F5F2ED` | `--ef-surface` | Light sections |
+| Surface Alt | `#EDEAE5` | `--ef-surface-alt` | Alternating cream |
 
-**Replace all `blue-600` Tailwind defaults with the Efikton palette.**
+**IMPORTANT:** All colors MUST use CSS custom properties (`var(--ef-*)`) — never hardcode hex values. The palette A/B testing system overrides these vars per route.
 
-### Typography
-- **Headings:** Bold, uppercase or title case, Deep Navy
-- **Body:** Forge Gray, clean sans-serif
-- **Accents:** Copper for highlights, metrics, phi symbol
-
-### Logo
-- eφikton wordmark with copper phi accent
-- Logo files in `/laboratory/efikton-rebrand/logo-concept-*.png`
+### Alternative Palettes (for A/B testing)
+| # | Name | Accent | Route |
+|---|------|--------|-------|
+| 1 | Copper Navy (default) | `#C17F3E` | `/1/` |
+| 2 | Bronze Charcoal | `#B87333` | `/2/` |
+| 3 | Aegean Slate | `#2E7D9A` | `/3/` |
+| 4 | Steel Amber | `#D9A441` | `/4/` |
+| 5 | Marble Verde | `#4A7C5B` | `/5/` |
 
 ---
 
-## 3. Content — Section by Section
+## 3. Architecture
 
-### Navigation
-- Logo: eφikton (left)
-- Links: Solutions, The Method, Results, About, Contact
-- CTA: "Book a Demo" (copper accent button)
+### Tech Stack
+- React + Vite + Tailwind v4
+- React Router DOM (palette routing)
+- No CMS — static build deployed to Surge
 
-### Hero Section
+### Key Files
+- `src/palettes.ts` — Palette definitions
+- `src/PaletteProvider.tsx` — Route-based CSS var override
+- `src/components/PaletteSwitcher.tsx` — Floating palette selector UI
+- `src/pages/CaseStudyPage.tsx` — Case study subpage
+- `src/styles/globals.css` — Design tokens
+- `docs/DESIGN-SYSTEM.md` — Full design system spec
 
-**Headline (Option A — Outcome-first, PREFERRED):**
-> **Deliver on time. Eliminate problems. Protect margin.**
+### Routing
+- `/:paletteId/*` — All pages wrapped in PaletteProvider
+- `/` — Redirects to `/1/`
+- `/:paletteId/case-study` — Case study subpage
 
-**Subheadline:**
-> The manufacturing operating system that turns chaos into control.
+### Build & Deploy
+- `npm run build` — Vite build + copies 200.html for SPA routing
+- `npx surge ./build efikton-preview.surge.sh` — Deploy
 
-**Supporting text:**
-> Efikton is the complete manufacturing operating system — from order to cash, from supplier to shipment. One method. One system. Proven results.
+---
 
-**CTAs:**
-- Primary: "See the Results" or "Book a Demo"
-- Secondary: "Watch the Method"
+## 4. Content Sections
 
-**Hero Stats (above the fold):**
-| Metric | Value |
-|--------|-------|
-| Profit Increase | **5x** in 2 years |
-| Problems Reduced | **90%** fewer |
-| On-Time Delivery | **OTIF** within 1 year |
+### Hero
+- **Headline:** "From Chaos to **Control.**" (Control in copper)
+- **Subhead:** "The manufacturing operating system for predictable output, protected margin, and fewer problems."
+- **Body:** Efikton manages Materials, Time, Money, and Knowledge as one disciplined system.
+- **Social proof:** Giorgos K. quote (97% OTIF)
+- **CTAs:** Book a Demo, See Results
+- **Stats bar:** 5× profit, 90% fewer problems, OTIF
 
-**Hero Image:** Modern factory floor with control panels, OR abstract "chaos → order" visual. Use manufacturing imagery, NOT stock office photos.
+### Four Pillars (Solutions)
+- Materials, Time, Money, Knowledge
+- CHAOS→METHOD→CONTROL→RESULTS scroll-driven transformation arc
+- Quality callout at bottom
 
-### Solutions Section → "The Efikton Method" (Four Pillars)
+### Features (System of Record)
+- Pipeline flow animation (order-to-cash)
+- Animated strikethrough (what you can stop using)
+- Phase timeline (implementation phases)
 
-Replace generic "solutions" grid with the four pillars:
+### ERP Replacement
+- Four pain points (consultant dependency, workarounds, process mismatch, maintenance cost)
+- "Your Data, Your Control" vendor continuity section
+- Side-by-side comparison table (Legacy ERP vs Efikton)
 
-| Pillar | Icon | Headline | Description |
-|--------|------|----------|-------------|
-| **Materials** | 📦 | Know What You Have | Full traceability — from raw material lot to finished product. No surprises in inventory. |
-| **Time** | ⏱️ | Run Plan vs Actual | Every shift, every line. Remove bottlenecks systematically. Hit delivery dates. |
-| **Money** | 💰 | True Cost Per Product | Know your margin before you quote. Stop leaking profit. |
-| **Knowledge** | 🧠 | Improvements That Stick | The factory doesn't reset when people change. Institutional memory, continuous improvement. |
+### Case Study (subpage)
+- Solar collector manufacturer, Larissa
+- Detailed metrics and implementation story
 
-**Narrative arc visual:** `CHAOS → METHOD → CONTROL → RESULTS`
+### Testimonials / Proof Points
+- Large proof numbers (40+ implementations, etc.)
+- Owner quotes
+- Εφικτόν Greek anchor
 
-### Features Section → "Complete System of Record"
+### About
+- Team profiles, method origin
+- International footprint stats
 
-**Headline:** One Place for Everything
-
-**Visual:** Order-to-Cash flow diagram:
-```
-Orders → Purchasing → Inventory → Production → Quality → Costing → Billing → Delivery
-```
-
-**What you can stop using:**
-- Spreadsheets for planning
-- Shadow costing sheets
-- Standalone traceability tools
-- Disconnected quality systems
-- Manual production reporting
-- Multiple systems that don't talk
-
-### Testimonials → "Proof Points / Results"
-
-Replace fake testimonials with real proof metrics:
-
-| Metric | Result | Timeframe |
-|--------|--------|-----------|
-| **Profit** | 5x increase | 2 years |
-| **Problems** | 90% reduction | Ongoing |
-| **OTIF** | Streamlined delivery | Within 1 year |
-
-Add case study cards (can be anonymized for now):
-- "How a Greek auto parts manufacturer hit 5x profit in 24 months"
-- "Reducing production chaos by 90% — an Efikton implementation story"
-
-### CTA Section
-
-**Headline:** Stop firefighting. Start running the plant.
-
-**Subtext:** See how Efikton turns chaos into control — in your factory.
-
-**CTAs:**
-- "Book a Demo" (primary, copper)
-- "Talk to an Expert" (secondary, outlined)
+### CTA
+- Contact form (Formspree)
+- Regions: Europe, Middle East & Africa, Global
 
 ### Footer
-- eφikton logo
-- Quick links: Solutions, Method, Results, About, Contact, Privacy
-- Contact info
-- Social links
-- Copyright: © 2026 Efikton. All rights reserved.
-- Market regions: Greece & EU • Middle East • Egypt
+- Minimal, brand wordmark
 
 ---
 
-## 4. Implementation Sections (New Pages / Sections)
+## 5. CI Development Rules
 
-### Implementation Methodology
-
-**Headline:** We implement without stopping production
-
-| Phase | Focus | Measurable Win |
-|-------|-------|----------------|
-| Foundation | Product data, inventory, purchasing, costing | Single source of truth |
-| Planning | Orders, scheduling, capacity | Reliable dates |
-| Execution | Real-time monitoring, production tracking | Less firefighting |
-| Quality | QC, traceability, continuous improvement | Fewer defects |
-| Control | Financials, forecasting, early warnings | Margin protection |
-
-### Services (Outcome-Framed)
-
-- **Manufacturing Management:** Predictable delivery, fewer fire drills
-- **Quality Management:** Quality becomes stable, not a daily fight
-- **The Efikton Platform:** One source of truth, no patchwork
-- **Extended:** Early warnings, financial control, traceability, knowledge management
+When spawning CI loop agents:
+1. **Only work on palette 1** (primary Copper Navy). Do NOT modify palette files.
+2. **Never hardcode hex colors.** Always use `var(--ef-*)`.
+3. **No em dashes** in visible copy.
+4. **Build must pass** before deploying.
+5. **Deploy to surge** after every change: `npx surge ./build efikton-preview.surge.sh`
+6. **Verify in browser** — check for runtime errors in console.
+7. **Section padding:** 128px top/bottom (py-32) on all sections.
+8. **Enterprise tone** — confident professional, not punchy startup.
 
 ---
 
-## 5. Technical Requirements
+## 6. Outstanding Tasks
 
-### Stack (from Figmamake scaffold)
-- **Framework:** React 18 + TypeScript
-- **Build:** Vite
-- **Styling:** Tailwind CSS + class-variance-authority
-- **Components:** Radix UI primitives + shadcn/ui
-- **Icons:** Lucide React
-- **Charts:** Recharts (for metrics visualization)
+### Completed ✅
+- [x] Full site build with all sections
+- [x] Palette A/B testing system (5 palettes, route-based)
+- [x] Case study subpage
+- [x] Hardcoded colors → CSS vars
+- [x] International copy (removed Greece-only positioning)
+- [x] Enterprise tone copy refresh
+- [x] Em dash removal
+- [x] Hero copy: "From Chaos to Control."
+- [x] Section margins restored (128px)
+- [x] Nav/hero overlap fix on mobile
+- [x] Consistent list icons
+- [x] Runtime crash fixes (useRef, arcProgress)
 
-### Performance Targets
-- Lighthouse score > 90 (all categories)
-- First Contentful Paint < 1.5s
-- Total bundle < 200KB gzipped
-- All images optimized (WebP, lazy loading)
+### In Progress 🔄
+- [ ] Continue visual polish (animations, micro-interactions)
+- [ ] Mobile responsive refinement
+- [ ] Section transition flow improvement
+- [ ] Hover/focus state consistency
 
-### SEO Requirements
-- Page title: "Efikton — Manufacturing Operating System | From Chaos to Control"
-- Meta description with key proof points
-- OpenGraph + Twitter card meta
-- Structured data (Organization, Product)
-- Greek language meta for `.gr` variant
-
-### Responsive
-- Mobile-first design
-- Breakpoints: 640px (sm), 768px (md), 1024px (lg), 1280px (xl)
-- Touch-friendly CTAs
-
----
-
-## 6. Sub-Tasks
-
-| Ticket | What | Priority |
-|--------|------|----------|
-| ROCKET-238 | Brand identity & design system | P1 — do first |
-| ROCKET-239 | Content — apply rebrand copy | P1 |
-| ROCKET-240 | Hero, Navigation, Footer | P1 |
-| ROCKET-241 | Solutions → Four Pillars + modules | P2 |
-| ROCKET-242 | Testimonials → Proof points | P2 |
-| ROCKET-243 | CTA, contact form, demo booking | P3 |
-| ROCKET-244 | SEO, meta, OG images, perf audit | P3 |
-
-### CI Loop Order
-1. **Forge pass 1:** Apply design system (colors, typography) + rewrite Hero/Nav/Footer
-2. **Salt review 1:** Brand consistency, copy quality, accessibility
-3. **Forge pass 2:** Solutions, Features, Testimonials sections
-4. **Salt review 2:** Full-page review, mobile responsiveness
-5. **Forge pass 3:** SEO, meta, performance, contact form
-6. **Salt review 3:** Final audit
-
----
-
-## 7. Success Criteria
-
-- [ ] All "ManufactureSoft" references replaced with Efikton branding
-- [ ] Copper (#B87333) accent visible throughout
-- [ ] Hero section with outcome-first messaging + 3 proof stats
-- [ ] Four Pillars section clearly presented
-- [ ] "Chaos → Control" narrative arc visible
-- [ ] No stock placeholder testimonials — real proof points
-- [ ] Mobile responsive, Lighthouse > 90
-- [ ] Build succeeds (`npm run build` clean)
-- [ ] SEO meta tags complete
-
----
-
-## 8. Reference Files
-
-| File | Location |
-|------|----------|
-| Brand Synthesis (V2) | `laboratory/efikton-rebrand/05-AZOTH-SYNTHESIS.md` |
-| Research Findings | `laboratory/efikton-rebrand/01-research-findings.md` |
-| Creative Direction | `laboratory/efikton-rebrand/02-creative-direction.md` |
-| Messaging & Copy | `laboratory/efikton-rebrand/03-messaging-copy.md` |
-| Logo Concepts | `laboratory/efikton-rebrand/logo-concept-*.png` |
-| Website Hero Concepts | `laboratory/efikton-rebrand/website-hero-concept-*.png` |
-| Color Palette SVG | `laboratory/efikton-rebrand/visual-03-color-palette.svg` |
-| Typography SVG | `laboratory/efikton-rebrand/visual-04-typography-specimen.svg` |
+### Backlog 📋
+- [ ] SEO optimization (meta tags are in place, need review)
+- [ ] Performance audit (bundle size, lazy loading)
+- [ ] Accessibility audit (WCAG AA)
+- [ ] Contact form backend integration
+- [ ] Analytics integration
+- [ ] Custom domain setup
+- [ ] Additional case studies
