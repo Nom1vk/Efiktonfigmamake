@@ -1,96 +1,112 @@
 # ROCKET-237 CI Step 4 — QA (Performance + Polish)
 
-Date: 2026-03-01 04:35 Europe/Athens
+Date: 2026-03-01 05:40 Europe/Athens
 Reviewer: Anvil
 Repo: /home/node/.openclaw/workspace/projects/efikton-website
-Head commit reviewed: `fa77a34`
+Range reviewed: `e6dfeb9..e91368e`
 
 ## Scope Reviewed
-Latest commits and current code were reviewed with focus on:
-1) animation performance, 2) reduced-motion behavior, 3) mobile animation/touch behavior,
-4) load-time/bundle impact, 5) design consistency, 6) accessibility impact, 7) build status.
+1) Animation performance (60fps/GPU/layout thrash)
+2) Reduced-motion behavior
+3) Mobile touch/scroll smoothness
+4) Load-time and bundle impact
+5) Design consistency with φ aesthetic
+6) Accessibility (keyboard/screen reader)
+7) Build health
 
 ---
 
-## Findings by QA Focus
+## Verdict
 
-### 1) Animation PERFORMANCE (60fps / GPU / layout thrashing)
-**Status: PASS with one improvement request (non-blocking).**
+**Status: CHANGES REQUESTED (1 blocking, 2 non-blocking).**
 
-Evidence:
-- Scroll-triggered reveals are implemented via `IntersectionObserver` (`src/hooks/useInView.ts`) and class toggles, avoiding scroll event handlers and per-frame layout reads.
-- Motion is mostly on `transform` + `opacity` (`.animate-reveal`, `.animate-reveal-stagger`, `.animate-metric`), which is compositor-friendly (`src/index.css`, `src/styles/globals.css`).
-- `useCountUp` uses `requestAnimationFrame` and no forced synchronous layout calls (`src/hooks/useCountUp.ts`).
+---
 
-Risk/Note:
-- `will-change: opacity, transform` is applied broadly on reveal utilities. This is generally fine, but overuse can increase layer memory on low-end devices.
+## Findings
 
-**Request:** consider scoping `will-change` to active/pre-visible states only (e.g., add/remove class around entry window) to reduce layer pressure on mobile GPUs.
+### 🔴 Blocking
 
-### 2) Reduced-motion (`prefers-reduced-motion`)
-**Status: PASS (good coverage).**
+1. **Runtime crash in browser due missing `useRef` import in `Features.tsx`**
+   - `useRef` is used in both `PipelineFlow` and `PhaseTimeline`, but not imported.
+   - File evidence:
+     - `src/components/Features.tsx:1` imports only `{ useEffect, useState }`
+     - `src/components/Features.tsx:38` uses `useRef(false)`
+     - `src/components/Features.tsx` later also uses `useRef` in `PhaseTimeline`
+   - Browser result: app renders blank page; React throws component errors for `<PipelineFlow>` and `<PhaseTimeline>`.
+   - Why this matters: this is a functional failure in runtime despite successful production build output.
 
-Evidence:
-- CSS disables reveal transforms/transitions under reduced motion (`src/index.css`, `src/styles/globals.css`).
-- Bounce/ambient effects are disabled in reduced-motion media queries.
-- Numeric counter respects reduced motion and snaps directly to final value (`src/hooks/useCountUp.ts`).
+**Required fix:**
+```ts
+import { useEffect, useRef, useState } from 'react';
+```
 
-### 3) Mobile behavior (touch / scroll jank)
-**Status: PASS with caution note.**
+---
 
-Evidence:
-- No heavy JS scroll loops detected.
-- `IntersectionObserver` + CSS transitions are mobile-safe pattern.
-- Touch momentum support present (`-webkit-overflow-scrolling: touch`).
+### 🟡 Non-blocking (polish/perf)
 
-Caution:
-- Multiple sections animate simultaneously as they enter; on slower devices, large staggered batches may still create transient jank.
+2. **Bundle size increased notably in this range**
+   - Baseline (`e6dfeb9`):
+     - JS: **219.40 kB** (gzip **64.99 kB**)
+     - CSS: **33.75 kB** (gzip **7.14 kB**)
+   - Current (`HEAD`):
+     - JS: **269.22 kB** (gzip **81.43 kB**)
+     - CSS: **41.86 kB** (gzip **8.53 kB**)
+   - Delta:
+     - JS: **+49.8 kB raw / +16.4 kB gzip**
+     - CSS: **+8.1 kB raw / +1.39 kB gzip**
 
-**Request:** keep stagger groups bounded and avoid stacking many large animated blocks in same viewport band.
+   Observed contributor in lockfile/package changes: `react-router-dom@7.13.1` was added.
 
-### 4) Load time / bundle impact
-**Status: PASS (current build size is reasonable, but dependency footprint is broad).**
+3. **Reduced-motion fallback forces all stop-using items into struck/faded state**
+   - In reduced-motion, `.stop-using-text` is hard-set to faded and struck state globally.
+   - This is motion-safe, but semantically it may present “already crossed out” content before section intent is reached.
+   - Suggestion: retain final state only when the section enters view, but without animation.
 
-Build output:
-- `build/assets/index-BqnmYQqk.js` = **219.40 kB** (gzip **64.99 kB**)
-- `build/assets/index-C_bJmHUl.css` = **33.75 kB** (gzip **7.14 kB**)
-- Build succeeded in **19.06s**
+---
 
-Observation:
-- No new heavy animation libs (GSAP/Framer) added in reviewed commits.
-- Repo dependency list is large (many Radix packages + charting stack), though current shipped bundle is still acceptable.
+## QA Focus-by-Focus
 
-### 5) Design consistency (φ-inspired precision aesthetic)
-**Status: PASS.**
+### 1) Animation PERFORMANCE
+- Mostly uses compositor-safe properties (`transform`, `opacity`).
+- Uses `IntersectionObserver` patterns rather than expensive scroll loops.
+- No obvious layout-thrashing patterns in reviewed code.
+- **Assessment:** PASS (after runtime blocker is fixed).
 
-Evidence:
-- Motion language stays subtle and disciplined (short fades/slides, restrained hover lifts, copper accents).
-- Transitions and easing are consistent with premium/precise tone rather than flashy motion.
+### 2) Reduced-motion
+- Multiple `@media (prefers-reduced-motion: reduce)` guards present.
+- Animations/transition-heavy effects are disabled appropriately.
+- **Assessment:** PASS with the semantic polish note above.
 
-### 6) Accessibility (keyboard + SR impact)
-**Status: PASS with one important caveat.**
+### 3) Mobile touch/scroll
+- Touch patterns are generally safe (`-webkit-overflow-scrolling: touch`, CSS-driven transitions).
+- No obvious JS-driven scroll jank introduced in reviewed range.
+- **Assessment:** PASS.
 
-Evidence:
-- Focus-visible styling exists globally and aligns with brand color.
-- Main interactions remain semantic (`a`, buttons in UI kit), not mouse-only JS behavior.
-- Decorative iconography/ornaments are marked `aria-hidden` in hero where appropriate.
+### 4) Load time / deps
+- Build succeeds, but payload increased significantly.
+- New route dependency likely part of increase; worth confirming necessity and tree-shaking results.
+- **Assessment:** NEEDS ATTENTION (non-blocking for this QA step unless perf budget is strict).
 
-Caveat:
-- There are global rules in this codebase that can suppress transitions aggressively under reduced motion; this is acceptable, but ensure no component relies on animation for conveying critical state.
+### 5) Design consistency (φ precision aesthetic)
+- New motion language is restrained and aligned with the existing precision/copper aesthetic.
+- Sequence/timing feels intentional (not flashy).
+- **Assessment:** PASS.
+
+### 6) Accessibility
+- Focus-visible styling exists and appears consistent.
+- Semantic list/section markup maintained in reviewed files.
+- No clear SR-breaking patterns found in reviewed changes.
+- **Assessment:** PASS (pending runtime fix).
 
 ### 7) Build clean
-**Status: PASS.**
-
-- `npm run build` completed successfully with exit code 0.
+- `npm run build` succeeds.
+- **Assessment:** PASS.
 
 ---
 
-## QA Verdict
+## Required Action Before Approval
 
-**Overall: APPROVED with polish requests (non-blocking).**
+1. Fix `useRef` import in `src/components/Features.tsx`.
+2. Re-run quick browser smoke test to confirm page renders (`/1/`) and no console runtime errors.
 
-### Requested polish (track in follow-up)
-1. Scope `will-change` usage more narrowly to reduce potential mobile GPU memory pressure.
-2. Keep simultaneous reveal batches moderate in dense viewport sections to avoid low-end device hitching.
-
-No blocking defects found for ROCKET-237 Step 4.
+After #1 and #2 are complete, this Step 4 QA can move to **APPROVED**.
