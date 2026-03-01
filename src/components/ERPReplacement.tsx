@@ -84,7 +84,7 @@ function ComparisonTable() {
         {/* Header row */}
         <div
           className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
-          style={{ display: 'grid', gridTemplateColumns: '25% 37.5% 37.5%', backgroundColor: '#0A1628' }}
+          style={{ display: 'grid', gridTemplateColumns: '25% 37.5% 37.5%', backgroundColor: 'var(--ef-navy)' }}
           role="row"
         >
           <div className="px-6 py-4" />
@@ -120,7 +120,7 @@ function ComparisonTable() {
                 padding: '20px 24px',
                 fontSize: '12px',
                 fontWeight: 600,
-                color: '#0A1628',
+                color: 'var(--ef-navy)',
                 letterSpacing: '0.01em',
                 lineHeight: 1.5,
                 transitionDelay: `${i * 200 + 200}ms`,
@@ -160,7 +160,7 @@ function ComparisonTable() {
               style={{
                 padding: '20px 24px',
                 fontSize: '13px',
-                color: '#0A1628',
+                color: 'var(--ef-navy)',
                 fontWeight: 500,
                 lineHeight: 1.65,
                 borderLeft: '1px solid rgba(193,127,62,0.15)',
@@ -172,7 +172,7 @@ function ComparisonTable() {
                 display: 'inline-block',
                 fontSize: '10px',
                 fontWeight: 700,
-                color: '#B87333',
+                color: 'var(--ef-copper)',
                 marginRight: '6px',
                 verticalAlign: 'middle',
               }} aria-hidden="true">✓</span>
@@ -188,7 +188,7 @@ function ComparisonTable() {
             display: 'grid',
             gridTemplateColumns: '25% 75%',
             borderTop: '2px solid rgba(193,127,62,0.25)',
-            backgroundColor: '#0A1628',
+            backgroundColor: 'var(--ef-navy)',
             transitionDelay: `${comparison.length * 200 + 300}ms`,
           }}
           role="row"
@@ -198,7 +198,7 @@ function ComparisonTable() {
             <p style={{
               fontSize: '14px',
               fontWeight: 600,
-              color: '#E8E4DF',
+              color: 'var(--ef-text-primary)',
               letterSpacing: '-0.01em',
               lineHeight: 1.5,
             }}>
@@ -231,7 +231,7 @@ function ComparisonTable() {
               </div>
               <div className="p-4 bg-[var(--ef-surface)]" style={{ borderLeft: '3px solid rgba(184,115,51,0.5)' }}>
                 <div className="text-[10px] font-bold text-[var(--ef-copper)] tracking-[0.1em] uppercase mb-1.5">Efikton</div>
-                <p className="text-xs text-[#0A1628] font-medium leading-[1.6]">{row.efikton}</p>
+                <p className="text-xs text-[var(--ef-navy)] font-medium leading-[1.6]">{row.efikton}</p>
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ export function ERPReplacement() {
   return (
     <section
       id="erp-replacement"
-      className="bg-[#F5F2ED] scroll-mt-16"
+      className="bg-[var(--ef-surface)] scroll-mt-16"
       aria-labelledby="erp-heading"
     >
       <div className="w-full px-6 lg:px-10 py-32 mx-auto max-w-[1200px]">
@@ -264,7 +264,7 @@ export function ERPReplacement() {
 
           <h2
             id="erp-heading"
-            className="text-[#0A1628] font-extrabold leading-[1.05] tracking-[-0.03em] max-w-[680px] mb-6"
+            className="text-[var(--ef-navy)] font-extrabold leading-[1.05] tracking-[-0.03em] max-w-[680px] mb-6"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}
           >
             Already running an ERP that still leaves your factory in chaos?
@@ -304,7 +304,7 @@ export function ERPReplacement() {
                 >
                   {point.num}
                 </div>
-                <h3 className="text-[#0A1628] text-[1.0625rem] font-bold tracking-[-0.01em] mb-2.5 leading-[1.3]">
+                <h3 className="text-[var(--ef-navy)] text-[1.0625rem] font-bold tracking-[-0.01em] mb-2.5 leading-[1.3]">
                   {point.title}
                 </h3>
                 <p className="text-[#4A4540] text-sm leading-[1.75]">
@@ -323,7 +323,7 @@ export function ERPReplacement() {
               Your Data, Your Control
             </span>
           </div>
-          <h3 className="text-[#0A1628] font-bold leading-[1.15] tracking-[-0.02em] mb-5" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
+          <h3 className="text-[var(--ef-navy)] font-bold leading-[1.15] tracking-[-0.02em] mb-5" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
             Your team runs it independently by Phase 3 —<br className="hidden md:block" />
             <span className="text-[var(--ef-copper)]">and your data stays yours. Always.</span>
           </h3>

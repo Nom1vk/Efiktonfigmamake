@@ -5,20 +5,20 @@ const teamMembers = [
   {
     name: 'Dimitris Alexiou',
     title: 'Implementation Lead',
-    background: '12+ years across production planning and order-to-cash transformation in mid-market Greek manufacturing plants.',
+    background: '12+ years across production planning and order-to-cash transformation in manufacturing plants across Europe, the Middle East, and Africa.',
     initials: 'ΔΑ',
   },
   {
     name: 'Maria Stavrou',
     title: 'Head of Operations Design',
-    background: 'Designed scheduling systems for 20+ factories across Greece, Cyprus, and Romania. Former plant manager.',
+    background: 'Designed scheduling systems for 40+ factories across Greece, Italy, Poland, Egypt, Saudi Arabia, and beyond. Former plant manager.',
     initials: 'ΜΣ',
   },
 ];
 
 // Credibility stats
 const credibilityStats = [
-  { value: '40+', label: 'Factory implementations', sub: 'Greece, Cyprus, Romania, Egypt, and the Middle East' },
+  { value: '40+', label: 'Factory implementations', sub: 'Greece, Italy, Poland, Egypt, Saudi Arabia, and Africa' },
   { value: '12', label: 'Years in manufacturing', sub: 'Not consulting. Operations.' },
   { value: '8', label: 'Industries served', sub: 'Auto parts, Oil & Gas, Industrial Valves & Fittings, food processing' },
 ];
@@ -74,7 +74,7 @@ export function About() {
       <div
         ref={storyRef}
         className={`w-full px-6 lg:px-10 animate-reveal${storyVisible ? ' is-visible' : ''}`}
-        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '64px', paddingBottom: '80px' }}
+        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '64px', paddingBottom: '128px' }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Story column */}
@@ -83,13 +83,13 @@ export function About() {
               className="text-[rgba(232,228,223,0.75)] leading-[1.8] mb-8"
               style={{ fontSize: '1.0625rem', maxWidth: '580px' }}
             >
-              Efikton was built alongside Greek manufacturing teams dealing with real floor-level pressure: delayed purchase orders, ad-hoc planning, and firefighting between departments. We translated that lived reality into a practical operating method, not a consulting slide deck.
+              Efikton was built alongside manufacturing teams dealing with real floor-level pressure: delayed purchase orders, ad-hoc planning, and firefighting between departments. We translated that lived reality into a practical operating method, not a consulting slide deck.
             </p>
             <p
               className="text-[rgba(232,228,223,0.75)] leading-[1.8] mb-8"
               style={{ fontSize: '1.0625rem', maxWidth: '580px' }}
             >
-              Our mission is simple: help Greek factories move from chaos to control with systems people actually use. We understand the family business culture, the supplier relationships built over decades, and the pressure of delivering into a global supply chain from a plant in Thessaloniki or Volos.
+              Our mission is simple: help manufacturers move from chaos to control with systems people actually use. We understand the family business culture that drives mid-market manufacturing, the supplier relationships built over decades, and the pressure of delivering into a global supply chain.
             </p>
 
             {/* Method origin — pull quote */}

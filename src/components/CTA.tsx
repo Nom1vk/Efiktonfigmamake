@@ -2,7 +2,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 import { useState, useRef } from 'react';
 
-const regions = ['Greece & EU', 'Middle East', 'Egypt'];
+const regions = ['Europe', 'Middle East & Africa', 'Global'];
 
 const industries = [
   'Automotive Parts',
@@ -69,7 +69,7 @@ export function CTA() {
     width: '100%',
     backgroundColor: 'rgba(255,255,255,0.05)',
     border: '1px solid rgba(232,228,223,0.12)',
-    color: '#E8E4DF',
+    color: 'var(--ef-text-primary)',
     padding: '14px 16px',
     fontSize: '15px',
     lineHeight: 1.5,
@@ -92,7 +92,7 @@ export function CTA() {
   return (
     <section
       id="contact"
-      style={{ backgroundColor: '#0A1628', scrollMarginTop: '64px' }}
+      style={{ backgroundColor: 'var(--ef-navy)', scrollMarginTop: '64px' }}
       aria-labelledby="cta-heading"
     >
       <div
@@ -102,8 +102,8 @@ export function CTA() {
       >
         {/* Eyebrow */}
         <div className="flex items-center gap-3 mb-10">
-          <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
-          <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <div style={{ width: '28px', height: '1px', backgroundColor: 'var(--ef-copper)' }} aria-hidden="true" />
+          <span style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Ready to make the shift?
           </span>
         </div>
@@ -112,7 +112,7 @@ export function CTA() {
         <h2
           id="cta-heading"
           style={{
-            color: '#E8E4DF',
+            color: 'var(--ef-text-primary)',
             fontSize: 'clamp(2rem, 5vw, 4rem)',
             fontWeight: 800,
             letterSpacing: '-0.03em',
@@ -122,7 +122,7 @@ export function CTA() {
           }}
         >
           Stop firefighting.{' '}
-          <span style={{ color: '#B87333' }}>Start running the plant.</span>
+          <span style={{ color: 'var(--ef-copper)' }}>Start running the plant.</span>
         </h2>
         <p
           style={{
@@ -156,17 +156,17 @@ export function CTA() {
                 }}
               >
                 <CheckCircle2
-                  style={{ color: '#B87333', margin: '0 auto 16px', width: '40px', height: '40px' }}
+                  style={{ color: 'var(--ef-copper)', margin: '0 auto 16px', width: '40px', height: '40px' }}
                   aria-hidden="true"
                 />
-                <p style={{ color: '#E8E4DF', fontWeight: 700, fontSize: '1.125rem', marginBottom: '8px' }}>
+                <p style={{ color: 'var(--ef-text-primary)', fontWeight: 700, fontSize: '1.125rem', marginBottom: '8px' }}>
                   We'll be in touch shortly.
                 </p>
                 <p style={{ color: 'var(--ef-text-secondary)', fontSize: '0.9375rem', lineHeight: 1.7 }}>
                   Expect a response within 1 business day. For urgent inquiries, reach us at{' '}
                   <a
                     href="mailto:hello@efikton.com"
-                    style={{ color: '#B87333', textDecoration: 'none' }}
+                    style={{ color: 'var(--ef-copper)', textDecoration: 'none' }}
                   >
                     hello@efikton.com
                   </a>
@@ -288,11 +288,11 @@ export function CTA() {
                       e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
-                    <option value="" disabled style={{ backgroundColor: '#0A1628' }}>
+                    <option value="" disabled style={{ backgroundColor: 'var(--ef-navy)' }}>
                       Select your industry
                     </option>
                     {industries.map((ind) => (
-                      <option key={ind} value={ind} style={{ backgroundColor: '#0A1628' }}>
+                      <option key={ind} value={ind} style={{ backgroundColor: 'var(--ef-navy)' }}>
                         {ind}
                       </option>
                     ))}
@@ -330,9 +330,9 @@ export function CTA() {
                 <button
                   type="submit"
                   disabled={formState === 'submitting'}
-                  className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto ef-cta-primary-btn"
                   style={{
-                    backgroundColor: formState === 'submitting' ? '#8B6432' : '#B87333',
+                    backgroundColor: formState === 'submitting' ? 'var(--ef-copper-dark)' : 'var(--ef-copper)',
                     color: '#ffffff',
                     padding: '16px 36px',
                     fontSize: '15px',
@@ -347,11 +347,11 @@ export function CTA() {
                   }}
                   onMouseEnter={(e) => {
                     if (formState !== 'submitting')
-                      e.currentTarget.style.backgroundColor = '#CA8A4B';
+                      e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)';
                   }}
                   onMouseLeave={(e) => {
                     if (formState !== 'submitting')
-                      e.currentTarget.style.backgroundColor = '#B87333';
+                      e.currentTarget.style.backgroundColor = 'var(--ef-copper)';
                   }}
                 >
                   {formState === 'submitting' ? (
@@ -402,7 +402,7 @@ export function CTA() {
                 >
                   <span
                     style={{
-                      color: '#B87333',
+                      color: 'var(--ef-copper)',
                       fontSize: '11px',
                       fontWeight: 700,
                       letterSpacing: '0.08em',
@@ -412,7 +412,7 @@ export function CTA() {
                   >
                     {step}
                   </span>
-                  <p style={{ color: '#E8E4DF', fontSize: '15px', lineHeight: 1.6, opacity: 0.75 }}>
+                  <p style={{ color: 'var(--ef-text-primary)', fontSize: '15px', lineHeight: 1.6, opacity: 0.75 }}>
                     {text}
                   </p>
                 </div>
@@ -442,7 +442,7 @@ export function CTA() {
               <a
                 href="mailto:hello@efikton.com"
                 style={{
-                  color: '#B87333',
+                  color: 'var(--ef-copper)',
                   fontSize: '15px',
                   fontWeight: 500,
                   textDecoration: 'none',
@@ -475,7 +475,7 @@ export function CTA() {
                   style={{
                     fontSize: '14px',
                     fontWeight: 500,
-                    color: '#E8E4DF',
+                    color: 'var(--ef-text-primary)',
                     opacity: 0.45,
                     marginBottom: '8px',
                   }}

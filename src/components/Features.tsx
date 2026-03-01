@@ -97,8 +97,8 @@ function PipelineFlow() {
                   fontSize: '13px',
                   fontWeight: 600,
                   whiteSpace: 'nowrap',
-                  backgroundColor: step.accent ? '#B87333' : 'rgba(255,255,255,0.06)',
-                  color: step.accent ? '#ffffff' : '#E8E4DF',
+                  backgroundColor: step.accent ? 'var(--ef-copper)' : 'rgba(255,255,255,0.06)',
+                  color: step.accent ? '#ffffff' : 'var(--ef-text-primary)',
                   letterSpacing: '0.02em',
                   borderLeft: step.accent ? 'none' : '1px solid rgba(184,115,51,0.15)',
                   position: 'relative',
@@ -176,7 +176,7 @@ function PipelineFlow() {
                 width: '8px',
                 height: '8px',
                 borderRadius: '50%',
-                backgroundColor: step.accent ? '#B87333' : 'rgba(184,115,51,0.4)',
+                backgroundColor: step.accent ? 'var(--ef-copper)' : 'rgba(184,115,51,0.4)',
                 flexShrink: 0,
                 marginLeft: '-20px',
                 zIndex: 1,
@@ -188,8 +188,8 @@ function PipelineFlow() {
                   padding: '8px 16px',
                   fontSize: '13px',
                   fontWeight: 600,
-                  backgroundColor: step.accent ? '#B87333' : 'rgba(255,255,255,0.06)',
-                  color: step.accent ? '#ffffff' : '#E8E4DF',
+                  backgroundColor: step.accent ? 'var(--ef-copper)' : 'rgba(255,255,255,0.06)',
+                  color: step.accent ? '#ffffff' : 'var(--ef-text-primary)',
                   letterSpacing: '0.02em',
                   borderLeft: step.accent ? 'none' : '1px solid rgba(184,115,51,0.15)',
                 }}
@@ -242,7 +242,7 @@ function PhaseTimeline() {
   return (
     <div ref={containerRef}>
       <h3 style={{
-        color: '#E8E4DF',
+        color: 'var(--ef-text-primary)',
         fontSize: '1.375rem',
         fontWeight: 700,
         letterSpacing: '-0.02em',
@@ -293,7 +293,7 @@ function PhaseTimeline() {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '2px', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#E8E4DF' }}>{phase.name}</span>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--ef-text-primary)' }}>{phase.name}</span>
                   <span style={{
                     fontSize: '11px',
                     fontWeight: 600,
@@ -315,7 +315,7 @@ function PhaseTimeline() {
                   style={{
                     fontSize: '12px',
                     fontWeight: 600,
-                    color: '#B87333',
+                    color: 'var(--ef-copper)',
                     transitionDelay: `${i * 250 + 200}ms`,
                   }}
                 >
@@ -349,7 +349,7 @@ export function Features() {
   return (
     <section
       id="method"
-      style={{ backgroundColor: '#0A1628', scrollMarginTop: '64px' }}
+      style={{ backgroundColor: 'var(--ef-navy)', scrollMarginTop: '64px' }}
       aria-labelledby="features-heading"
     >
       <div
@@ -363,15 +363,15 @@ export function Features() {
           style={{ marginBottom: '80px' }}
         >
           <div className="flex items-center gap-3 mb-8">
-            <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
-            <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <div style={{ width: '28px', height: '1px', backgroundColor: 'var(--ef-copper)' }} aria-hidden="true" />
+            <span style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               Complete System of Record
             </span>
           </div>
           <h2
             id="features-heading"
             style={{
-              color: '#E8E4DF',
+              color: 'var(--ef-text-primary)',
               fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
               fontWeight: 800,
               letterSpacing: '-0.03em',
@@ -405,7 +405,7 @@ export function Features() {
               {/* Stop using */}
               <div>
                 <h3 style={{
-                  color: '#E8E4DF',
+                  color: 'var(--ef-text-primary)',
                   fontSize: '1.375rem',
                   fontWeight: 700,
                   letterSpacing: '-0.02em',

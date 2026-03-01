@@ -82,12 +82,12 @@ export function Navigation() {
               fontSize: '20px',
               fontWeight: 800,
               letterSpacing: '-0.03em',
-              color: '#E8E4DF',
+              color: 'var(--ef-text-primary)',
             }}
           >
             e<span
               style={{
-                color: '#C17F3E',
+                color: 'var(--ef-copper)',
                 display: 'inline-block',
                 transform: `rotate(${phiRotation}deg)`,
                 transition: 'transform 0.05s linear',
@@ -118,7 +118,7 @@ export function Navigation() {
               href={item.href}
               className="ef-nav-link text-sm transition-colors duration-150"
               style={{ color: 'rgba(232, 228, 223, 0.55)', fontWeight: 500, letterSpacing: '0.01em' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#E8E4DF')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232, 228, 223, 0.55)')}
             >
               {item.label}
@@ -128,7 +128,7 @@ export function Navigation() {
             href="#contact"
             className="ef-cta-btn text-sm font-semibold"
             style={{
-              backgroundColor: '#B87333',
+              backgroundColor: 'var(--ef-copper)',
               color: '#ffffff',
               padding: '9px 20px',
               letterSpacing: '0.01em',
@@ -136,8 +136,8 @@ export function Navigation() {
               display: 'inline-flex',
               alignItems: 'center',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#CA8A4B')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B87333')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
           >
             Book a Demo
           </a>
@@ -146,7 +146,7 @@ export function Navigation() {
         {/* Mobile toggle */}
         <button
           className="md:hidden p-2"
-          style={{ color: '#E8E4DF', minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          style={{ color: 'var(--ef-text-primary)', minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           onClick={() => setMobileOpen((o) => !o)}
           aria-expanded={mobileOpen}
           aria-controls="mobile-menu"
@@ -182,7 +182,7 @@ export function Navigation() {
                   style={{ color: 'rgba(232, 228, 223, 0.75)', minHeight: '48px', letterSpacing: '0.01em' }}
                   onClick={() => setMobileOpen(false)}
                   tabIndex={mobileOpen ? 0 : -1}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#E8E4DF')}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232, 228, 223, 0.75)')}
                 >
                   {item.label}
@@ -193,11 +193,11 @@ export function Navigation() {
               <a
                 href="#contact"
                 className="ef-cta-btn flex items-center justify-center text-sm font-semibold"
-                style={{ backgroundColor: '#B87333', color: '#fff', minHeight: '48px' }}
+                style={{ backgroundColor: 'var(--ef-copper)', color: '#fff', minHeight: '48px' }}
                 onClick={() => setMobileOpen(false)}
                 tabIndex={mobileOpen ? 0 : -1}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#CA8A4B')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#B87333')}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
               >
                 Book a Demo
               </a>

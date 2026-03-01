@@ -52,10 +52,10 @@ export function Footer() {
                   fontSize: '22px',
                   fontWeight: 800,
                   letterSpacing: '-0.03em',
-                  color: '#E8E4DF',
+                  color: 'var(--ef-text-primary)',
                 }}
               >
-                e<span style={{ color: '#B87333' }}>φ</span>ikton
+                e<span style={{ color: 'var(--ef-copper)' }}>φ</span>ikton
               </span>
             </a>
             <p
@@ -73,7 +73,7 @@ export function Footer() {
               style={{
                 fontSize: '11px',
                 fontWeight: 600,
-                color: '#B87333',
+                color: 'var(--ef-copper)',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
               }}
@@ -110,7 +110,7 @@ export function Footer() {
                         display: 'inline-block',
                         minHeight: '24px',
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = '#E8E4DF')}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
                       onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.8)')}
                     >
                       {item.label}
@@ -134,7 +134,7 @@ export function Footer() {
           <p style={{ fontSize: '12px', color: 'rgba(139, 134, 128, 0.5)' }}>
             © 2026 Efikton. All rights reserved.{' '}
             <span style={{ color: 'rgba(139, 134, 128, 0.3)' }}>
-              · Greece & EU · Middle East · Egypt
+              · Europe · Middle East & Africa · Global
             </span>
           </p>
 
@@ -157,7 +157,7 @@ export function Footer() {
                   minWidth: '44px',
                   minHeight: '44px',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = '#B87333')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-copper)')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.4)')}
               >
                 <Icon className="w-4 h-4" aria-hidden="true" />

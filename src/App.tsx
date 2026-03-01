@@ -3,7 +3,6 @@ import { Solutions } from './components/Solutions';
 import { Features } from './components/Features';
 import { ERPReplacement } from './components/ERPReplacement';
 import { Testimonials } from './components/Testimonials';
-import { CaseStudy } from './components/CaseStudy';
 import { About } from './components/About';
 import { CTA } from './components/CTA';
 import { Navigation } from './components/Navigation';
@@ -43,10 +42,7 @@ export default function App() {
         <CopperDrawDivider />
         <div aria-hidden="true" className="ef-section-divider" />
         <Testimonials />
-        {/* Section transition: cream → navy (case study) */}
-        <div aria-hidden="true" className="ef-section-divider" />
-        <CaseStudy />
-        {/* Section transition: navy → charcoal + φ */}
+        {/* Section transition: cream → charcoal + φ */}
         <div aria-hidden="true" className="ef-section-divider" />
         <FibonacciDivider rotation={135} opacity={0.055} />
         <About />

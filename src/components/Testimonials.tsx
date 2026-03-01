@@ -1,5 +1,6 @@
 import { useInView } from '../hooks/useInView';
 import { useCountUp } from '../hooks/useCountUp';
+import { useParams } from 'react-router-dom';
 
 // Animated metric component
 function AnimatedMetric({
@@ -35,7 +36,7 @@ const proofPoints = [
     suffix: '×',
     label: 'Profit Increase',
     timeframe: 'In 2 years',
-    description: 'A Greek auto parts manufacturer transformed margins by running all four Efikton pillars as one system.',
+    description: 'A European auto parts manufacturer transformed margins by running all four Efikton pillars as one system.',
     industry: 'Automotive Manufacturing',
   },
   {
@@ -95,6 +96,8 @@ const ownerQuotes = [
 ];
 
 export function Testimonials() {
+  const { paletteId } = useParams<{ paletteId: string }>();
+  const caseStudyHref = `/${paletteId || '1'}/case-study`;
   const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [numbersRef, numbersVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [quotesRef, quotesVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
@@ -102,28 +105,28 @@ export function Testimonials() {
   return (
     <section
       id="results"
-      style={{ backgroundColor: '#F5F2ED', scrollMarginTop: '64px' }}
+      style={{ backgroundColor: 'var(--ef-surface)', scrollMarginTop: '64px' }}
       aria-labelledby="results-heading"
     >
       {/* Header */}
       <div
         className="w-full px-6 lg:px-10"
-        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '80px' }}
+        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '128px' }}
       >
         <div
           ref={headerRef}
           className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
         >
         <div className="flex items-center gap-3 mb-8">
-          <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
-          <span style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <div style={{ width: '28px', height: '1px', backgroundColor: 'var(--ef-copper)' }} aria-hidden="true" />
+          <span style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Proven Results
           </span>
         </div>
         <h2
           id="results-heading"
           style={{
-            color: '#0A1628',
+            color: 'var(--ef-navy)',
             fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
             fontWeight: 800,
             letterSpacing: '-0.03em',
@@ -177,7 +180,7 @@ export function Testimonials() {
                   style={{
                     fontSize: '16px',
                     fontWeight: 700,
-                    color: '#0A1628',
+                    color: 'var(--ef-navy)',
                     letterSpacing: '-0.01em',
                     marginBottom: '4px',
                   }}
@@ -195,7 +198,7 @@ export function Testimonials() {
                     marginTop: '16px',
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: '#C17F3E',
+                    color: 'var(--ef-copper)',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
                   }}
@@ -204,7 +207,7 @@ export function Testimonials() {
                 </div>
                 {i === 0 && (
                   <a
-                    href="#case-study"
+                    href={caseStudyHref}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -212,17 +215,14 @@ export function Testimonials() {
                       marginTop: '20px',
                       fontSize: '12px',
                       fontWeight: 600,
-                      color: '#C17F3E',
+                      color: 'var(--ef-copper)',
                       textDecoration: 'none',
                       letterSpacing: '0.02em',
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = '#D4A574')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = '#C17F3E')}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-copper-light)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ef-copper)')}
                   >
-                    Read full case study
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                      <path d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    Read full case study →
                   </a>
                 )}
               </div>
@@ -308,7 +308,7 @@ export function Testimonials() {
                     style={{
                       fontSize: 'clamp(0.9375rem, 1.5vw, 1.125rem)',
                       fontWeight: 500,
-                      color: '#0A1628',
+                      color: 'var(--ef-navy)',
                       lineHeight: 1.7,
                       letterSpacing: '-0.01em',
                       fontStyle: 'italic',
@@ -339,7 +339,7 @@ export function Testimonials() {
                       style={{
                         fontSize: '13px',
                         fontWeight: 700,
-                        color: '#0A1628',
+                        color: 'var(--ef-navy)',
                         letterSpacing: '-0.01em',
                         display: 'block',
                         marginBottom: '2px',
@@ -351,7 +351,7 @@ export function Testimonials() {
                       style={{
                         fontSize: '11px',
                         fontWeight: 600,
-                        color: '#C17F3E',
+                        color: 'var(--ef-copper)',
                         letterSpacing: '0.06em',
                         textTransform: 'uppercase',
                         display: 'block',
@@ -378,26 +378,23 @@ export function Testimonials() {
           {/* Case study CTA */}
           <div style={{ marginTop: '48px', display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
             <a
-              href="#case-study"
+              href={caseStudyHref}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
                 fontSize: '13px',
                 fontWeight: 600,
-                color: '#C17F3E',
+                color: 'var(--ef-copper)',
                 textDecoration: 'none',
                 letterSpacing: '0.04em',
                 borderBottom: '1px solid rgba(193, 127, 62, 0.3)',
                 paddingBottom: '2px',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#A06830'; e.currentTarget.style.borderBottomColor = '#A06830'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = '#C17F3E'; e.currentTarget.style.borderBottomColor = 'rgba(193, 127, 62, 0.3)'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--ef-copper-dark)'; e.currentTarget.style.borderBottomColor = 'var(--ef-copper-dark)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--ef-copper)'; e.currentTarget.style.borderBottomColor = 'rgba(193, 127, 62, 0.3)'; }}
             >
-              Read the Thermotech Hellas case study
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              See Case Study: Thermotech Hellas →
             </a>
           </div>
 
@@ -408,7 +405,7 @@ export function Testimonials() {
                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                 fontWeight: 800,
                 letterSpacing: '-0.03em',
-                color: '#C17F3E',
+                color: 'var(--ef-copper)',
               }}
               lang="el"
             >

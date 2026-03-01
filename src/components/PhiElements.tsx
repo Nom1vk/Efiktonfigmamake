@@ -24,17 +24,17 @@ export function FibonacciDivider({ rotation = 0, opacity = 0.055 }: { rotation?:
         style={{ transform: `rotate(${rotation}deg)` }}
       >
         {/* Outer rectangle (φ ratio: 120 × 74.16...) */}
-        <rect x="1" y="1" width="118" height="72" stroke="#C17F3E" strokeWidth="0.8" />
+        <rect x="1" y="1" width="118" height="72" stroke="var(--ef-copper)" strokeWidth="0.8" />
         {/* Square portion: 72×72 on left */}
-        <rect x="1" y="1" width="72" height="72" stroke="#C17F3E" strokeWidth="0.6" />
+        <rect x="1" y="1" width="72" height="72" stroke="var(--ef-copper)" strokeWidth="0.6" />
         {/* Remaining rectangle: 46×72 on right → 46×28 square + 18×46 rect */}
-        <rect x="73" y="1" width="46" height="28" stroke="#C17F3E" strokeWidth="0.5" />
+        <rect x="73" y="1" width="46" height="28" stroke="var(--ef-copper)" strokeWidth="0.5" />
         {/* Sub-rectangle */}
-        <rect x="73" y="29" width="28" height="44" stroke="#C17F3E" strokeWidth="0.4" />
+        <rect x="73" y="29" width="28" height="44" stroke="var(--ef-copper)" strokeWidth="0.4" />
         {/* Innermost suggestion */}
-        <rect x="84" y="29" width="17" height="27" stroke="#C17F3E" strokeWidth="0.3" />
+        <rect x="84" y="29" width="17" height="27" stroke="var(--ef-copper)" strokeWidth="0.3" />
         {/* φ label */}
-        <text x="60" y="42" textAnchor="middle" fontSize="10" fill="#C17F3E" fontFamily="ui-sans-serif" fontWeight="600" letterSpacing="0.05em">φ</text>
+        <text x="60" y="42" textAnchor="middle" fontSize="10" fill="var(--ef-copper)" fontFamily="ui-sans-serif" fontWeight="600" letterSpacing="0.05em">φ</text>
       </svg>
     </div>
   );
@@ -93,7 +93,7 @@ export function GoldenSpiral({ className = '' }: { className?: string }) {
             A 88.721 88.721 0 0 1 160 71.279
             A 143.554 143.554 0 0 1 16.446 160
           "
-          stroke="#C17F3E"
+          stroke="var(--ef-copper)"
           strokeWidth="1.2"
           strokeLinecap="round"
           fill="none"

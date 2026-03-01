@@ -77,28 +77,28 @@ export function Solutions() {
   return (
     <section
       id="solutions"
-      style={{ backgroundColor: '#F5F2ED', scrollMarginTop: '64px' }}
+      style={{ backgroundColor: 'var(--ef-surface)', scrollMarginTop: '64px' }}
       aria-labelledby="solutions-heading"
     >
       {/* Header */}
       <div
         className="w-full px-6 lg:px-10"
-        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '80px' }}
+        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '128px' }}
       >
         <div
           ref={headerRef}
           className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
         >
           <div className="flex items-center gap-3 mb-8">
-            <div style={{ width: '28px', height: '1px', backgroundColor: '#B87333' }} aria-hidden="true" />
-            <span style={{ color: '#B87333', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <div style={{ width: '28px', height: '1px', backgroundColor: 'var(--ef-copper)' }} aria-hidden="true" />
+            <span style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               The Efikton Method
             </span>
           </div>
           <h2
             id="solutions-heading"
             style={{
-              color: '#0A1628',
+              color: 'var(--ef-navy)',
               fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
               fontWeight: 800,
               letterSpacing: '-0.03em',
@@ -112,7 +112,7 @@ export function Solutions() {
             One System.
           </h2>
           <p style={{ color: 'var(--ef-text-secondary)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '480px' }}>
-            A <strong style={{ color: '#0A1628', fontWeight: 600 }}>methodology</strong> for running manufacturing with control. The software enforces the method across every dimension of your operation.
+            A <strong style={{ color: 'var(--ef-navy)', fontWeight: 600 }}>methodology</strong> for running manufacturing with control. The software enforces the method across every dimension of your operation.
           </p>
         </div>
       </div>
@@ -146,7 +146,7 @@ export function Solutions() {
                       width: '8px',
                       height: '8px',
                       borderRadius: '50%',
-                      backgroundColor: i === 3 ? '#B87333' : i === 0 ? 'rgba(10, 22, 40, 0.25)' : 'rgba(10, 22, 40, 0.15)',
+                      backgroundColor: i === 3 ? 'var(--ef-copper)' : i === 0 ? 'rgba(10, 22, 40, 0.25)' : 'rgba(10, 22, 40, 0.15)',
                       flexShrink: 0,
                     }}
                     aria-hidden="true"
@@ -157,7 +157,7 @@ export function Solutions() {
                       fontWeight: 700,
                       letterSpacing: '0.1em',
                       textTransform: 'uppercase',
-                      color: i === 3 ? '#B87333' : i === 0 ? '#0A1628' : 'var(--ef-text-secondary)',
+                      color: i === 3 ? 'var(--ef-copper)' : i === 0 ? 'var(--ef-navy)' : 'var(--ef-text-secondary)',
                     }}
                   >
                     {step.label}
@@ -178,7 +178,7 @@ export function Solutions() {
                 top: 0,
                 height: '100%',
                 width: '100%',
-                backgroundColor: '#B87333',
+                backgroundColor: 'var(--ef-copper)',
                 transformOrigin: 'left',
                 transform: arcVisible ? 'scaleX(1)' : 'scaleX(0)',
                 transition: 'transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
@@ -245,7 +245,7 @@ export function Solutions() {
                     style={{
                       fontSize: '13px',
                       fontWeight: 700,
-                      color: '#B87333',
+                      color: 'var(--ef-copper)',
                       letterSpacing: '0.05em',
                       opacity: 0.65,
                     }}
@@ -258,7 +258,7 @@ export function Solutions() {
                 <div style={{ paddingRight: '40px' }}>
                   {/* Mobile number inline */}
                   <div className="flex items-center gap-3 lg:hidden" style={{ marginBottom: '12px' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#B87333', opacity: 0.65, letterSpacing: '0.05em' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--ef-copper)', opacity: 0.65, letterSpacing: '0.05em' }}>
                       {pillar.num}
                     </span>
                     <span
@@ -267,7 +267,7 @@ export function Solutions() {
                         fontWeight: 700,
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
-                        color: '#B87333',
+                        color: 'var(--ef-copper)',
                       }}
                     >
                       {pillar.title}
@@ -281,7 +281,7 @@ export function Solutions() {
                         fontWeight: 700,
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
-                        color: '#B87333',
+                        color: 'var(--ef-copper)',
                       }}
                     >
                       {pillar.title}
@@ -292,7 +292,7 @@ export function Solutions() {
                       fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
                       fontWeight: 700,
                       letterSpacing: '-0.02em',
-                      color: '#0A1628',
+                      color: 'var(--ef-navy)',
                       lineHeight: 1.2,
                     }}
                   >
@@ -317,10 +317,10 @@ export function Solutions() {
                     style={{
                       fontSize: '12px',
                       fontWeight: 600,
-                      color: '#0A1628',
+                      color: 'var(--ef-navy)',
                       letterSpacing: '0.02em',
                       paddingLeft: '12px',
-                      borderLeft: '2px solid #B87333',
+                      borderLeft: '2px solid var(--ef-copper)',
                       lineHeight: 1.5,
                     }}
                   >
@@ -346,12 +346,12 @@ export function Solutions() {
               fontSize: 'clamp(1.25rem, 2.5vw, 2rem)',
               fontWeight: 700,
               letterSpacing: '-0.02em',
-              color: '#0A1628',
+              color: 'var(--ef-navy)',
               maxWidth: '700px',
             }}
           >
             "Quality becomes stable —{' '}
-            <span style={{ color: '#B87333' }}>not a daily fight.</span>"
+            <span style={{ color: 'var(--ef-copper)' }}>not a daily fight.</span>"
           </p>
           <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--ef-text-secondary)' }}>
             When you control Materials, Time, and Money — Quality follows.

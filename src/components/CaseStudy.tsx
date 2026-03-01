@@ -1,5 +1,6 @@
 import { useInView } from '../hooks/useInView';
 import { useCountUp } from '../hooks/useCountUp';
+import { useParams } from 'react-router-dom';
 
 // Parse metric string → { count, suffix } or null if not numeric
 function parseMetricCount(metric: string): { count: number; suffix: string } | null {
@@ -120,6 +121,8 @@ const thermotechCase: CaseStudyData = {
 };
 
 export function CaseStudy() {
+  const { paletteId } = useParams<{ paletteId: string }>();
+  const homeHref = `/${paletteId || '1'}/#results`;
   const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [challengeRef, challengeVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
   const [phasesRef, phasesVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
@@ -131,21 +134,21 @@ export function CaseStudy() {
   return (
     <section
       id="case-study"
-      style={{ backgroundColor: '#0A1628', scrollMarginTop: '64px' }}
+      style={{ backgroundColor: 'var(--ef-navy)', scrollMarginTop: '64px' }}
       aria-labelledby="case-study-heading"
     >
       {/* Header */}
       <div
         className="w-full px-6 lg:px-10"
-        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '80px' }}
+        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '128px' }}
       >
         <div
           ref={headerRef}
           className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
         >
           <div className="flex items-center gap-3 mb-8">
-            <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
-            <span style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <div style={{ width: '28px', height: '1px', backgroundColor: 'var(--ef-copper)' }} aria-hidden="true" />
+            <span style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               Case Study
             </span>
           </div>
@@ -161,7 +164,7 @@ export function CaseStudy() {
             <h2
               id="case-study-heading"
               style={{
-                color: '#E8E4DF',
+                color: 'var(--ef-text-primary)',
                 fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
                 fontWeight: 800,
                 letterSpacing: '-0.03em',
@@ -170,7 +173,7 @@ export function CaseStudy() {
             >
               {cs.company}
             </h2>
-            <p style={{ color: '#C17F3E', fontSize: '15px', fontWeight: 600, letterSpacing: '0.02em' }}>
+            <p style={{ color: 'var(--ef-copper)', fontSize: '15px', fontWeight: 600, letterSpacing: '0.02em' }}>
               {cs.industry}
             </p>
           </div>
@@ -195,7 +198,7 @@ export function CaseStudy() {
                 <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--ef-text-secondary)', letterSpacing: '0.10em', textTransform: 'uppercase', marginBottom: '4px' }}>
                   {item.label}
                 </div>
-                <div style={{ fontSize: '14px', color: '#E8E4DF', fontWeight: 500 }}>
+                <div style={{ fontSize: '14px', color: 'var(--ef-text-primary)', fontWeight: 500 }}>
                   {item.value}
                 </div>
               </div>
@@ -226,10 +229,10 @@ export function CaseStudy() {
             }}
           >
             <div>
-              <h3 style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '24px' }}>
+              <h3 style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '24px' }}>
                 The Challenge
               </h3>
-              <p style={{ color: '#E8E4DF', fontSize: '1.125rem', fontWeight: 500, lineHeight: 1.7, letterSpacing: '-0.01em' }}>
+              <p style={{ color: 'var(--ef-text-primary)', fontSize: '1.125rem', fontWeight: 500, lineHeight: 1.7, letterSpacing: '-0.01em' }}>
                 {cs.challenge}
               </p>
             </div>
@@ -251,7 +254,7 @@ export function CaseStudy() {
                         width: '6px',
                         height: '6px',
                         borderRadius: '50%',
-                        backgroundColor: '#C17F3E',
+                        backgroundColor: 'var(--ef-copper)',
                         marginTop: '8px',
                       }}
                       aria-hidden="true"
@@ -282,7 +285,7 @@ export function CaseStudy() {
           ref={phasesRef}
           className={`animate-reveal${phasesVisible ? ' is-visible' : ''}`}
         >
-          <h3 style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '48px' }}>
+          <h3 style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '48px' }}>
             The Implementation
           </h3>
           <p style={{ color: 'rgba(232, 228, 223, 0.6)', fontSize: '14px', marginBottom: '48px', maxWidth: '480px', lineHeight: 1.7 }}>
@@ -309,7 +312,7 @@ export function CaseStudy() {
                 </div>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '12px', flexWrap: 'wrap' }}>
-                    <h4 style={{ color: '#E8E4DF', fontSize: '17px', fontWeight: 700, letterSpacing: '-0.02em' }}>
+                    <h4 style={{ color: 'var(--ef-text-primary)', fontSize: '17px', fontWeight: 700, letterSpacing: '-0.02em' }}>
                       {phase.title}
                     </h4>
                     <span style={{ fontSize: '12px', color: 'var(--ef-text-secondary)', fontWeight: 500, letterSpacing: '0.04em' }}>
@@ -333,7 +336,7 @@ export function CaseStudy() {
                           style={{ flexShrink: 0, marginTop: '3px' }}
                           aria-hidden="true"
                         >
-                          <path d="M2.5 7L5.5 10L11.5 4" stroke="#C17F3E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M2.5 7L5.5 10L11.5 4" stroke="var(--ef-copper)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         <span style={{ fontSize: '13px', color: 'rgba(232, 228, 223, 0.75)', lineHeight: 1.6 }}>
                           {win}
@@ -363,7 +366,7 @@ export function CaseStudy() {
           ref={resultsRef}
           className={`animate-reveal${resultsVisible ? ' is-visible' : ''}`}
         >
-          <h3 style={{ color: '#C17F3E', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '48px' }}>
+          <h3 style={{ color: 'var(--ef-copper)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '48px' }}>
             The Results
           </h3>
 
@@ -382,7 +385,7 @@ export function CaseStudy() {
                 key={i}
                 role="listitem"
                 style={{
-                  backgroundColor: '#0A1628',
+                  backgroundColor: 'var(--ef-navy)',
                   padding: '32px 28px',
                 }}
               >
@@ -390,7 +393,7 @@ export function CaseStudy() {
                   style={{
                     fontSize: 'clamp(2rem, 4vw, 3rem)',
                     fontWeight: 800,
-                    color: '#C17F3E',
+                    color: 'var(--ef-copper)',
                     letterSpacing: '-0.04em',
                     lineHeight: 1,
                     marginBottom: '8px',
@@ -398,7 +401,7 @@ export function CaseStudy() {
                 >
                   <AnimatedResultMetric metric={result.metric} visible={resultsVisible} />
                 </div>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#E8E4DF', marginBottom: '4px' }}>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--ef-text-primary)', marginBottom: '4px' }}>
                   {result.label}
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--ef-text-secondary)', lineHeight: 1.5 }}>
@@ -427,7 +430,7 @@ export function CaseStudy() {
         >
           <blockquote
             style={{
-              borderLeft: '3px solid #C17F3E',
+              borderLeft: '3px solid var(--ef-copper)',
               paddingLeft: '32px',
               maxWidth: '680px',
             }}
@@ -436,7 +439,7 @@ export function CaseStudy() {
               style={{
                 fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
                 fontWeight: 500,
-                color: '#E8E4DF',
+                color: 'var(--ef-text-primary)',
                 lineHeight: 1.65,
                 letterSpacing: '-0.02em',
                 fontStyle: 'italic',
@@ -446,10 +449,10 @@ export function CaseStudy() {
               "{cs.quote}"
             </p>
             <cite style={{ fontStyle: 'normal', display: 'block' }}>
-              <span style={{ fontSize: '14px', fontWeight: 700, color: '#E8E4DF', display: 'block', marginBottom: '2px' }}>
+              <span style={{ fontSize: '14px', fontWeight: 700, color: 'var(--ef-text-primary)', display: 'block', marginBottom: '2px' }}>
                 {cs.quotePerson}
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 600, color: '#C17F3E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--ef-copper)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                 {cs.quoteTitle}
               </span>
             </cite>
@@ -458,24 +461,21 @@ export function CaseStudy() {
           {/* Back link */}
           <div style={{ marginTop: '64px' }}>
             <a
-              href="#results"
+              href={homeHref}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
                 fontSize: '13px',
                 fontWeight: 600,
-                color: '#C17F3E',
+                color: 'var(--ef-copper)',
                 letterSpacing: '0.04em',
                 textDecoration: 'none',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#D4A574')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#C17F3E')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-copper-light)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ef-copper)')}
             >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M8.5 2.5L3.5 7L8.5 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Back to results
+              ← Back to Results
             </a>
           </div>
         </div>
