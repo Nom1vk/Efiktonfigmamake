@@ -396,12 +396,13 @@ export function Hero() {
         >
           <a
             href="#contact"
-            className="ef-cta-primary group touch-manipulation active:scale-98"
+            className="ef-cta-primary group touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
             style={{
               whiteSpace: 'nowrap',
               minWidth: 0,
               fontSize: 'clamp(13px, 2vw, 14px)',
-              transition: 'background-color 0.2s ease, transform 0.15s ease',
+              transition: 'background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease',
+              borderRadius: '2px',
             }}
             onTouchStart={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
             onTouchEnd={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
@@ -411,12 +412,13 @@ export function Hero() {
           </a>
           <a
             href="#results"
-            className="ef-cta-secondary touch-manipulation active:scale-98"
+            className="ef-cta-secondary touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
             style={{
               whiteSpace: 'nowrap',
               minWidth: 0,
               fontSize: 'clamp(13px, 2vw, 14px)',
-              transition: 'opacity 0.2s ease, border-color 0.2s ease, transform 0.15s ease',
+              transition: 'opacity 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease',
+              borderRadius: '2px',
             }}
             onTouchStart={(e) => {
               e.currentTarget.style.opacity = '1';
