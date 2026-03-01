@@ -19,7 +19,7 @@ export function PaletteSwitcher() {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-2.5 rounded-full backdrop-blur-md"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full backdrop-blur-md"
       style={{
         background: 'rgba(0, 0, 0, 0.6)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
