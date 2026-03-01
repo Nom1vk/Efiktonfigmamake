@@ -25,67 +25,25 @@ export default function App() {
       <main id="main-content">
         <Hero />
         {/* Section transition: navy → off-white */}
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.35) 30%, rgba(184, 115, 51, 0.5) 50%, rgba(184, 115, 51, 0.35) 70%, transparent 100%)',
-          }}
-        />
+        <div aria-hidden="true" className="ef-section-divider ef-section-divider--strong" />
         <Solutions />
         {/* Section transition: off-white → navy */}
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
-          }}
-        />
+        <div aria-hidden="true" className="ef-section-divider" />
         <Features />
         {/* Section transition: navy → cream */}
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
-          }}
-        />
+        <div aria-hidden="true" className="ef-section-divider" />
         <ERPReplacement />
         {/* Section transition: cream → off-white */}
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
-          }}
-        />
+        <div aria-hidden="true" className="ef-section-divider" />
         <Testimonials />
         {/* Section transition: cream → navy (case study) */}
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
-          }}
-        />
+        <div aria-hidden="true" className="ef-section-divider" />
         <CaseStudy />
         {/* Section transition: navy → charcoal */}
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
-          }}
-        />
+        <div aria-hidden="true" className="ef-section-divider" />
         <About />
         {/* Section transition: charcoal → navy */}
-        <div
-          aria-hidden="true"
-          style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.2) 30%, rgba(184, 115, 51, 0.35) 50%, rgba(184, 115, 51, 0.2) 70%, transparent 100%)',
-          }}
-        />
+        <div aria-hidden="true" className="ef-section-divider" />
         <CTA />
       </main>
       <Footer />
