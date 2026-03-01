@@ -1358,21 +1358,23 @@ select:valid:focus:not(:placeholder-shown) {
   /* Show track only on larger screens */
 }
 
-/* The fill is the animated copper line — height driven by scroll progress */
+/* The fill is the animated copper line — scaleY driven by scroll progress (GPU-composited, no paint) */
 .case-phase-timeline-fill {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  /* height maps --case-phase-progress 0→1 to the full track height */
-  height: calc(var(--case-phase-progress, 0) * 100%);
+  /* Full height; scaleY(0→1) from top reveals the fill — no layout/paint cost */
+  height: 100%;
+  transform-origin: top;
+  transform: scaleY(var(--case-phase-progress, 0));
+  /* No transition: scroll-linked progress should be immediate (direct mapping) */
   background: linear-gradient(
     to bottom,
     rgba(193, 127, 62, 0.9),
     rgba(193, 127, 62, 0.4)
   );
-  transition: height 0.05s linear;
-  /* Glow tip */
+  /* Glow only applied statically; no continuous repaint on scroll */
   box-shadow: 0 0 8px rgba(193, 127, 62, 0.6);
 }
 
@@ -1478,7 +1480,7 @@ select:valid:focus:not(:placeholder-shown) {
 /* ── prefers-reduced-motion: instant final state, no motion ─────────────── */
 @media (prefers-reduced-motion: reduce) {
   .case-phase-timeline-fill {
-    height: 100%;
+    transform: scaleY(1);
     transition: none;
   }
   .case-phase-row {
@@ -1515,7 +1517,8 @@ select:valid:focus:not(:placeholder-shown) {
 }
 
 /* ── Mobile: hide the timeline track (too narrow) ───────────────────────── */
-@media (max-width: 480px) {
+/* Raised from 480px → 640px to prevent cramped rail/gutter on 481–540px devices */
+@media (max-width: 640px) {
   .case-phase-timeline-track {
     display: none;
   }
