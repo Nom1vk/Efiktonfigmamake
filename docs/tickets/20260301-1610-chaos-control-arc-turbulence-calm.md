@@ -84,29 +84,35 @@ The turbulence-to-calm transition is not decoration. It is the visitor *experien
 - `src/styles/globals.css` — Add `@keyframes chaos-blur-flicker`, `chaos-dot-pulse`, `arc-jitter`, `arc-results-expand`. Add `data-arc-stage`-conditioned selectors for turbulence on/off. Add `letter-spacing` transition to `.arc-step-active` label text.
 - `src/components/Solutions.tsx` — Add one-shot state for RESULTS expansion (similar pattern to existing `resultsFired`). Possibly add `animationend` cleanup for `will-change` on the arc container (~5 lines).
 
-### Acceptance Criteria
+### Acceptance Criteria (Polished)
 
-#### Motion Quality
-- [ ] CHAOS state has visible text blur flicker at ~3Hz when `data-arc-stage="0"`, text remains fully readable (blur ≤ 0.4px)
-- [ ] CHAOS dot pulses arrhythmically (not smooth sine — use `steps()` timing)
-- [ ] Container jitter amplitude is ≤ 0.5px translateX — felt, not seen
-- [ ] All turbulence ceases completely by scroll progress 0.45 (midway through METHOD)
-- [ ] METHOD step label has letter-spacing tightening from 0.02em → 0em over 400ms on activation
-- [ ] RESULTS micro-expansion (scale 1.005) fires once, settles in ≤ 600ms
+#### Motion & Narrative Behavior
+- [ ] **Stage mapping is deterministic:** stage 0 (CHAOS) = turbulent, stage 1 (METHOD) = damping, stage 2/3 (CONTROL/RESULTS) = fully stable.
+- [ ] **CHAOS blur flicker is perceptible but legible:** flicker cadence targets ~3Hz using `steps()`, with effective blur clamp at `0px–0.4px`.
+- [ ] **CHAOS dot feels nervous, not decorative:** pulse uses stepped/irregular timing (no smooth sine-like easing).
+- [ ] **Container jitter is subconscious only:** effective `translateX` amplitude never exceeds ±0.5px.
+- [ ] **Damping is complete by 45% scroll progress:** all turbulence animations are fully off by progress `0.45`.
+- [ ] **METHOD communicates organization:** active METHOD label tightens `letter-spacing` from `0.02em` to `0em` over `400ms` (`ease`/`ease-out`).
+- [ ] **RESULTS lands once:** one-shot container micro-expansion (`scale(1.005)`) runs a single time, settles within `600ms`, and does not replay on minor scroll oscillation.
 
-#### Conversion Guardrails
-- [ ] CHAOS text is readable at all times — blur never exceeds 0.4px
-- [ ] No motion causes nausea or discomfort — amplitudes are sub-pixel
-- [ ] Turbulence enhances the narrative, does not distract from CTA visibility
-- [ ] Users who scroll quickly still see a coherent transition (no lingering stuck states)
+#### Conversion & UX Guardrails
+- [ ] **Readability never degrades:** CHAOS copy remains readable at all times (no blur or opacity combinations that reduce scanability).
+- [ ] **No attention hijack:** motion supports story comprehension and does not compete with CTA discoverability in adjacent sections.
+- [ ] **Fast-scroll resilience:** rapid scroll through the arc never leaves stale visual states (e.g., jitter active in METHOD+).
+- [ ] **Comfort threshold maintained:** no abrupt flashes, jumps, or high-frequency jitter that could feel harsh.
 
-#### Technical / Performance
-- [ ] Only compositor-friendly properties animate (`transform`, `opacity`, `filter`)
-- [ ] Zero CLS impact — no layout shifts from jitter
-- [ ] Existing `--arc-jitter-intensity` CSS custom property is leveraged (no new JS scroll listeners)
-- [ ] `prefers-reduced-motion: reduce` disables all turbulence — calm state renders immediately
-- [ ] `will-change` applied only during active turbulence, cleaned up after stage advances past 0
-- [ ] No additional React re-renders — all new motion is pure CSS driven by existing `data-arc-stage` attribute
+#### Technical & Performance
+- [ ] **No new scroll JS plumbing:** implementation reuses existing `useScrollProgress` outputs (`data-arc-stage`, `--arc-jitter-intensity`).
+- [ ] **Compositor-first animation set:** only `transform`, `opacity`, and constrained `filter` animate.
+- [ ] **No layout instability:** zero CLS introduced by arc motion.
+- [ ] **Reduced-motion compliance:** `prefers-reduced-motion: reduce` renders calm state immediately (no turbulence keyframes).
+- [ ] **`will-change` discipline:** set only while turbulence is active, then removed/neutralized when stage advances.
+- [ ] **React render budget unchanged:** no additional render loops; motion remains CSS-driven.
+
+#### QA Verification (Required)
+- [ ] Validate behavior at **desktop (1440px)** and **mobile (375px)**.
+- [ ] Verify on at least one Chromium browser with DevTools Performance spot-check (no long main-thread spikes attributable to arc animation).
+- [ ] Confirm no visual regressions in neighboring sections (`hero`, `comparison`, `timeline`) after integration.
 
 ---
 
