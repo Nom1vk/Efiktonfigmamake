@@ -1,91 +1,135 @@
 # ROCKET-237 — CI Step 4 QA (Performance + Polish)
 
-**Reviewer:** Anvil  
-**Date:** 2026-03-01 13:36 (Europe/Athens)  
-**Scope reviewed:** latest commit (`ce84736`) touching:
-- `src/components/Solutions.tsx`
-- `src/hooks/useScrollProgress.ts`
-- `src/index.css`
-
-## Verdict
-**NEEDS-WORK** (2 blocking, 3 non-blocking)
+Date: 2026-03-01 14:38 Europe/Athens
+Reviewer: Anvil
+Scope reviewed: latest commit set through `b0c14c7` in `/home/node/.openclaw/workspace/projects/efikton-website`
 
 ---
 
-## 🔴 Blocking findings
+## Executive Verdict
 
-### 1) Scroll-linked arc is React state-driven on every scroll frame (mobile jank risk)
-**Where:** `src/hooks/useScrollProgress.ts:17, 41, 44-47` and `src/components/Solutions.tsx:94-124, 182-188, 195, 316`  
+**Status: CHANGES_REQUESTED (minor-to-moderate polish fixes, no architecture blockers).**
 
-`setProgress(clamped)` runs in `requestAnimationFrame` on scroll, causing component re-renders at scroll frequency. In `Solutions`, this rerender regenerates many inline style objects and recomputes the full narrative arc tree.
+The new hero choreography is directionally strong and mostly performance-conscious (transform/opacity-first, reduced-motion branches present, will-change cleanup added). Build succeeds cleanly. 
 
-**Why this blocks:** The target here is smooth 60fps on mobile. Continuous React rerenders during scroll are a common source of dropped frames on mid/low-end devices.
-
-**Fix request:**
-- Keep scroll updates off React render path where possible.
-- Write CSS custom props directly to `arc-container` via ref in RAF (`--arc-progress`, `--arc-jitter`) and only sync coarse state transitions (`arcStage`) when the stage changes.
-- Avoid recomputing the entire section per pixel scrolled.
+However, there are still a few concrete polish/perf/a11y issues to resolve before final acceptance.
 
 ---
 
-### 2) Reduced-motion coverage is incomplete for scroll indicator bounce in active stylesheet
-**Where:** `src/index.css:1848-1850` and reduced-motion block at `1493-1507`  
+## 1) Animation PERFORMANCE (60fps, GPU, layout thrash)
 
-`.scroll-bounce` animation is defined, but this file only disables `.animate-bounce`, not `.scroll-bounce`.
+### What looks good
+- Entrances are primarily `transform` + `opacity` with staged keyframes.
+- `will-change` is used and then cleaned up via `useAnimEndCleanup`.
+- Scroll listeners in touched areas remain passive/RAF-throttled patterns.
 
-**Why this blocks:** `prefers-reduced-motion` must disable non-essential motion consistently.
+### Findings
+- **🟡 Paint-heavy path:** `hero-rule-draw` animates `clip-path` on `.ef-hero-vert-rule`. This can be paint-heavy on lower-end mobile GPUs compared to pure transform-based reveal.
+- **🟡 Persistent promotion window:** `will-change` remains active for ~2.7s for multiple hero elements. This is acceptable but slightly long for weaker devices.
 
-**Fix request:**
-- In `src/index.css`, add `.scroll-bounce { animation: none !important; }` inside a reduced-motion media query.
-
----
-
-## 🟡 Non-blocking improvements
-
-### 3) Progress bar animates via `width` every frame; prefer transform-based animation
-**Where:** `src/components/Solutions.tsx:316-320`  
-
-`width` updates cause layout work. Using `transform: scaleX(...)` avoids layout invalidation and is more compositor-friendly.
-
-**Request:** Convert bar fill to `transform: scaleX(progress)` with fixed width and `transform-origin: left`.
+### Requested fix
+1. Replace `clip-path` reveal with transform scale on a pseudo-element (`scaleY`) where possible.
+2. Consider shortening cleanup timeout (or clean via `animationend` listeners for precision).
 
 ---
 
-### 4) Duplicate/unused tilt helper adds confusion and maintenance overhead
-**Where:** `src/components/Solutions.tsx:6-25`  
+## 2) Reduced-motion compliance
 
-`useTilt()` is defined but not used; an inline tilt implementation is duplicated inside `pillars.map`.
+### What looks good
+- New hero choreography has explicit `@media (prefers-reduced-motion: reduce)` fallbacks.
+- Entrances snap to final visible states; transitions/animations are disabled.
 
-**Request:** Remove dead `useTilt` or refactor to a single reused implementation.
+### Findings
+- **🟢 No blocker found** in the newly introduced hero choreography paths.
 
----
-
-### 5) Accessibility semantics are mostly safe, but verify list semantics don’t over-announce
-**Where:** `src/components/Solutions.tsx:189-223` and `327-370`  
-
-`role="list"`/`role="listitem"` on non-native containers is acceptable; no keyboard traps introduced.
-
-**Request:** Keep as-is unless SR testing shows verbose/duplicated announcements. If it does, prefer native list elements for cleaner semantics.
+### Requested fix
+- Optional: centralize reduced-motion utility usage to avoid duplicated `matchMedia` calls across components.
 
 ---
 
-## Checklist against requested QA dimensions
+## 3) Mobile behavior / touch / scroll smoothness
 
-1. **Animation performance (60fps / GPU / no thrash):** ❌ Needs optimization (state-driven scroll updates + width-based progress fill).  
-2. **Reduced motion:** ❌ Incomplete (`.scroll-bounce` not explicitly disabled in active stylesheet).  
-3. **Mobile touch / scroll smoothness:** ⚠️ Touch fallback behavior is okay (`hover:none` guards), but scroll path likely janky under load.  
-4. **Load time / bundle size:** ✅ No dependency additions in this commit; build output remains reasonable.  
-5. **Design consistency (φ precision aesthetic):** ✅ Directionally strong and on-brand (subtle copper, controlled transitions, structured progression).  
-6. **Accessibility (keyboard / SR):** ✅ No regressions observed in code path; focus semantics unchanged.  
-7. **Build clean:** ✅ `npm run build` passes.
+### What looks good
+- Palette switcher spacing/positioning was adjusted for small screens.
+- CTA targets remain comfortably tappable.
 
-Build output (current HEAD):
-- `build/assets/index-CXbpaKYs.css`: **45.12 kB** (gzip 9.25 kB)
-- `build/assets/index-gQTUtCFQ.js`: **274.92 kB** (gzip 83.05 kB)
+### Findings
+- **🟡 Touch edge-case:** Hero CTA touch handlers use `onTouchStart`/`onTouchEnd` but do **not** handle `onTouchCancel`. Interrupted gestures can leave temporary visual state stuck.
+
+### Requested fix
+1. Add `onTouchCancel` handlers restoring default visual state for both CTAs.
+2. Prefer CSS `:active` / utility classes over imperative inline style mutations when possible.
 
 ---
 
-## Required action before approval
-Implement blocking fixes #1 and #2, then re-run QA for:
-- scroll smoothness on mobile viewport,
-- reduced-motion behavior across all animated elements in `Solutions`/Hero scroll indicators.
+## 4) Load time / bundle impact
+
+### What looks good
+- No new dependency additions detected in this commit range.
+- Production build completes successfully.
+
+### Build output
+- `build/assets/index-C1SwOCSF.js`: **279.07 kB** (gzip **83.77 kB**)
+- `build/assets/index-c8BI17uD.css`: **109.81 kB** (gzip **18.58 kB**)
+
+### Findings
+- **🟡 CSS growth is notable** (large global stylesheet expansion). Not an immediate fail, but monitor and prevent continued unbounded growth.
+
+### Requested fix
+- Split animation-heavy CSS into scoped/module files or sectioned imports to keep global CSS maintainable.
+
+---
+
+## 5) Design consistency (φ precision aesthetic)
+
+### What looks good
+- Choreography sequencing and copper accents align with the φ-inspired precision language.
+- Hardcoded whites/footer dark values were replaced by theme tokens (`--ef-white`, `--ef-footer-dark`).
+
+### Findings
+- **🟢 No aesthetic blocker found** in reviewed commits.
+
+---
+
+## 6) Accessibility (keyboard + SR)
+
+### What looks good
+- Focus-visible rings remain present on key interactive elements.
+- Hero headline uses `aria-label` while split decorative spans are `aria-hidden`.
+
+### Findings
+- **🟡 Process gap:** no automated lint/a11y script exists (`package.json` has only `dev` and `build`), so regressions may slip undetected.
+
+### Requested fix
+1. Add at least one CI a11y/lint gate (eslint + jsx-a11y recommended).
+2. Add keyboard regression check to CI QA checklist (tab order + focus visibility).
+
+---
+
+## 7) Build cleanliness
+
+- ✅ `npm run build` passes.
+- ⚠️ No lint/test scripts currently defined, so “clean” only covers compile/build.
+
+---
+
+## Required Actions Summary
+
+### 🔴 Blocking
+- None.
+
+### 🟡 Must-fix before final QA sign-off
+1. Add `onTouchCancel` handling (or CSS-only active states) for hero CTA touch interactions.
+2. Replace/optimize `clip-path` rule-draw animation to a transform-driven reveal.
+3. Add lint/a11y CI gate (minimum eslint baseline) so build quality is enforceable.
+
+### 🟢 Follow-up (non-blocking)
+1. Reduce global CSS surface area via modularization.
+2. Consider animationend-driven `will-change` cleanup for tighter perf hygiene.
+
+---
+
+## Final Recommendation
+
+**Request one more polish pass, then re-run CI Step 4 QA.**
+Core direction is strong and close to ship quality; the remaining issues are manageable and should be addressed now to avoid mobile/perf regressions later.
