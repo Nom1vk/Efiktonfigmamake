@@ -2321,6 +2321,48 @@ main a:not([class]) {
 .ef-cta-btn:focus-visible {
   animation: none;
   transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(193, 127, 62, 0.25), 0 0 0 1px rgba(193, 127, 62, 0.15);
+}
+
+/* Primary CTA — used in Hero and other sections */
+.ef-cta-primary {
+  background-color: #C17F3E !important;
+  color: #ffffff !important;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
+}
+.ef-cta-primary:hover,
+.ef-cta-primary:focus-visible {
+  background-color: #D4A574 !important;
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(193, 127, 62, 0.3), 0 0 0 1px rgba(193, 127, 62, 0.2);
+}
+
+/* Secondary CTA ghost button */
+.ef-cta-secondary {
+  border: 1px solid rgba(232, 228, 223, 0.2);
+  color: #E8E4DF;
+  padding: 14px 28px;
+  min-height: 48px;
+  opacity: 0.75;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+.ef-cta-secondary:hover,
+.ef-cta-secondary:focus-visible {
+  opacity: 1;
+  border-color: rgba(232, 228, 223, 0.4);
 }
 
 /* ── 4c. 3D tilt card ────────────────────────────────────────────────────────── */
