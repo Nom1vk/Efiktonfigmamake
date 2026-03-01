@@ -1,5 +1,5 @@
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useCountUp } from '../hooks/useCountUp';
 import { useInView } from '../hooks/useInView';
 
@@ -42,19 +42,31 @@ interface StatConfig {
   isLetterReveal?: boolean;
   countEnd?: number;
   suffix?: string;
+  /**
+   * Fraction to overshoot end value. e.g. 0.06 → peaks at end × 1.06.
+   * 5× → peaks at ~5.3×; 90% → peaks at ~93%.
+   */
+  overshoot?: number;
+  /** Decimal places to display during the overshoot phase. */
+  overshootDecimals?: number;
 }
 
 function AnimatedStat({
   stat,
   enabled,
   index,
+  onStatComplete,
 }: {
   stat: StatConfig;
   enabled: boolean;
   index: number;
+  /** Fires when this stat's count-up animation completes. */
+  onStatComplete?: (index: number) => void;
 }) {
   const [active, setActive] = useState(false);
   const [subVisible, setSubVisible] = useState(false);
+  const statValueRef = useRef<HTMLSpanElement>(null);
+
   const prefersReduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -77,11 +89,36 @@ function AnimatedStat({
     };
   }, [enabled, index, prefersReduced]);
 
+  // ── Landing impact handler ───────────────────────────────────────────────
+  // Phase 2 (per ticket): 80ms after count-up completes →
+  //   - scale(1.06) pulse via .is-landed CSS class (300ms ease-out)
+  //   - color flash via stat-flash keyframe (200ms)
+  //   - will-change set for pulse window, removed after
+  const handleCountComplete = useCallback(() => {
+    if (!prefersReduced) {
+      setTimeout(() => {
+        const el = statValueRef.current;
+        if (!el) return;
+        el.style.willChange = 'transform';
+        el.classList.add('is-landed');
+        // Clean up after animations complete (300ms pulse + buffer)
+        setTimeout(() => {
+          el.classList.remove('is-landed');
+          el.style.willChange = 'auto';
+        }, 400);
+      }, 80);
+    }
+    onStatComplete?.(index);
+  }, [index, onStatComplete, prefersReduced]);
+
   const counted = useCountUp({
     end: stat.countEnd ?? 0,
     duration: PHI_DURATION,
     suffix: stat.suffix ?? '',
+    overshoot: stat.overshoot ?? 0,
+    overshootDecimals: stat.overshootDecimals,
     enabled: active && !stat.isLetterReveal,
+    onComplete: stat.isLetterReveal ? undefined : handleCountComplete,
   });
 
   return (
@@ -93,13 +130,13 @@ function AnimatedStat({
       role="figure"
       aria-label={`${stat.value}: ${stat.label}`}
     >
-      <div className="ef-stat-value" aria-hidden="true">
+      <span ref={statValueRef} className="ef-stat-value" aria-hidden="true">
         {stat.isLetterReveal ? (
           <OtifReveal enabled={active} />
         ) : (
           <span>{active ? counted : `0${stat.suffix ?? ''}`}</span>
         )}
-      </div>
+      </span>
       <div
         style={{
           color: 'var(--ef-text-primary)',
@@ -133,10 +170,34 @@ function AnimatedStat({
 }
 
 // ─── Stats config ─────────────────────────────────────────────────────────────
+// Overshoot targets per ticket spec:
+//   5×  → peak 5.2–5.4  (overshoot=0.06 → 5.3×)
+//   90% → peak 92–95    (overshoot=0.033 → 92.97 ≈ 93%)
 const stats: StatConfig[] = [
-  { value: '5×', label: 'Profit increase', sub: 'in 2 years', countEnd: 5, suffix: '×' },
-  { value: '90%', label: 'Fewer problems', sub: 'ongoing, sustained', countEnd: 90, suffix: '%' },
-  { value: 'OTIF', label: 'On-Time In-Full', sub: 'within 1 year', isLetterReveal: true },
+  {
+    value: '5×',
+    label: 'Profit increase',
+    sub: 'in 2 years',
+    countEnd: 5,
+    suffix: '×',
+    overshoot: 0.06,
+    overshootDecimals: 1,
+  },
+  {
+    value: '90%',
+    label: 'Fewer problems',
+    sub: 'ongoing, sustained',
+    countEnd: 90,
+    suffix: '%',
+    overshoot: 0.033,
+    overshootDecimals: 0,
+  },
+  {
+    value: 'OTIF',
+    label: 'On-Time In-Full',
+    sub: 'within 1 year',
+    isLetterReveal: true,
+  },
 ];
 
 // ─── φ Geometric background ──────────────────────────────────────────────────
@@ -190,8 +251,7 @@ function PhiGeometricBackground() {
         <line x1="618" y1="0" x2="618" y2="382"
           stroke="rgba(193,127,62,0.023)" strokeWidth="0.7" />
 
-        {/* In left 618×382: 236×382 on left (remaining after 382×382 square... wait) */}
-        {/* 618×382 rect: remove 382×382 from right → 236×382 on left */}
+        {/* In left 618×382: 236×382 on left (remaining after 382×382 square) */}
         <rect x="0" y="0" width="236" height="382"
           fill="none" stroke="rgba(193,127,62,0.02)" strokeWidth="0.6" />
 
@@ -204,7 +264,6 @@ function PhiGeometricBackground() {
           fill="none" stroke="rgba(193,127,62,0.015)" strokeWidth="0.5" />
 
         {/* In right 618×1000 region: subdivide */}
-        {/* 618×1000 → remove 618×618 square from top → 618×382 at bottom */}
         <rect x="1000" y="618" width="618" height="382"
           fill="none" stroke="rgba(193,127,62,0.03)" strokeWidth="0.8" />
 
@@ -248,6 +307,8 @@ function useAnimEndCleanup(mounted: boolean) {
 export function Hero() {
   const [mounted, setMounted] = useState(false);
   const [statsRef, statsInView] = useInView<HTMLDivElement>({ threshold: 0.3 });
+  // One-shot sweep guard — fires exactly once per page load
+  const sweepFiredRef = useRef(false);
 
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
@@ -256,16 +317,33 @@ export function Hero() {
 
   useAnimEndCleanup(mounted);
 
+  // ── Phase 3: Completion sweep ─────────────────────────────────────────────
+  // Stat 1 (90%, index=1) is the last counting stat by timing
+  // (index=0 starts at 0ms, index=1 at 200ms — both take 1618ms).
+  // Sweep fires 400ms after stat 1 lands. One-shot guard prevents replay
+  // on scroll oscillation around the InView threshold.
+  const handleStatComplete = useCallback((index: number) => {
+    if (index !== 1 || sweepFiredRef.current) return;
+    sweepFiredRef.current = true;
+    const prf = typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prf) {
+      setTimeout(() => {
+        statsRef.current?.classList.add('sweep-active');
+      }, 400);
+    }
+  }, [statsRef]);
+
   return (
     <section
       className={`ef-hero-section relative flex flex-col${mounted ? ' is-mounted' : ''}`}
       style={{ minHeight: '100svh', backgroundColor: 'var(--ef-navy)' }}
       aria-label="Hero section"
     >
-      {/* φ Geometric living background — replaces static noise */}
+      {/* φ Geometric living background */}
       <PhiGeometricBackground />
 
-      {/* Subtle noise texture overlay (kept for micro-texture, reduced opacity) */}
+      {/* Subtle noise texture overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -420,7 +498,7 @@ export function Hero() {
           </blockquote>
         </div>
 
-        {/* CTAs — each has its own entrance animation class */}
+        {/* CTAs */}
         <div className="flex flex-wrap gap-2.5 sm:gap-3" style={{ marginLeft: 0 }}>
           <a
             href="#contact"
@@ -486,7 +564,20 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Stats bar — animated counting */}
+      {/* ── Stats bar — animated counting with overshoot landing impact ─────── */}
+      {/*
+        Architecture:
+          Phase 1 — Overshoot count-up: each number rises past target (5.3×, 93%)
+                     then settles to exact value. Done in useCountUp hook.
+          Phase 2 — Landing pulse: .is-landed triggers scale(1.06)→scale(1) + color flash.
+                     Added by AnimatedStat 80ms after count-up completes.
+          Phase 3 — Completion sweep: 1px copper line sweeps L→R across bar top.
+                     Added via .sweep-active class 400ms after last counting stat (index 1).
+          Phase 4 — Sublabel reveal: existing fade-in, unchanged.
+
+        Reduced-motion: no overshoot, no pulse, no sweep. Final values instant.
+        Sweep guard: sweepFiredRef prevents replay on scroll oscillation.
+      */}
       <div
         ref={statsRef}
         className="ef-stats-bar"
@@ -504,6 +595,7 @@ export function Hero() {
               stat={stat}
               enabled={statsInView}
               index={i}
+              onStatComplete={handleStatComplete}
             />
           ))}
         </div>
