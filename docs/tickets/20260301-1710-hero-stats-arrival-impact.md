@@ -109,3 +109,55 @@ The strikethrough list succeeds because each scratch *means* something — it's 
 ---
 
 *Filed by Nikos Papadopoulos — "In my factory, when the hydraulic press completes a cycle, you hear it. You feel it. Your numbers should land the same way. Make the proof hit like stamped steel, not like a spreadsheet refreshing."*
+
+---
+
+## Salt Review Addendum (Technical + Conversion Gate)
+
+**Verdict:** **SHIP IT**
+
+### Feasibility
+- **Technically feasible with current stack:** yes. The proposed `useCountUp` overshoot extension is straightforward in the existing `requestAnimationFrame` loop and does not require third-party libs.
+- **Implementation risk:** low-to-moderate. Main risk is perceptual tuning (overshoot too playful vs. too flat), not architecture.
+- **Performance risk:** low if implemented as specified (class-driven CSS, compositor-friendly transforms, one-shot sweep).
+
+### Conversion Impact
+- **Likely positive** for hero proof comprehension and memorability.
+- The animation is attached to hard-value stats (not decorative UI), so it supports trust-building when restrained.
+- **Guardrail:** keep total effect short and single-pass; if repeated on re-entry/scroll bounce, it becomes distraction.
+
+### Polished Acceptance Criteria (replace/tighten)
+
+#### Motion quality
+- [ ] Overshoot amplitude is **bounded per stat** to avoid cartooning:
+  - 5× target: peak **5.2–5.4**
+  - 90% target: peak **92–95**
+- [ ] Settle phase duration is **300–450ms** and ends with no visible oscillation after final frame.
+- [ ] Landing pulse runs once per stat: `scale(1.00 → 1.06 → 1.00)` in **260–320ms**.
+- [ ] Copper flash max duration **≤200ms**, and contrast remains readable throughout.
+- [ ] Sweep line executes **exactly once per page load/hero mount**.
+
+#### UX & conversion safety
+- [ ] Entire stat sequence (from first count start to sweep end) completes within **2.8s**.
+- [ ] Animation does not overlap CTA entry timing in a way that competes for focal priority.
+- [ ] No replay on minor scroll oscillation around in-view threshold.
+- [ ] Mobile (375px) preserves readability; no clipping/jitter at peak overshoot values.
+
+#### Accessibility & motion preferences
+- [ ] With `prefers-reduced-motion: reduce`, values render final state with **no counting, pulse, or sweep**.
+- [ ] Color flash does not reduce text contrast below accessible threshold for the displayed state.
+
+#### Engineering constraints
+- [ ] No additional npm dependencies.
+- [ ] No extra React state loops for frame updates beyond existing count-up path.
+- [ ] `will-change` is applied transiently and removed after pulse completion.
+- [ ] No layout-thrashing properties in animation keyframes (`top/left/width/height` disallowed).
+
+#### QA checks
+- [ ] Verified on desktop 1440px and mobile 375px.
+- [ ] Sweep remains single-fire after repeated scroll in/out test (10 cycles).
+- [ ] Existing hero motions (headline split, quote border, CTAs) remain timing-consistent.
+- [ ] Lighthouse/Performance regression: no material drop attributable to stats animation path.
+
+### Final note
+This is the right kind of motion work: proof-first, brand-consistent, and conversion-adjacent. Ship with strict timing discipline.
