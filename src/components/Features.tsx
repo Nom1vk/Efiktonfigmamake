@@ -185,12 +185,13 @@ function PipelineFlow() {
               <div
                 className={step.accent ? 'flow-step-accent' : ''}
                 style={{
-                  padding: '8px 16px',
-                  fontSize: '13px',
+                  padding: '10px 16px',
+                  fontSize: 'clamp(12px, 2.5vw, 13px)',
                   fontWeight: 600,
                   backgroundColor: step.accent ? 'var(--ef-copper)' : 'rgba(255,255,255,0.06)',
                   color: step.accent ? '#ffffff' : 'var(--ef-text-primary)',
                   letterSpacing: '0.02em',
+                  borderRadius: '2px',
                   borderLeft: step.accent ? 'none' : '1px solid rgba(184,115,51,0.15)',
                 }}
               >
@@ -243,14 +244,20 @@ function PhaseTimeline() {
     <div ref={containerRef}>
       <h3 style={{
         color: 'var(--ef-text-primary)',
-        fontSize: '1.375rem',
+        fontSize: 'clamp(1.125rem, 3vw, 1.375rem)',
         fontWeight: 700,
         letterSpacing: '-0.02em',
         marginBottom: '8px',
+        lineHeight: 1.25,
       }}>
         We implement without stopping production
       </h3>
-      <p style={{ fontSize: '14px', color: 'var(--ef-text-secondary)', marginBottom: '32px', lineHeight: 1.6 }}>
+      <p style={{
+        fontSize: 'clamp(13px, 2.2vw, 14px)',
+        color: 'var(--ef-text-secondary)',
+        marginBottom: '32px',
+        lineHeight: 1.65,
+      }}>
         Each phase delivers measurable wins. No big-bang disruption.
       </p>
 
@@ -270,8 +277,8 @@ function PhaseTimeline() {
               className={`phase-bar${visiblePhases[i] ? ' is-visible' : ''}`}
               style={{
                 display: 'flex',
-                gap: '20px',
-                padding: '16px 0',
+                gap: 'clamp(12px, 3vw, 20px)',
+                padding: 'clamp(14px, 2.5vw, 16px) 0',
                 borderBottom: '1px solid rgba(255,255,255,0.07)',
                 transitionDelay: `${i * 250}ms`,
               }}

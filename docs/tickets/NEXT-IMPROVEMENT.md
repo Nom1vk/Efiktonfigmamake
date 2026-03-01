@@ -1,4 +1,4 @@
-# NEXT-IMPROVEMENT: Animated CHAOS→CONTROL Transformation Arc
+# NEXT-IMPROVEMENT: Hero Section — Scroll-Triggered Headline Choreography
 
 **Reviewer:** Khalid Al-Rashidi (CEO, Al-Rashidi Industrial Group, Riyadh)
 **Date:** 2026-03-01
@@ -8,126 +8,111 @@
 
 ## Persona Review
 
-I have spent $4.2 million on Oracle implementations that promised transformation and delivered PowerPoint. So when I look at this Efikton site, I ask one question: does it *feel* like transformation, or does it just *say* transformation?
+I have been burned by four Oracle implementations and a SAP rollout that cost more than my second factory line. When I land on a site that claims to fix manufacturing chaos, the first three seconds decide whether I read or leave.
 
-The answer right now: it says it. The CHAOS → METHOD → CONTROL → RESULTS arc in the Solutions section fades in like every other block on the page. Four boxes appear. You read them. You scroll past. There is no *feeling* of disorder resolving into order. No visceral moment where I think "yes, that is exactly what my plant floor feels like at 6am when three orders are late."
+I reviewed the Efikton site code in full. Here is my honest assessment against the six questions:
 
-**Score against the six questions:**
-1. **Does the site feel alive?** Partially. The count-up stats, pipeline pulse, and strikethrough list are good. But the middle of the page — the most important narrative beat — is flat.
-2. **Micro-interactions that reward exploration?** The 3D tilt on solution cards is nice but subtle. The pipeline pulse dots are good. Not enough yet.
-3. **Do numbers animate in?** Yes — hero stats and case study results count up well. ✓
-4. **Does the strikethrough list animate?** Yes — staggered strike with summary reveal. Well executed. ✓
-5. **Sense of craftsmanship?** The φ geometry, the timing constants (1618ms), the reduced-motion respect — yes, the bones are there. But the hero moment is missing.
-6. **"Wow, these people are serious" in 3 seconds?** Not yet. The hero is clean but static. The reveal animations are opacity fades. No sense of choreography.
+**1. Does the site feel ALIVE?**
+Yes — more than last cycle. The CHAOS→CONTROL scroll arc with jitter, noise overlay, and spring snap is genuinely well done. The pipeline pulse dots, the staggered strikethrough list, the ERP comparison table building row by row — these are alive. The middle and lower sections have real choreography now. But the **hero** — the first thing anyone sees — is still CSS `opacity` fades with class toggles. `animate-reveal-heading`, `animate-reveal-body`. Fade in, done. No choreography. No moment.
+
+**2. Micro-interactions that reward exploration?**
+The 3D tilt on pillar cards is subtle and premium. The pipeline pulse is satisfying. The comparison table's dual-slide (ERP from left, Efikton from right) is clever. Good coverage in the mid-page. Nothing in the hero rewards interaction.
+
+**3. Do numbers animate in?**
+Yes. Hero stats count up with φ-timed stagger + OTIF letter reveal. Case study results count up. ✓ Well executed.
+
+**4. Does the strikethrough list animate?**
+Yes. Staggered striking with "One system. Nothing else." summary reveal. ✓ Polished.
+
+**5. Sense of craftsmanship?**
+The φ geometry background, 1618ms timing constants, `prefers-reduced-motion` respect throughout, scroll-linked CSS custom properties bypassing React renders — the engineering is excellent. The bones say craftsmanship. But the hero entrance says "template."
+
+**6. "Wow, these people are serious" in 3 seconds?**
+No. The hero fades in like every SaaS landing page. The headline "From Chaos to Control." appears via opacity. The subhead follows. The quote follows. All opacity. No spatial movement, no timing drama, no sense that this company obsesses over the details of *how things appear*. The φ background breathes, the stats count — but those are below the fold on mobile and at the bottom of a tall hero on desktop. The first impression is a fade.
 
 ---
 
-## The One Thing: Animated CHAOS→CONTROL Transformation Arc
+## The One Thing: Hero Headline Split-Reveal with Spatial Choreography
 
 ### What It Is
 
-Replace the current static `animate-reveal` fade on the CHAOS→METHOD→CONTROL→RESULTS narrative arc with a scroll-driven transformation sequence that *performs* the journey from disorder to order.
+Replace the current `animate-reveal-heading` / `animate-reveal-body` opacity fades in the Hero section with a choreographed entrance sequence where each content block enters from a distinct spatial origin with staggered timing, creating a "pieces assembling into position" effect that mirrors the CHAOS→CONTROL promise.
 
 ### The Interaction
 
-**CHAOS state (initial, as user scrolls into view):**
-- Text elements appear with slight random positional jitter (±3px translate, ±1° rotate)
-- A subtle noise/grain overlay pulses at 60% opacity over the CHAOS card
-- The connecting progress bar between steps is invisible
-- Color is desaturated — muted, stressed palette
-- The description text has a slight shake/vibration (CSS animation, 0.5px amplitude, fast)
+**T+0ms (page load, mounted = true):**
+- The copper vertical accent rule on the right draws downward (height 0% → 100%, 800ms, ease-out)
+- The φ symbol fades in at 3% opacity (already subtle, just needs a 400ms fade instead of instant)
 
-**METHOD state (scroll progress ~30%):**
-- Elements begin to settle — jitter reduces by half
-- The progress bar begins drawing from left, reaching the METHOD marker
-- The METHOD card gains its copper accent border
-- Noise overlay fades to 30%
-- A brief pause (150ms ease) to let the user register the change
+**T+200ms — Headline enters:**
+- "From Chaos to" slides in from left (-30px → 0) + opacity (0 → 1), duration 600ms, `cubic-bezier(0.22, 1, 0.36, 1)`
+- "Control." slides in from right (+20px → 0) + opacity, 150ms later, same easing but slightly faster (500ms) — the two halves converge, mirroring the brand promise of bringing scattered things together
 
-**CONTROL state (scroll progress ~60%):**
-- All jitter ceases — elements snap to their final grid positions with a spring easing (`cubic-bezier(0.34, 1.56, 0.64, 1)`)
-- Progress bar reaches CONTROL
-- Cards are now crisp, aligned, full contrast
-- Noise overlay gone
-- Typography sharpens (subtle tracking adjustment from 0.02em to 0)
+**T+600ms — Subhead enters:**
+- Slides up from below (+15px → 0) + opacity, 500ms, ease-out
+- Subtle: text starts at `letter-spacing: 0.02em` and settles to `-0.01em` over the animation — a micro-refinement that registers subconsciously as "tightening up"
 
-**RESULTS state (scroll progress ~85%):**
-- Progress bar completes with a copper glow pulse at the endpoint
-- The "5× profit · 90% fewer problems · OTIF delivery" line counts up (reuse existing `useCountUp`)
-- A single satisfying copper flash on the RESULTS card border (the `copper-glow-land` keyframe already exists — reuse it)
-- The whole arc settles into its final resting state with a 200ms ease-out
+**T+900ms — Body paragraph enters:**
+- Same upward slide but gentler (+10px), 450ms
+- Slightly faster than subhead — momentum builds
+
+**T+1200ms — Quote block enters:**
+- The copper left border draws downward (like the vertical rule did), 400ms
+- Quote text fades in 150ms after border starts drawing
+- Cite line follows 200ms later
+
+**T+1618ms (φ beat) — CTAs enter:**
+- "Book a Demo" scales from 0.95 → 1.0 + opacity, with a very brief overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`) — the spring says "ready, let's go"
+- "See Results →" follows 100ms later, no spring, just smooth ease-out — secondary CTA is confident but not pushy
+
+**T+2000ms — Scroll indicator appears:**
+- The vertical line draws down + chevron fades in, completing the choreography
+
+### Why This Specific Animation
+
+The headline split-reveal (left + right converging) is the signature moment. It physically performs "bringing chaos into control" — two separate pieces finding their place. Every other entrance element follows in a cascade that feels like a factory line starting up: first piece, second piece, each one faster and more confident than the last, until the CTA springs into position like a finished product rolling off the line.
+
+This is not decoration. It is the brand promise enacted in motion.
 
 ### Technical Approach
 
-- Use `IntersectionObserver` with a threshold array `[0, 0.3, 0.6, 0.85, 1.0]` or a scroll-linked `requestAnimationFrame` reading `getBoundingClientRect` for smooth progress
-- CSS custom property `--arc-progress` (0 to 1) driven by scroll position, consumed by the four arc cards
-- Jitter via CSS `transform: translate(calc(var(--jitter-x) * (1 - var(--arc-progress))), ...)` — no JS per-frame DOM writes
-- Noise overlay opacity: `calc(0.6 * (1 - var(--arc-progress) * 1.5))` clamped
-- Progress bar width: `calc(var(--arc-progress) * 100%)`
-- Respect `prefers-reduced-motion`: if set, show final state immediately (same pattern as existing code)
-- Keep φ timing constant (1618ms) for any timed transitions that fire at thresholds
-
-### Timing & Feel
-
-- Total scroll distance for the full arc: ~400px of viewport travel (roughly one full viewport height as the section scrolls through)
-- Easing: ease-out for settling, spring for the CONTROL snap
-- The whole thing should feel like watching a factory floor go from morning chaos to running smoothly by midday
-- Reference: Linear's scroll-driven feature reveals, but with a *narrative* dimension — disorder literally becoming order
-
-### Why This One Thing
-
-The CHAOS→CONTROL arc is the **core brand promise**. Every other section supports it. If a visitor feels the transformation in their body — not just reads it — the site closes the emotional gap between "interesting consultancy" and "these people understand my pain." Right now the arc is four static boxes. It should be the moment that sells.
+- All animations via CSS `@keyframes` + `animation-delay`, triggered by the existing `is-mounted` class on `ef-hero-section`
+- Split the headline into two `<span>` wrappers: one for "From Chaos to" and one for "Control." — minimal JSX change
+- Use `transform: translateX()` + `opacity` only — no layout-triggering properties, CLS stays 0.00
+- `will-change: transform, opacity` on animated elements, removed after animation completes (via `animationend` listener or a 3s timeout)
+- `prefers-reduced-motion`: all elements render at final position immediately, no motion
+- Total JS change: ~15 lines (split headline into two spans, add animationend cleanup). Everything else is CSS.
 
 ### Files to Modify
 
-- `src/components/Solutions.tsx` — add scroll-progress tracking, apply `--arc-progress` custom property to the narrative arc grid
-- `src/index.css` — add jitter keyframes, noise overlay transition rules, progress bar draw animation, spring snap easing
-- `src/hooks/` — potentially a new `useScrollProgress` hook (reusable for future scroll-driven sections)
+- `src/components/Hero.tsx` — split headline text into two animated spans; add mounted-based class for quote border draw; animationend cleanup for will-change
+- `src/index.css` — add `@keyframes hero-from-left`, `hero-from-right`, `hero-from-below`, `hero-border-draw`, `hero-cta-spring`; timing delays on `.ef-hero-item[data-delay]` selectors (already partially structured for this)
 
-### Acceptance Criteria (Polished)
+### Acceptance Criteria
 
-#### Motion / Narrative Quality
-- [ ] Initial CHAOS state is clearly perceptible within 300ms of section entry (subtle jitter + desaturation), but body text remains readable at all times.
-- [ ] Motion intensity decreases progressively across scroll milestones (CHAOS → METHOD → CONTROL), with no abrupt visual jumps before the CONTROL snap.
-- [ ] CONTROL snap uses a spring-like easing and reaches final alignment in <= 250ms without overshoot that causes visual noise.
-- [ ] RESULTS completion effect (copper glow + count-up) fires once per section entry and does not repeatedly retrigger during minor scroll oscillation.
+#### Motion Quality
+- [ ] Headline "From Chaos to" and "Control." enter from opposite horizontal directions and converge to final position — the split is perceptible but not dramatic (30px and 20px respectively)
+- [ ] No element enters before the one above it in the visual hierarchy (headline → subhead → body → quote → CTAs → scroll indicator)
+- [ ] Total entrance sequence completes within 2200ms of mount; no element is invisible for more than its designated delay
+- [ ] Spring easing on primary CTA has max 1 overshoot cycle, settles within 300ms
 
-#### Conversion / UX Guardrails
-- [ ] Animation does not delay comprehension: user can identify the 4-step arc and read step labels in <= 3 seconds on first view.
-- [ ] Effects support (not overshadow) CTA flow: no full-screen flashes, no high-frequency shake, no motion that pulls focus away from primary CTA for > 500ms.
-- [ ] Keep interaction "premium" not "gimmicky": max jitter amplitude 3px / 1deg, vibration disabled once progress >= 0.35.
+#### First Impression
+- [ ] Headline text is fully readable within 800ms of page load (not hidden behind long entrance delays)
+- [ ] The "Control." word in copper is the last headline element to land — it punctuates, not decorates
+- [ ] On repeat visits (back-button, SPA navigation), animation replays cleanly without flash-of-final-state
 
 #### Technical / Performance
-- [ ] Progress bar is scroll-linked (position-based), not time-based, and remains monotonic while scrolling downward.
-- [ ] `prefers-reduced-motion: reduce` renders a static final state with equivalent information hierarchy and no decorative motion.
-- [ ] CLS remains 0.00 for this section (no layout-shifting properties; transforms/opacity only).
-- [ ] Maintains >= 55 FPS on mid-tier mobile during scroll (Chrome Performance profile) with no long task > 50ms attributable to this feature.
-- [ ] JS payload increase for this feature is < 2KB gzipped (excluding existing shared utilities).
+- [ ] All animations use `transform` + `opacity` only — no `top`, `left`, `width`, `height`, `margin`, or `padding` animations
+- [ ] CLS = 0.00 for hero section (verified in Lighthouse)
+- [ ] `will-change` properties are cleaned up within 500ms of animation completion
+- [ ] `prefers-reduced-motion: reduce` shows all elements at final state immediately, no decorative motion
+- [ ] No hydration mismatch: server-rendered HTML shows elements in pre-animation state (opacity: 0 / translated), client activates on mount
+- [ ] Works on iOS Safari 16+, Chrome 100+, Firefox 110+ — no prefix-dependent features
 
-#### Compatibility / Reliability
-- [ ] Works on desktop + mobile touch scroll; degrades to threshold-step states when continuous scroll progress is unavailable.
-- [ ] Works when section is revisited (scroll up/down): state machine remains deterministic and visually consistent.
-- [ ] No hydration warnings or SSR/client mismatch in Next.js build/logs.
+#### Mobile
+- [ ] On viewports < 640px, horizontal translation distances reduce to 15px / 10px (half of desktop) to avoid content appearing to come from off-screen
+- [ ] Touch scrolling is not blocked or janky during hero entrance animation
 
 ---
 
-## Salt Review (2026-03-01 06:10 EET)
-
-**Rating:** NEEDS WORK
-
-### Feasibility (CSS/React)
-Technically feasible with CSS variables + React scroll progress orchestration. No blocker in implementation approach.
-
-### Conversion Assessment
-Strong concept for narrative reinforcement, but current spec risks over-animation around the most important trust/conversion zone. If left unguarded, jitter/noise effects can read as theatrical instead of premium industrial confidence.
-
-### Timing/Easing Assessment
-Partial. CONTROL spring easing is specified, but milestone transitions and retrigger behavior need tighter constraints to prevent inconsistent feel across devices.
-
-### Required Adjustments Before Shipping
-1. Constrain chaos effects to preserve readability and executive trust signal.
-2. Define one-shot trigger logic for RESULTS to prevent repeated dopamine loops.
-3. Add explicit performance and comprehension gates (FPS/readability/CTA focus).
-4. Keep reduced-motion parity with full information hierarchy.
-
-*Filed by Khalid Al-Rashidi — "I have seen enough Oracle demos to know when software is pretending to be transformative. Make the site prove it."*
+*Filed by Khalid Al-Rashidi — "The first three seconds are not about information. They are about conviction. Make the entrance say: these people control every detail."*
