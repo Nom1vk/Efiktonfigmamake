@@ -2,7 +2,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 import { useState, useRef } from 'react';
 
-const regions = ['Greece & EU', 'Egypt'];
+const regions = ['Greece & EU', 'Middle East', 'Egypt'];
 
 const industries = [
   'Automotive Parts',

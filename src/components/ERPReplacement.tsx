@@ -54,57 +54,29 @@ export function ERPReplacement() {
   return (
     <section
       id="erp-replacement"
-      style={{ backgroundColor: '#F5F2ED', scrollMarginTop: '64px' }}
+      className="bg-[#F5F2ED] scroll-mt-16"
       aria-labelledby="erp-heading"
     >
-      <div
-        className="w-full px-6 lg:px-10"
-        style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '128px', paddingBottom: '128px' }}
-      >
+      <div className="w-full px-6 lg:px-10 py-32 mx-auto max-w-[1200px]">
         {/* Header */}
         <div
           ref={headerRef}
-          className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
-          style={{ marginBottom: '80px' }}
+          className={`animate-reveal mb-20${headerVisible ? ' is-visible' : ''}`}
         >
           <div className="flex items-center gap-3 mb-8">
-            <div style={{ width: '28px', height: '1px', backgroundColor: '#C17F3E' }} aria-hidden="true" />
-            <span
-              style={{
-                color: '#C17F3E',
-                fontSize: '11px',
-                fontWeight: 600,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-              }}
-            >
-              ERP Replacement
-            </span>
+            <div className="w-7 h-px bg-[var(--ef-copper)]" aria-hidden="true" />
+            <span className="ef-eyebrow">ERP Replacement</span>
           </div>
 
           <h2
             id="erp-heading"
-            style={{
-              color: '#0A1628',
-              fontSize: 'clamp(2rem, 4.5vw, 3.5rem)',
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.05,
-              maxWidth: '680px',
-              marginBottom: '24px',
-            }}
+            className="text-[#0A1628] font-extrabold leading-[1.05] tracking-[-0.03em] max-w-[680px] mb-6"
+            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}
           >
             Already running an ERP that still leaves your factory in chaos?
           </h2>
 
-          <p
-            style={{
-              color: '#4A4540',
-              fontSize: '1.0625rem',
-              lineHeight: 1.75,
-              maxWidth: '560px',
-            }}
-          >
+          <p className="text-[#4A4540] text-[1.0625rem] leading-[1.75] max-w-[560px]">
             If Oracle, SAP, or another legacy ERP forced workarounds instead of control, Efikton
             replaces consultant-heavy rollouts with phased, factory-first delivery. You get a system
             your team owns — not one you pay to maintain.
@@ -114,69 +86,36 @@ export function ERPReplacement() {
         {/* Four pain points */}
         <div
           ref={painRef}
-          className={`animate-reveal${painVisible ? ' is-visible' : ''}`}
-          style={{ marginBottom: '96px' }}
+          className={`animate-reveal mb-24${painVisible ? ' is-visible' : ''}`}
         >
-          <p
-            style={{
-              fontSize: '11px',
-              fontWeight: 600,
-              color: '#8B8680',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              marginBottom: '40px',
-            }}
-          >
+          <p className="ef-eyebrow text-[var(--ef-text-secondary)] mb-10">
             Why legacy ERP implementations fail manufacturing operations
           </p>
 
           <div
-            className="grid grid-cols-1 md:grid-cols-2"
-            style={{ gap: '0', borderTop: '1px solid rgba(10,22,40,0.1)' }}
+            className="grid grid-cols-1 md:grid-cols-2 border-t border-[rgba(10,22,40,0.1)]"
           >
             {painPoints.map((point, i) => (
               <div
                 key={point.num}
-                style={{
-                  padding: '32px 0',
-                  paddingRight: i % 2 === 0 ? '48px' : '0',
-                  paddingLeft: i % 2 === 1 ? '48px' : '0',
-                  borderBottom: '1px solid rgba(10,22,40,0.1)',
-                  borderRight: i % 2 === 0 ? '1px solid rgba(10,22,40,0.1)' : 'none',
-                }}
-                className="pain-point-cell"
+                className={[
+                  'py-8 border-b border-[rgba(10,22,40,0.1)] pain-point-cell',
+                  i % 2 === 0
+                    ? 'pr-12 md:border-r border-[rgba(10,22,40,0.1)]'
+                    : 'md:pl-12',
+                ].join(' ')}
               >
                 <div
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: 'rgba(193,127,62,0.6)',
-                    letterSpacing: '0.1em',
-                    marginBottom: '12px',
-                  }}
+                  className="text-[11px] font-bold tracking-[0.1em] mb-3 text-[var(--ef-copper-border)]"
+                  style={{ color: 'rgba(193,127,62,0.6)' }}
                   aria-hidden="true"
                 >
                   {point.num}
                 </div>
-                <h3
-                  style={{
-                    color: '#0A1628',
-                    fontSize: '1.0625rem',
-                    fontWeight: 700,
-                    letterSpacing: '-0.01em',
-                    marginBottom: '10px',
-                    lineHeight: 1.3,
-                  }}
-                >
+                <h3 className="text-[#0A1628] text-[1.0625rem] font-bold tracking-[-0.01em] mb-2.5 leading-[1.3]">
                   {point.title}
                 </h3>
-                <p
-                  style={{
-                    color: '#4A4540',
-                    fontSize: '14px',
-                    lineHeight: 1.75,
-                  }}
-                >
+                <p className="text-[#4A4540] text-sm leading-[1.75]">
                   {point.body}
                 </p>
               </div>
@@ -189,201 +128,93 @@ export function ERPReplacement() {
           ref={tableRef}
           className={`animate-reveal${tableVisible ? ' is-visible' : ''}`}
         >
-          <p
-            style={{
-              fontSize: '11px',
-              fontWeight: 600,
-              color: '#8B8680',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              marginBottom: '32px',
-            }}
-          >
+          <p className="ef-eyebrow text-[var(--ef-text-secondary)] mb-8">
             How Efikton compares to traditional ERP
           </p>
 
-          {/* Desktop comparison */}
-          <div
-            className="hidden md:block"
-            style={{
-              border: '1px solid rgba(10,22,40,0.12)',
-              borderRadius: '4px',
-              overflow: 'hidden',
-            }}
+          {/* Desktop comparison — semantic table for accessibility */}
+          <table
+            className="hidden md:table w-full border border-[rgba(10,22,40,0.12)] rounded-[4px] overflow-hidden border-collapse"
+            aria-label="Efikton vs Traditional ERP comparison"
           >
-            {/* Header row */}
-            <div
-              className="grid"
-              style={{
-                gridTemplateColumns: '2fr 3fr 3fr',
-                backgroundColor: '#0A1628',
-              }}
-            >
-              <div style={{ padding: '16px 24px' }} />
-              <div
-                style={{
-                  padding: '16px 24px',
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  color: 'rgba(232,228,223,0.45)',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  borderLeft: '1px solid rgba(255,255,255,0.07)',
-                }}
-              >
-                Traditional ERP
-                <span
-                  style={{
-                    display: 'block',
-                    fontSize: '10px',
-                    color: 'rgba(232,228,223,0.25)',
-                    fontWeight: 400,
-                    letterSpacing: '0.08em',
-                    marginTop: '2px',
-                  }}
+            <colgroup>
+              <col style={{ width: '25%' }} />
+              <col style={{ width: '37.5%' }} />
+              <col style={{ width: '37.5%' }} />
+            </colgroup>
+            <thead>
+              <tr className="bg-[var(--ef-navy)]">
+                <th scope="col" className="p-0" />
+                <th
+                  scope="col"
+                  className="px-6 py-4 text-left text-[11px] font-bold tracking-[0.12em] uppercase border-l border-[rgba(255,255,255,0.07)]"
+                  style={{ color: 'rgba(232,228,223,0.45)' }}
                 >
-                  Oracle · SAP · legacy ERP
-                </span>
-              </div>
-              <div
-                style={{
-                  padding: '16px 24px',
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  color: '#C17F3E',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  borderLeft: '1px solid rgba(193,127,62,0.2)',
-                }}
-              >
-                Efikton
-              </div>
-            </div>
-
-            {/* Data rows */}
-            {comparison.map((row, i) => (
-              <div
-                key={row.dimension}
-                className="grid"
-                style={{
-                  gridTemplateColumns: '2fr 3fr 3fr',
-                  borderTop: '1px solid rgba(10,22,40,0.08)',
-                  backgroundColor: i % 2 === 0 ? '#F5F2ED' : '#EDEAE5',
-                }}
-              >
-                <div
-                  style={{
-                    padding: '20px 24px',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    color: '#0A1628',
-                    letterSpacing: '0.01em',
-                    lineHeight: 1.5,
-                  }}
+                  Traditional ERP
+                  <span
+                    className="block text-[10px] font-normal tracking-[0.08em] mt-0.5"
+                    style={{ color: 'rgba(232,228,223,0.25)' }}
+                  >
+                    Oracle · SAP · legacy ERP
+                  </span>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-4 text-left text-[11px] font-bold text-[var(--ef-copper)] tracking-[0.12em] uppercase border-l border-[var(--ef-copper-border)]"
                 >
-                  {row.dimension}
-                </div>
-                <div
-                  style={{
-                    padding: '20px 24px',
-                    fontSize: '13px',
-                    color: '#4A4540',
-                    lineHeight: 1.65,
-                    borderLeft: '1px solid rgba(10,22,40,0.08)',
-                  }}
+                  Efikton
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparison.map((row, i) => (
+                <tr
+                  key={row.dimension}
+                  className={`border-t border-[rgba(10,22,40,0.08)] ${i % 2 === 0 ? 'bg-[var(--ef-surface)]' : 'bg-[var(--ef-surface-alt)]'}`}
                 >
-                  {row.erp}
-                </div>
-                <div
-                  style={{
-                    padding: '20px 24px',
-                    fontSize: '13px',
-                    color: '#0A1628',
-                    lineHeight: 1.65,
-                    fontWeight: 500,
-                    borderLeft: '1px solid rgba(193,127,62,0.15)',
-                  }}
-                >
-                  {row.efikton}
-                </div>
-              </div>
-            ))}
-          </div>
+                  <th
+                    scope="row"
+                    className="px-6 py-5 text-left text-xs font-semibold text-[#0A1628] tracking-[0.01em] leading-[1.5]"
+                  >
+                    {row.dimension}
+                  </th>
+                  <td
+                    className="px-6 py-5 text-[13px] text-[#4A4540] leading-[1.65] border-l border-[rgba(10,22,40,0.08)]"
+                  >
+                    {row.erp}
+                  </td>
+                  <td
+                    className="px-6 py-5 text-[13px] text-[#0A1628] font-medium leading-[1.65] border-l border-[rgba(193,127,62,0.15)]"
+                  >
+                    {row.efikton}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           {/* Mobile comparison: stacked cards */}
-          <div className="md:hidden" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="md:hidden flex flex-col gap-4">
             {comparison.map((row) => (
               <div
                 key={row.dimension}
-                style={{
-                  border: '1px solid rgba(10,22,40,0.12)',
-                  borderRadius: '4px',
-                  overflow: 'hidden',
-                }}
+                className="border border-[rgba(10,22,40,0.12)] rounded-[4px] overflow-hidden"
               >
-                <div
-                  style={{
-                    padding: '12px 16px',
-                    backgroundColor: '#0A1628',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: '#E8E4DF',
-                    letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                  }}
-                >
+                <div className="px-4 py-3 bg-[var(--ef-navy)] text-[11px] font-bold text-[var(--ef-text-primary)] tracking-[0.06em] uppercase">
                   {row.dimension}
                 </div>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                  }}
-                >
-                  <div
-                    style={{
-                      padding: '16px',
-                      backgroundColor: '#EDEAE5',
-                      borderRight: '1px solid rgba(10,22,40,0.08)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: '10px',
-                        fontWeight: 700,
-                        color: '#8B8680',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase',
-                        marginBottom: '6px',
-                      }}
-                    >
+                <div className="grid grid-cols-2">
+                  <div className="p-4 bg-[var(--ef-surface-alt)] border-r border-[rgba(10,22,40,0.08)]">
+                    <div className="text-[10px] font-bold text-[var(--ef-text-secondary)] tracking-[0.1em] uppercase mb-1.5">
                       Legacy ERP
                     </div>
-                    <p style={{ fontSize: '12px', color: '#4A4540', lineHeight: 1.6 }}>{row.erp}</p>
+                    <p className="text-xs text-[#4A4540] leading-[1.6]">{row.erp}</p>
                   </div>
-                  <div style={{ padding: '16px', backgroundColor: '#F5F2ED' }}>
-                    <div
-                      style={{
-                        fontSize: '10px',
-                        fontWeight: 700,
-                        color: '#C17F3E',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase',
-                        marginBottom: '6px',
-                      }}
-                    >
+                  <div className="p-4 bg-[var(--ef-surface)]">
+                    <div className="text-[10px] font-bold text-[var(--ef-copper)] tracking-[0.1em] uppercase mb-1.5">
                       Efikton
                     </div>
-                    <p
-                      style={{
-                        fontSize: '12px',
-                        color: '#0A1628',
-                        lineHeight: 1.6,
-                        fontWeight: 500,
-                      }}
-                    >
-                      {row.efikton}
-                    </p>
+                    <p className="text-xs text-[#0A1628] font-medium leading-[1.6]">{row.efikton}</p>
                   </div>
                 </div>
               </div>
