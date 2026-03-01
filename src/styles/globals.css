@@ -641,3 +641,222 @@
     transform: none !important;
   }
 }
+.ef-copper-divider-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  overflow: hidden;
+}
+.ef-copper-divider-line {
+  height: 1px;
+  width: 60%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(193, 127, 62, 0.35) 38.2%,
+    rgba(193, 127, 62, 0.55) 61.8%,
+    transparent 100%
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.ef-copper-divider-line.is-visible {
+  transform: scaleX(1);
+}
+
+/* ── 5a. Fibonacci squares SVG divider ───────────────────────────────────────── */
+
+.ef-phi-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+  opacity: 0.055;
+  transition: opacity 0.6s ease;
+}
+.ef-phi-divider.is-visible {
+  opacity: 0.065;
+}
+
+/* ── 5b. Golden spiral ───────────────────────────────────────────────────────── */
+
+.ef-golden-spiral {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.05;
+}
+.ef-golden-spiral svg path {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ef-golden-spiral.is-visible svg path {
+  stroke-dashoffset: 0;
+}
+
+/* ── Reduced motion: kill all custom animations ──────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-step-item,
+  .flow-connector::before,
+  .phase-bar,
+  .phase-win,
+  .phase-num,
+  .phase-progress-line,
+  .erp-row-erp,
+  .erp-row-efikton,
+  .erp-neg-indicator,
+  .erp-pos-indicator,
+  .ef-copper-divider-line,
+  .ef-golden-spiral svg path {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    width: auto !important;
+    height: auto !important;
+    border-left-color: rgba(184, 115, 51, 0.4) !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .erp-neg-indicator {
+    border-left-color: rgba(220, 50, 50, 0.35) !important;
+  }
+  .flow-connector::before { width: 100% !important; }
+  .flow-step-item { opacity: 1 !important; }
+  .ef-cta-btn { animation: none !important; }
+  .pipeline-track-pulse { animation: none !important; }
+  .ef-nav-link::after { transition: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHAOS → CONTROL Scroll-Driven Arc Animation
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Noise grain overlay ────────────────────────────────────────────────── */
+/* SVG feTurbulence grain, fades as arc-progress increases */
+.arc-noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+  /* CSS grain via repeating-conic-gradient — lightweight, no SVG filter */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.25'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  transition: opacity 0.4s ease;
+}
+
+/* ── Arc step shared ────────────────────────────────────────────────────── */
+.arc-step {
+  position: relative;
+  transition:
+    background-color 0.4s ease,
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); /* spring for CONTROL snap */
+  will-change: transform;
+  z-index: 2; /* above noise overlay */
+}
+
+/* ── CHAOS step — jitter when stage=0 ──────────────────────────────────── */
+/* Only arc-step-0 gets jitter when container is at stage 0 */
+.arc-container[data-arc-stage="0"] .arc-step-0 {
+  animation: arc-jitter 0.22s ease-in-out infinite alternate;
+}
+
+/* Jitter subsides once progress > 0 but stage still 0 — we handle this
+   by fading the animation via opacity trick isn't possible, so we use
+   data-arc-stage to cleanly stop at stage boundary. At stage=1 it stops. */
+
+@keyframes arc-jitter {
+  0%   { transform: translate(0px, 0px) rotate(0deg); }
+  25%  { transform: translate(2px, -1px) rotate(0.4deg); }
+  50%  { transform: translate(-1px, 1.5px) rotate(-0.3deg); }
+  75%  { transform: translate(1.5px, -0.5px) rotate(0.2deg); }
+  100% { transform: translate(-2px, 0.5px) rotate(-0.5deg); }
+}
+
+/* ── Step text slight blur for CHAOS card at stage 0 ───────────────────── */
+/* (Fine blur is handled inline in JSX with JS-computed value) */
+
+/* ── Copper active accent — slides in from left on step activate ────────── */
+.arc-step-copper-accent {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: var(--ef-copper);
+  transform: scaleY(0);
+  transform-origin: top;
+  border-radius: 1px;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.arc-step-copper-accent-active {
+  transform: scaleY(1);
+}
+
+/* ── CONTROL snap — spring easing via class ──────────────────────────────── */
+/* When stage reaches 2, steps 0–2 spring to their final resting positions */
+.arc-container[data-arc-stage="2"] .arc-step,
+.arc-container[data-arc-stage="3"] .arc-step {
+  animation: none; /* kill jitter */
+  transform: translate(0, 0) rotate(0deg) !important;
+  /* The spring transition is inherited from .arc-step base rule */
+}
+
+/* ── RESULTS: copper glow pulse on dot + progress bar ───────────────────── */
+.arc-progress-bar-complete {
+  animation: arc-bar-glow 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+@keyframes arc-bar-glow {
+  0%   { box-shadow: 0 0 0 0 rgba(193, 127, 62, 0); }
+  40%  { box-shadow: 0 0 8px 3px rgba(193, 127, 62, 0.5); }
+  100% { box-shadow: 0 0 4px 1px rgba(193, 127, 62, 0.2); }
+}
+
+/* ── Step background: subtle copper wash when active ────────────────────── */
+.arc-step-1.arc-step-active,
+.arc-step-2.arc-step-active,
+.arc-step-3.arc-step-active {
+  background-color: rgba(193, 127, 62, 0.018);
+}
+.arc-step-3.arc-step-active {
+  background-color: rgba(193, 127, 62, 0.032);
+}
+
+/* ── RESULTS count-up text — copper highlight ───────────────────────────── */
+.arc-step-3 p span {
+  color: var(--ef-copper);
+  font-weight: 700;
+}
+
+/* ── Reduced motion: skip to final state instantly ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .arc-container[data-arc-stage="0"] .arc-step-0,
+  .arc-step {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .arc-noise-overlay {
+    opacity: 0 !important;
+    transition: none !important;
+  }
+  .arc-step-copper-accent {
+    transform: scaleY(1) !important;
+    transition: none !important;
+  }
+  .arc-progress-bar-complete {
+    animation: none !important;
+  }
+}
