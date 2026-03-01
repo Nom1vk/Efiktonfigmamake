@@ -84,17 +84,50 @@ The CHAOS→CONTROL arc is the **core brand promise**. Every other section suppo
 - `src/index.css` — add jitter keyframes, noise overlay transition rules, progress bar draw animation, spring snap easing
 - `src/hooks/` — potentially a new `useScrollProgress` hook (reusable for future scroll-driven sections)
 
-### Acceptance Criteria
+### Acceptance Criteria (Polished)
 
-- [ ] CHAOS card visibly jitters on initial appearance; jitter resolves smoothly as user scrolls
-- [ ] Progress bar draws left-to-right in sync with scroll, not time
-- [ ] CONTROL snap feels spring-loaded, not linear
-- [ ] RESULTS card triggers copper glow + count-up on completion
-- [ ] `prefers-reduced-motion` shows final state with no animation
-- [ ] No layout shift (CLS = 0) during the animation
-- [ ] Works on mobile (touch scroll) — falls back to threshold-based if `ScrollTimeline` unavailable
-- [ ] Total JS bundle impact < 2KB gzipped
+#### Motion / Narrative Quality
+- [ ] Initial CHAOS state is clearly perceptible within 300ms of section entry (subtle jitter + desaturation), but body text remains readable at all times.
+- [ ] Motion intensity decreases progressively across scroll milestones (CHAOS → METHOD → CONTROL), with no abrupt visual jumps before the CONTROL snap.
+- [ ] CONTROL snap uses a spring-like easing and reaches final alignment in <= 250ms without overshoot that causes visual noise.
+- [ ] RESULTS completion effect (copper glow + count-up) fires once per section entry and does not repeatedly retrigger during minor scroll oscillation.
+
+#### Conversion / UX Guardrails
+- [ ] Animation does not delay comprehension: user can identify the 4-step arc and read step labels in <= 3 seconds on first view.
+- [ ] Effects support (not overshadow) CTA flow: no full-screen flashes, no high-frequency shake, no motion that pulls focus away from primary CTA for > 500ms.
+- [ ] Keep interaction "premium" not "gimmicky": max jitter amplitude 3px / 1deg, vibration disabled once progress >= 0.35.
+
+#### Technical / Performance
+- [ ] Progress bar is scroll-linked (position-based), not time-based, and remains monotonic while scrolling downward.
+- [ ] `prefers-reduced-motion: reduce` renders a static final state with equivalent information hierarchy and no decorative motion.
+- [ ] CLS remains 0.00 for this section (no layout-shifting properties; transforms/opacity only).
+- [ ] Maintains >= 55 FPS on mid-tier mobile during scroll (Chrome Performance profile) with no long task > 50ms attributable to this feature.
+- [ ] JS payload increase for this feature is < 2KB gzipped (excluding existing shared utilities).
+
+#### Compatibility / Reliability
+- [ ] Works on desktop + mobile touch scroll; degrades to threshold-step states when continuous scroll progress is unavailable.
+- [ ] Works when section is revisited (scroll up/down): state machine remains deterministic and visually consistent.
+- [ ] No hydration warnings or SSR/client mismatch in Next.js build/logs.
 
 ---
+
+## Salt Review (2026-03-01 06:10 EET)
+
+**Rating:** NEEDS WORK
+
+### Feasibility (CSS/React)
+Technically feasible with CSS variables + React scroll progress orchestration. No blocker in implementation approach.
+
+### Conversion Assessment
+Strong concept for narrative reinforcement, but current spec risks over-animation around the most important trust/conversion zone. If left unguarded, jitter/noise effects can read as theatrical instead of premium industrial confidence.
+
+### Timing/Easing Assessment
+Partial. CONTROL spring easing is specified, but milestone transitions and retrigger behavior need tighter constraints to prevent inconsistent feel across devices.
+
+### Required Adjustments Before Shipping
+1. Constrain chaos effects to preserve readability and executive trust signal.
+2. Define one-shot trigger logic for RESULTS to prevent repeated dopamine loops.
+3. Add explicit performance and comprehension gates (FPS/readability/CTA focus).
+4. Keep reduced-motion parity with full information hierarchy.
 
 *Filed by Khalid Al-Rashidi — "I have seen enough Oracle demos to know when software is pretending to be transformative. Make the site prove it."*
