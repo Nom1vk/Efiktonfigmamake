@@ -287,7 +287,7 @@ export function Hero() {
 
       {/* Main content */}
       <div
-        className="relative flex-1 flex flex-col justify-center w-full px-6 lg:px-10 pt-28 pb-0"
+        className="relative flex-1 flex flex-col justify-center w-full px-5 sm:px-6 lg:px-10 pt-24 sm:pt-28 pb-0"
         style={{ maxWidth: '1200px', margin: '0 auto' }}
       >
         {/* Headline */}
@@ -317,10 +317,10 @@ export function Hero() {
           data-delay="3"
           style={{
             color: 'var(--ef-text-secondary)',
-            fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
+            fontSize: 'clamp(0.9375rem, 1.8vw, 1.2rem)',
             lineHeight: 1.7,
             maxWidth: '520px',
-            marginBottom: '40px',
+            marginBottom: 'clamp(32px, 5vw, 40px)',
             fontWeight: 400,
           }}
         >
@@ -332,7 +332,7 @@ export function Hero() {
         <div
           className="ef-hero-item"
           data-delay="4"
-          style={{ marginTop: '-8px', marginBottom: '32px', maxWidth: '520px' }}
+          style={{ marginTop: 'clamp(-8px, -1vw, 0px)', marginBottom: 'clamp(24px, 4vw, 32px)', maxWidth: '520px' }}
         >
           <blockquote
             style={{
@@ -375,19 +375,20 @@ export function Hero() {
         </div>
 
         {/* CTAs */}
-        <div className="ef-hero-item flex flex-wrap gap-3 pl-0" data-delay="5" style={{ marginLeft: 0 }}>
-          <a href="#contact" className="ef-cta-primary group" style={{ whiteSpace: 'nowrap', minWidth: 0 }}>
+        <div className="ef-hero-item flex flex-wrap gap-2.5 sm:gap-3 pl-0" data-delay="5" style={{ marginLeft: 0 }}>
+          <a href="#contact" className="ef-cta-primary group" style={{ whiteSpace: 'nowrap', minWidth: 0, fontSize: 'clamp(13px, 2vw, 14px)' }}>
             <span style={{ whiteSpace: 'nowrap' }}>Book a Demo</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 flex-shrink-0" aria-hidden="true" />
           </a>
-          <a href="#results" className="ef-cta-secondary" style={{ whiteSpace: 'nowrap', minWidth: 0 }}>
+          <a href="#results" className="ef-cta-secondary" style={{ whiteSpace: 'nowrap', minWidth: 0, fontSize: 'clamp(13px, 2vw, 14px)' }}>
             See Results →
           </a>
         </div>
 
         {/* Scroll indicator */}
         <div
-          className="ef-scroll-indicator hidden md:flex items-center gap-2 mt-16"
+          className="ef-scroll-indicator hidden md:flex items-center gap-2"
+          style={{ marginTop: 'clamp(48px, 8vw, 64px)' }}
           aria-hidden="true"
         >
           <div
@@ -408,13 +409,13 @@ export function Hero() {
       <div
         ref={statsRef}
         className="ef-stats-bar"
-        style={{ borderTop: '1px solid rgba(193, 127, 62, 0.15)', marginTop: '80px' }}
+        style={{ borderTop: '1px solid rgba(193, 127, 62, 0.15)', marginTop: 'clamp(48px, 10vw, 80px)' }}
         aria-label="Key proof metrics"
         role="region"
       >
         <div
           className="grid grid-cols-3 w-full"
-          style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}
+          style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 1.5rem)' }}
         >
           {stats.map((stat, i) => (
             <AnimatedStat
