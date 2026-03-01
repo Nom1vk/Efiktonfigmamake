@@ -330,7 +330,7 @@ export function CTA() {
                 <button
                   type="submit"
                   disabled={formState === 'submitting'}
-                  className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto ef-cta-primary-btn"
+                  className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto ef-cta-primary-btn focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] focus-visible:ring-[var(--ef-copper)] outline-none"
                   style={{
                     backgroundColor: formState === 'submitting' ? 'var(--ef-copper-dark)' : 'var(--ef-copper)',
                     color: '#ffffff',
@@ -341,7 +341,7 @@ export function CTA() {
                     minHeight: '52px',
                     border: 'none',
                     cursor: formState === 'submitting' ? 'wait' : 'pointer',
-                    transition: 'background-color 0.15s ease',
+                    transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
                     borderRadius: '2px',
                     fontFamily: 'inherit',
                   }}
@@ -441,12 +441,14 @@ export function CTA() {
               </p>
               <a
                 href="mailto:hello@efikton.com"
+                className="focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] focus-visible:ring-[var(--ef-copper)] outline-none rounded-sm"
                 style={{
                   color: 'var(--ef-copper)',
                   fontSize: '15px',
                   fontWeight: 500,
                   textDecoration: 'none',
-                  transition: 'opacity 0.15s ease',
+                  transition: 'opacity 0.15s ease, box-shadow 0.15s ease',
+                  display: 'inline-block',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.75')}
                 onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}

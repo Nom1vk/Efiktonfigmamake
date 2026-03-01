@@ -73,7 +73,7 @@ export function Navigation() {
         {/* Wordmark */}
         <a
           href="#"
-          className="focus:outline-none"
+          className="focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none rounded-sm px-1"
           aria-label="eφikton — go to top of page"
           style={{ display: 'flex', flexDirection: 'column', gap: '1px', lineHeight: 1 }}
         >
@@ -116,7 +116,7 @@ export function Navigation() {
             <a
               key={item.label}
               href={item.href}
-              className="ef-nav-link text-sm transition-colors duration-150"
+              className="ef-nav-link text-sm transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none rounded-sm px-1"
               style={{ color: 'rgba(232, 228, 223, 0.55)', fontWeight: 500, letterSpacing: '0.01em' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232, 228, 223, 0.55)')}
@@ -126,7 +126,7 @@ export function Navigation() {
           ))}
           <a
             href="#contact"
-            className="ef-cta-btn text-sm font-semibold"
+            className="ef-cta-btn text-sm font-semibold focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
             style={{
               backgroundColor: 'var(--ef-copper)',
               color: '#ffffff',
@@ -135,6 +135,8 @@ export function Navigation() {
               minHeight: '38px',
               display: 'inline-flex',
               alignItems: 'center',
+              borderRadius: '2px',
+              transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
@@ -218,12 +220,13 @@ export function Navigation() {
             <li className="mt-4">
               <a
                 href="#contact"
-                className="ef-cta-btn flex items-center justify-center text-sm font-semibold touch-manipulation active:scale-98"
+                className="ef-cta-btn flex items-center justify-center text-sm font-semibold touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
                 style={{
                   backgroundColor: 'var(--ef-copper)',
                   color: '#fff',
                   minHeight: '52px',
-                  transition: 'background-color 0.2s ease, transform 0.15s ease',
+                  transition: 'background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease',
+                  borderRadius: '2px',
                 }}
                 onClick={() => setMobileOpen(false)}
                 tabIndex={mobileOpen ? 0 : -1}
