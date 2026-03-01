@@ -523,6 +523,67 @@
     display: grid;
   }
 
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .focus\:not-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: revert;
+    margin: revert;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  .focus\:absolute:focus {
+    position: absolute;
+  }
+
+  .focus\:top-4:focus {
+    top: 1rem;
+  }
+
+  .focus\:left-4:focus {
+    left: 1rem;
+  }
+
+  .focus\:z-50:focus {
+    z-index: 50;
+  }
+
+  .focus\:px-4:focus {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .focus\:py-2:focus {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .focus\:rounded:focus {
+    border-radius: 0.25rem;
+  }
+
+  .focus\:bg-white:focus {
+    background-color: #ffffff;
+  }
+
+  .focus\:font-semibold:focus {
+    font-weight: 600;
+  }
+
   .hidden {
     display: none;
   }

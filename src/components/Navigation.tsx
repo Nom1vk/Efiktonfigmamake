@@ -57,6 +57,7 @@ export function Navigation() {
           href="#"
           className="focus:outline-none"
           aria-label="eφikton — go to top of page"
+          style={{ display: 'flex', flexDirection: 'column', gap: '1px', lineHeight: 1 }}
         >
           <span
             style={{
@@ -66,7 +67,19 @@ export function Navigation() {
               color: '#E8E4DF',
             }}
           >
-            e<span style={{ color: '#B87333' }}>φ</span>ikton
+            e<span style={{ color: '#C17F3E' }}>φ</span>ikton
+          </span>
+          <span
+            style={{
+              fontSize: '8px',
+              fontWeight: 600,
+              letterSpacing: '0.18em',
+              color: 'rgba(193, 127, 62, 0.7)',
+              textTransform: 'uppercase',
+              fontVariant: 'small-caps',
+            }}
+          >
+            Manufacturing Operating System
           </span>
         </a>
 
