@@ -352,43 +352,100 @@
 }
 
 /* ─── Hero mount animation system ─── */
-/* Replaces inline fade() function — CSS drives all entry animations */
+/* ─── Hero Entrance Choreography — Spatial Assembly ────────────────────────
+   Each element enters from a distinct spatial origin.
+   Sequence: rule draws → φ breathes → headline converges → subhead →
+             body → quote (border draw + text) → CTAs spring → scroll-indicator
+   All using @keyframes + animation-delay so no layout-triggering props.
+   GPU-accelerated: transform + opacity only.
+   prefers-reduced-motion: all elements start at final state, no motion.
+────────────────────────────────────────────────────────────────────────── */
 
-.ef-hero-section .ef-hero-item {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+/* 1. Headline halves: converge from opposite directions */
+@keyframes hero-from-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes hero-from-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-.ef-hero-section.is-mounted .ef-hero-item { opacity: 1; transform: none; }
-.ef-hero-section.is-mounted .ef-hero-item[data-delay="1"] { transition-delay: 0.05s; }
-.ef-hero-section.is-mounted .ef-hero-item[data-delay="2"] { transition-delay: 0.12s; }
-.ef-hero-section.is-mounted .ef-hero-item[data-delay="3"] { transition-delay: 0.22s; }
-.ef-hero-section.is-mounted .ef-hero-item[data-delay="4"] { transition-delay: 0.26s; }
-.ef-hero-section.is-mounted .ef-hero-item[data-delay="5"] { transition-delay: 0.30s; }
-.ef-hero-section.is-mounted .ef-hero-item[data-delay="6"] { transition-delay: 0.45s; }
+/* Mobile-scale variants (smaller offsets) */
+@media (max-width: 639px) {
+  @keyframes hero-from-left {
+    from { opacity: 0; transform: translateX(-15px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes hero-from-right {
+    from { opacity: 0; transform: translateX(10px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+}
 
-/* φ ambient — opacity driven by is-mounted */
+/* 2. Elements entering from below */
+@keyframes hero-from-below-lg {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-from-below-sm {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Copper border draw (scaleY 0→1 from top) */
+@keyframes hero-border-draw {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+/* 4. CTA primary: scale + opacity with overshoot spring */
+@keyframes hero-cta-spring {
+  0%   { opacity: 0; transform: scale(0.95); }
+  60%  { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 5. CTA secondary: smooth ease-out */
+@keyframes hero-cta-ease {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* 6. Vertical copper rule: draw downward (clipPath top→bottom) */
+@keyframes hero-rule-draw {
+  from { clip-path: inset(0 0 100% 0); opacity: 1; }
+  to   { clip-path: inset(0 0 0% 0); opacity: 1; }
+}
+
+/* 7. Scroll indicator draw + fade */
+@keyframes hero-scroll-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 0.35; transform: translateY(0); }
+}
+
+/* ─── Base states: hidden before mount ─── */
+.ef-hero-section .ef-hero-item { opacity: 0; will-change: transform, opacity; }
+.ef-hero-section .ef-hero-headline-left  { opacity: 0; display: inline; }
+.ef-hero-section .ef-hero-headline-right { opacity: 0; display: inline; }
+.ef-hero-section .ef-hero-quote-border { transform-origin: top; transform: scaleY(0); }
+.ef-hero-section .ef-scroll-indicator { opacity: 0; }
+
+/* φ ambient — subtle fade on mount */
 .ef-hero-section .phi-ambient {
   opacity: 0;
   transition: opacity 2s ease 0.5s;
 }
 .ef-hero-section.is-mounted .phi-ambient { opacity: 1; }
 
-/* Vertical copper rule */
+/* Vertical copper rule: draw downward */
 .ef-hero-section .ef-hero-vert-rule {
+  clip-path: inset(0 0 100% 0);
   opacity: 0;
-  transition: opacity 1.5s ease 0.8s;
 }
-.ef-hero-section.is-mounted .ef-hero-vert-rule { opacity: 1; }
-
-/* Scroll indicator */
-.ef-hero-section .ef-scroll-indicator {
-  opacity: 0;
-  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
+.ef-hero-section.is-mounted .ef-hero-vert-rule {
+  animation: hero-rule-draw 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
 }
-.ef-hero-section.is-mounted .ef-scroll-indicator { opacity: 0.35; }
 
 /* Stats bar entry */
 .ef-hero-section .ef-stats-bar {
@@ -398,6 +455,91 @@
               transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.45s;
 }
 .ef-hero-section.is-mounted .ef-stats-bar { opacity: 1; transform: none; }
+
+/* ─── Choreographed entrances on is-mounted ─── */
+
+/* Headline left half: T+200ms, 600ms */
+.ef-hero-section.is-mounted .ef-hero-headline-left {
+  animation: hero-from-left 600ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+  will-change: transform, opacity;
+}
+
+/* Headline right half: T+350ms (150ms after left), 500ms */
+.ef-hero-section.is-mounted .ef-hero-headline-right {
+  animation: hero-from-right 500ms cubic-bezier(0.22, 1, 0.36, 1) 350ms both;
+  will-change: transform, opacity;
+}
+
+/* Subhead: T+600ms, 500ms, with letter-spacing tightening */
+.ef-hero-section.is-mounted .ef-hero-item[data-delay="2"] {
+  animation: hero-from-below-lg 500ms cubic-bezier(0.22, 1, 0.36, 1) 600ms both;
+  will-change: transform, opacity;
+}
+
+/* Body: T+900ms, 450ms */
+.ef-hero-section.is-mounted .ef-hero-item[data-delay="3"] {
+  animation: hero-from-below-sm 450ms cubic-bezier(0.22, 1, 0.36, 1) 900ms both;
+  will-change: transform, opacity;
+}
+
+/* Quote border draw: T+1200ms, 400ms */
+.ef-hero-section.is-mounted .ef-hero-quote-border {
+  animation: hero-border-draw 400ms cubic-bezier(0.22, 1, 0.36, 1) 1200ms both;
+  will-change: transform;
+  transform-origin: top;
+}
+
+/* Quote text: T+1350ms (150ms after border starts) */
+.ef-hero-section.is-mounted .ef-hero-item[data-delay="4"] {
+  animation: hero-from-below-sm 450ms cubic-bezier(0.22, 1, 0.36, 1) 1350ms both;
+  will-change: transform, opacity;
+}
+
+/* CTA primary: T+1618ms (φ beat), spring */
+.ef-hero-section.is-mounted .ef-hero-cta-primary {
+  animation: hero-cta-spring 300ms cubic-bezier(0.34, 1.56, 0.64, 1) 1618ms both;
+  will-change: transform, opacity;
+}
+
+/* CTA secondary: T+1718ms (100ms after primary), ease */
+.ef-hero-section.is-mounted .ef-hero-cta-secondary {
+  animation: hero-cta-ease 280ms cubic-bezier(0.22, 1, 0.36, 1) 1718ms both;
+  will-change: transform, opacity;
+}
+
+/* Scroll indicator: T+2000ms */
+.ef-hero-section.is-mounted .ef-scroll-indicator {
+  animation: hero-scroll-in 500ms cubic-bezier(0.22, 1, 0.36, 1) 2000ms both;
+  will-change: transform, opacity;
+}
+
+/* ─── prefers-reduced-motion: no animation, instant final state ─── */
+@media (prefers-reduced-motion: reduce) {
+  .ef-hero-section .ef-hero-item,
+  .ef-hero-section .ef-hero-headline-left,
+  .ef-hero-section .ef-hero-headline-right,
+  .ef-hero-section .ef-hero-cta-primary,
+  .ef-hero-section .ef-hero-cta-secondary,
+  .ef-hero-section .ef-hero-quote-border,
+  .ef-hero-section .ef-scroll-indicator,
+  .ef-hero-section .ef-hero-vert-rule,
+  .ef-hero-section .ef-stats-bar {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .ef-hero-section .phi-ambient {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+  }
+  .ef-hero-section .ef-stats-bar {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 
 /* ─── CTA button styles — CSS hover/focus (no JS event handlers) ─── */
 
@@ -518,7 +660,6 @@
     letter-spacing var(--ef-duration-phi) var(--ef-easing-phi);
 }
 
-.ef-hero-section.is-mounted .animate-reveal-heading,
 .animate-reveal-heading.is-visible {
   opacity: 1;
   letter-spacing: -0.03em !important;
@@ -530,7 +671,6 @@
   transition: opacity var(--ef-duration-phi) var(--ef-easing-phi);
 }
 
-.ef-hero-section.is-mounted .animate-reveal-body,
 .animate-reveal-body.is-visible {
   opacity: 1;
 }
@@ -632,6 +772,9 @@
   .animate-reveal-below { opacity: 1; transform: none; transition: none; }
   .animate-reveal-list > * { opacity: 1; transform: none; transition: none; }
 }
+
+/* ─── will-change cleanup: promoted via JS animationend, CSS fallback ─── */
+.ef-hero-anim-done { will-change: auto !important; }
 
 /* ─── Testimonial entrances (handled inline in component, CSS as fallback) ── */
 @media (prefers-reduced-motion: reduce) {

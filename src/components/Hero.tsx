@@ -227,6 +227,23 @@ function PhiGeometricBackground() {
   );
 }
 
+// ─── will-change cleanup after animations complete ────────────────────────────
+function useAnimEndCleanup(mounted: boolean) {
+  useEffect(() => {
+    if (!mounted) return;
+    // Remove will-change promotions after all hero entrances complete (~2700ms)
+    const t = setTimeout(() => {
+      document.querySelectorAll<HTMLElement>(
+        '.ef-hero-headline-left, .ef-hero-headline-right, .ef-hero-cta-primary, ' +
+        '.ef-hero-cta-secondary, .ef-hero-item, .ef-scroll-indicator, .ef-hero-quote-border'
+      ).forEach((el) => {
+        el.classList.add('ef-hero-anim-done');
+      });
+    }, 2700);
+    return () => clearTimeout(t);
+  }, [mounted]);
+}
+
 // ─── Main Hero ────────────────────────────────────────────────────────────────
 export function Hero() {
   const [mounted, setMounted] = useState(false);
@@ -236,6 +253,8 @@ export function Hero() {
     const t = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(t);
   }, []);
+
+  useAnimEndCleanup(mounted);
 
   return (
     <section
@@ -292,10 +311,8 @@ export function Hero() {
         className="relative flex-1 flex flex-col justify-center w-full px-5 sm:px-6 lg:px-10 pt-28 sm:pt-32 lg:pt-28 pb-0"
         style={{ maxWidth: '1200px', margin: '0 auto' }}
       >
-        {/* Headline */}
+        {/* Headline — split into two halves that converge from opposite directions */}
         <h1
-          className="ef-hero-item animate-reveal-heading"
-          data-delay="1"
           style={{
             color: 'var(--ef-text-primary)',
             fontSize: 'clamp(2.5rem, 6.5vw, 5rem)',
@@ -305,14 +322,17 @@ export function Hero() {
             maxWidth: '800px',
             marginBottom: '28px',
           }}
+          aria-label="From Chaos to Control."
         >
-          From Chaos to{' '}
-          <span style={{ color: 'var(--ef-copper)' }}>Control</span>.
+          <span className="ef-hero-headline-left" aria-hidden="true">From Chaos to{' '}</span>
+          <span className="ef-hero-headline-right" aria-hidden="true">
+            <span style={{ color: 'var(--ef-copper)' }}>Control</span>.
+          </span>
         </h1>
 
         {/* Subhead */}
         <p
-          className="ef-hero-item animate-reveal-body"
+          className="ef-hero-item"
           data-delay="2"
           style={{
             color: 'var(--ef-text-secondary)',
@@ -328,7 +348,7 @@ export function Hero() {
 
         {/* Body */}
         <p
-          className="ef-hero-item animate-reveal-body"
+          className="ef-hero-item"
           data-delay="3"
           style={{
             color: 'var(--ef-text-secondary)',
@@ -342,18 +362,30 @@ export function Hero() {
           Efikton manages Materials, Time, Money, and Knowledge as one disciplined system. From order to cash, from supplier to shipment. One method. Proven results across 40+ factory implementations.
         </p>
 
-        {/* Named social proof */}
+        {/* Named social proof — border draws first, then text fades in */}
         <div
-          className="ef-hero-item"
-          data-delay="4"
-          style={{ marginTop: 'clamp(-8px, -1vw, 0px)', marginBottom: 'clamp(24px, 4vw, 32px)', maxWidth: '520px' }}
+          style={{ marginTop: 'clamp(-8px, -1vw, 0px)', marginBottom: 'clamp(24px, 4vw, 32px)', maxWidth: '520px', position: 'relative', paddingLeft: '18px' }}
         >
+          {/* Animated copper left border */}
+          <div
+            className="ef-hero-quote-border"
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bottom: 0,
+              width: '2px',
+              background: 'rgba(193,127,62,0.5)',
+              transformOrigin: 'top',
+            }}
+            aria-hidden="true"
+          />
           <blockquote
+            className="ef-hero-item"
+            data-delay="4"
             style={{
               margin: 0,
               padding: 0,
-              borderLeft: '2px solid rgba(193,127,62,0.5)',
-              paddingLeft: '16px',
             }}
           >
             <p
@@ -388,15 +420,11 @@ export function Hero() {
           </blockquote>
         </div>
 
-        {/* CTAs */}
-        <div
-          className="ef-hero-item flex flex-wrap gap-2.5 sm:gap-3"
-          data-delay="5"
-          style={{ marginLeft: 0 }}
-        >
+        {/* CTAs — each has its own entrance animation class */}
+        <div className="flex flex-wrap gap-2.5 sm:gap-3" style={{ marginLeft: 0 }}>
           <a
             href="#contact"
-            className="ef-cta-primary group touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
+            className="ef-hero-cta-primary ef-cta-primary group touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
             style={{
               whiteSpace: 'nowrap',
               minWidth: 0,
@@ -412,7 +440,7 @@ export function Hero() {
           </a>
           <a
             href="#results"
-            className="ef-cta-secondary touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
+            className="ef-hero-cta-secondary ef-cta-secondary touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
             style={{
               whiteSpace: 'nowrap',
               minWidth: 0,
