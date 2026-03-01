@@ -330,7 +330,7 @@ export function CTA() {
                 <button
                   type="submit"
                   disabled={formState === 'submitting'}
-                  className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto ef-cta-primary-btn focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] focus-visible:ring-[var(--ef-copper)] outline-none"
+                  className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto ef-cta-primary-btn touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] focus-visible:ring-[var(--ef-copper)] outline-none"
                   style={{
                     backgroundColor: formState === 'submitting' ? 'var(--ef-copper-dark)' : 'var(--ef-copper)',
                     color: 'var(--ef-white)',

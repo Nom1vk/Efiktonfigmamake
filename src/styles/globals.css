@@ -380,6 +380,15 @@ select:valid:focus:not(:placeholder-shown) {
   }
 }
 
+/* ─── Active state scale utilities for touch feedback ─── */
+.active\:scale-98:active {
+  transform: scale(0.98);
+}
+
+.active\:scale-95:active {
+  transform: scale(0.95);
+}
+
 /* ─── Hero mount animation system ─── */
 /* ─── Hero Entrance Choreography — Spatial Assembly ────────────────────────
    Each element enters from a distinct spatial origin.
