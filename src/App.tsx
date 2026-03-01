@@ -9,6 +9,7 @@ import { CTA } from './components/CTA';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { FibonacciDivider, CopperDrawDivider } from './components/PhiElements';
+import { PaletteSwitcher } from './components/PaletteSwitcher';
 
 export default function App() {
   return (
@@ -54,6 +55,7 @@ export default function App() {
         <CTA />
       </main>
       <Footer />
+      <PaletteSwitcher />
     </div>
   );
 }
