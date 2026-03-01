@@ -21,11 +21,11 @@ const stopUsing = [
 ];
 
 const phases = [
-  { num: '01', name: 'Foundation', desc: 'Product data, inventory, purchasing, costing', win: 'Single source of truth' },
-  { num: '02', name: 'Planning', desc: 'Orders, scheduling, capacity', win: 'Reliable delivery dates' },
-  { num: '03', name: 'Execution', desc: 'Real-time monitoring, production tracking', win: 'Less firefighting' },
-  { num: '04', name: 'Quality', desc: 'QC, traceability, continuous improvement', win: 'Fewer defects' },
-  { num: '05', name: 'Control', desc: 'Financials, forecasting, early warnings', win: 'Margin protection' },
+  { num: '01', name: 'Foundation', timeline: '4–6 weeks', desc: 'Product data, inventory, purchasing, costing', win: 'Single source of truth' },
+  { num: '02', name: 'Planning', timeline: '4–6 weeks', desc: 'Orders, scheduling, capacity', win: 'Reliable delivery dates' },
+  { num: '03', name: 'Execution', timeline: '6–10 weeks', desc: 'Real-time monitoring, production tracking', win: 'Less firefighting' },
+  { num: '04', name: 'Quality', timeline: '4–6 weeks', desc: 'QC, traceability, continuous improvement', win: 'Fewer defects' },
+  { num: '05', name: 'Control', timeline: '4–8 weeks', desc: 'Financials, forecasting, early warnings', win: 'Margin protection' },
 ];
 
 export function Features() {
@@ -275,8 +275,24 @@ export function Features() {
                     {phase.num}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '14px', fontWeight: 600, color: '#E8E4DF', marginBottom: '2px' }}>
-                      {phase.name}
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '2px', flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: '14px', fontWeight: 600, color: '#E8E4DF' }}>
+                        {phase.name}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          color: 'rgba(184,115,51,0.7)',
+                          letterSpacing: '0.06em',
+                          backgroundColor: 'rgba(184,115,51,0.08)',
+                          padding: '2px 7px',
+                          borderRadius: '2px',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {phase.timeline}
+                      </span>
                     </div>
                     <div style={{ fontSize: '13px', color: '#8B8680', marginBottom: '8px' }}>
                       {phase.desc}

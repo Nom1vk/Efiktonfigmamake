@@ -1,6 +1,7 @@
 import { Hero } from './components/Hero';
 import { Solutions } from './components/Solutions';
 import { Features } from './components/Features';
+import { ERPReplacement } from './components/ERPReplacement';
 import { Testimonials } from './components/Testimonials';
 import { CTA } from './components/CTA';
 import { Navigation } from './components/Navigation';
@@ -39,7 +40,16 @@ export default function App() {
           }}
         />
         <Features />
-        {/* Section transition: navy → off-white */}
+        {/* Section transition: navy → cream */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
+          }}
+        />
+        <ERPReplacement />
+        {/* Section transition: cream → off-white */}
         <div
           aria-hidden="true"
           style={{
