@@ -293,6 +293,33 @@
   outline-offset: 3px;
 }
 
+/* ─── Form validation states ─── */
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown),
+select:invalid:not(:placeholder-shown) {
+  border-color: rgba(220, 50, 50, 0.6);
+}
+
+input:invalid:focus:not(:placeholder-shown),
+textarea:invalid:focus:not(:placeholder-shown),
+select:invalid:focus:not(:placeholder-shown) {
+  border-color: rgba(220, 50, 50, 0.8);
+  box-shadow: 0 0 0 3px rgba(220, 50, 50, 0.15);
+}
+
+input:valid:not(:placeholder-shown),
+textarea:valid:not(:placeholder-shown),
+select:valid:not(:placeholder-shown) {
+  border-color: rgba(74, 124, 91, 0.5);
+}
+
+input:valid:focus:not(:placeholder-shown),
+textarea:valid:focus:not(:placeholder-shown),
+select:valid:focus:not(:placeholder-shown) {
+  border-color: rgba(193, 127, 62, 0.6);
+  box-shadow: 0 0 0 3px rgba(193, 127, 62, 0.12);
+}
+
 /* ─── Custom select arrow ─── */
 .ef-select {
   appearance: none;
