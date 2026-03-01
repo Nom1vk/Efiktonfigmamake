@@ -1,4 +1,31 @@
+import { useRef } from 'react';
 import { useInView } from '../hooks/useInView';
+
+/** 3D tilt effect — progressive enhancement, skipped on touch devices */
+function useTilt(maxDeg = 3) {
+  const ref = useRef<HTMLElement>(null);
+
+  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    // Skip on touch-primary devices
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5 to 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    const rotateY = x * maxDeg * 2;
+    const rotateX = -y * maxDeg * 2;
+    el.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+
+  const onMouseLeave = () => {
+    if (!ref.current) return;
+    ref.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+  };
+
+  return { ref, onMouseMove, onMouseLeave };
+}
 
 const pillars = [
   {
@@ -171,22 +198,37 @@ export function Solutions() {
         aria-label="The four pillars of the Efikton method"
       >
         <div style={{ borderTop: '1px solid rgba(10, 22, 40, 0.1)' }}>
-          {pillars.map((pillar, index) => (
+          {pillars.map((pillar, index) => {
+            const tiltRef = { current: null as HTMLElement | null };
+            const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+              const el = tiltRef.current;
+              if (!el || window.matchMedia('(hover: none)').matches) return;
+              const rect = el.getBoundingClientRect();
+              const x = (e.clientX - rect.left) / rect.width - 0.5;
+              const y = (e.clientY - rect.top) / rect.height - 0.5;
+              el.style.transform = `perspective(1200px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
+            };
+            const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+              if (tiltRef.current) tiltRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+            };
+            return (
             <article
               key={index}
-              className="group"
+              className="group ef-tilt-card"
+              ref={(el) => { tiltRef.current = el; }}
               style={{
                 borderBottom: '1px solid rgba(10, 22, 40, 0.1)',
                 cursor: 'default',
                 transition: 'background-color 0.25s ease',
                 borderRadius: '2px',
+                willChange: 'transform',
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(184, 115, 51, 0.035)';
               }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
-              }}
+              onMouseLeave={handleMouseLeave}
+              onMouseMove={handleMouseMove}
               role="listitem"
             >
               {/* Mobile: stacked. Desktop: 3-col grid */}
@@ -285,7 +327,8 @@ export function Solutions() {
                 </div>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         {/* Closing statement */}

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useInView } from '../hooks/useInView';
 
 const painPoints = [
@@ -46,10 +47,203 @@ const comparison = [
   },
 ];
 
+/** Animated comparison table — builds row by row */
+function ComparisonTable() {
+  const [containerRef, containerVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const [visibleRows, setVisibleRows] = useState<boolean[]>(Array(comparison.length).fill(false));
+  const triggered = useRef(false);
+
+  useEffect(() => {
+    if (!containerVisible || triggered.current) return;
+    triggered.current = true;
+
+    // Header first
+    setTimeout(() => setHeaderVisible(true), 0);
+
+    // Then rows with stagger
+    comparison.forEach((_, i) => {
+      setTimeout(() => {
+        setVisibleRows(prev => {
+          const next = [...prev];
+          next[i] = true;
+          return next;
+        });
+      }, 200 + i * 200);
+    });
+  }, [containerVisible]);
+
+  return (
+    <div ref={containerRef}>
+      <p className="ef-eyebrow text-[var(--ef-text-secondary)] mb-8">
+        How Efikton compares to traditional ERP
+      </p>
+
+      {/* Desktop comparison table */}
+      <div className="hidden md:block border border-[rgba(10,22,40,0.12)] rounded-[4px] overflow-hidden">
+        {/* Header row */}
+        <div
+          className={`animate-reveal${headerVisible ? ' is-visible' : ''}`}
+          style={{ display: 'grid', gridTemplateColumns: '25% 37.5% 37.5%', backgroundColor: '#0A1628' }}
+          role="row"
+        >
+          <div className="px-6 py-4" />
+          <div className="px-6 py-4 border-l border-[rgba(255,255,255,0.07)]" role="columnheader">
+            <span className="text-[11px] font-bold tracking-[0.12em] uppercase block" style={{ color: 'rgba(232,228,223,0.45)' }}>
+              Traditional ERP
+            </span>
+            <span className="text-[10px] font-normal tracking-[0.08em] block mt-0.5" style={{ color: 'rgba(232,228,223,0.25)' }}>
+              Oracle · SAP · legacy ERP
+            </span>
+          </div>
+          <div className="px-6 py-4 border-l border-[var(--ef-copper-border)] text-[11px] font-bold text-[var(--ef-copper)] tracking-[0.12em] uppercase" role="columnheader">
+            Efikton
+          </div>
+        </div>
+
+        {/* Data rows — each cell slides from opposite sides */}
+        {comparison.map((row, i) => (
+          <div
+            key={row.dimension}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '25% 37.5% 37.5%',
+              borderTop: '1px solid rgba(10,22,40,0.08)',
+              backgroundColor: i % 2 === 0 ? 'var(--ef-surface)' : 'var(--ef-surface-alt)',
+            }}
+            role="row"
+          >
+            {/* Dimension label */}
+            <div
+              className={`erp-row-erp${visibleRows[i] ? ' is-visible' : ''}`}
+              style={{
+                padding: '20px 24px',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#0A1628',
+                letterSpacing: '0.01em',
+                lineHeight: 1.5,
+                transitionDelay: `${i * 200 + 200}ms`,
+              }}
+              role="rowheader"
+            >
+              {row.dimension}
+            </div>
+
+            {/* ERP cell — slides from left, red indicator */}
+            <div
+              className={`erp-row-erp erp-neg-indicator${visibleRows[i] ? ' is-visible' : ''}`}
+              style={{
+                padding: '20px 24px',
+                fontSize: '13px',
+                color: '#4A4540',
+                lineHeight: 1.65,
+                borderLeft: '1px solid rgba(10,22,40,0.08)',
+                transitionDelay: `${i * 200 + 200}ms`,
+              }}
+              role="cell"
+            >
+              <span style={{
+                display: 'inline-block',
+                fontSize: '10px',
+                fontWeight: 700,
+                color: 'rgba(200,60,60,0.7)',
+                marginRight: '6px',
+                verticalAlign: 'middle',
+              }} aria-hidden="true">✗</span>
+              {row.erp}
+            </div>
+
+            {/* Efikton cell — slides from right, copper indicator */}
+            <div
+              className={`erp-row-efikton erp-pos-indicator${visibleRows[i] ? ' is-visible' : ''}`}
+              style={{
+                padding: '20px 24px',
+                fontSize: '13px',
+                color: '#0A1628',
+                fontWeight: 500,
+                lineHeight: 1.65,
+                borderLeft: '1px solid rgba(193,127,62,0.15)',
+                transitionDelay: `${i * 200 + 200}ms`,
+              }}
+              role="cell"
+            >
+              <span style={{
+                display: 'inline-block',
+                fontSize: '10px',
+                fontWeight: 700,
+                color: '#B87333',
+                marginRight: '6px',
+                verticalAlign: 'middle',
+              }} aria-hidden="true">✓</span>
+              {row.efikton}
+            </div>
+          </div>
+        ))}
+
+        {/* Summary row — fades in last */}
+        <div
+          className={`animate-reveal${visibleRows[comparison.length - 1] ? ' is-visible' : ''}`}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '25% 75%',
+            borderTop: '2px solid rgba(193,127,62,0.25)',
+            backgroundColor: '#0A1628',
+            transitionDelay: `${comparison.length * 200 + 300}ms`,
+          }}
+          role="row"
+        >
+          <div className="px-6 py-5" />
+          <div className="px-6 py-5 border-l border-[rgba(193,127,62,0.2)]" role="cell">
+            <p style={{
+              fontSize: '14px',
+              fontWeight: 600,
+              color: '#E8E4DF',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.5,
+            }}>
+              Same factory. Same team. Efikton gives you control — without the ERP consultant on speed dial.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile stacked cards */}
+      <div className="md:hidden flex flex-col gap-4">
+        {comparison.map((row, i) => (
+          <div
+            key={row.dimension}
+            className={`animate-reveal${visibleRows[i] ? ' is-visible' : ''}`}
+            style={{
+              border: '1px solid rgba(10,22,40,0.12)',
+              borderRadius: '4px',
+              overflow: 'hidden',
+              transitionDelay: `${i * 200}ms`,
+            }}
+          >
+            <div className="px-4 py-3 bg-[var(--ef-navy)] text-[11px] font-bold text-[var(--ef-text-primary)] tracking-[0.06em] uppercase">
+              {row.dimension}
+            </div>
+            <div className="grid grid-cols-2">
+              <div className="p-4 bg-[var(--ef-surface-alt)] border-r border-[rgba(10,22,40,0.08)]" style={{ borderLeft: '3px solid rgba(200,60,60,0.3)' }}>
+                <div className="text-[10px] font-bold text-[var(--ef-text-secondary)] tracking-[0.1em] uppercase mb-1.5">Legacy ERP</div>
+                <p className="text-xs text-[#4A4540] leading-[1.6]">{row.erp}</p>
+              </div>
+              <div className="p-4 bg-[var(--ef-surface)]" style={{ borderLeft: '3px solid rgba(184,115,51,0.5)' }}>
+                <div className="text-[10px] font-bold text-[var(--ef-copper)] tracking-[0.1em] uppercase mb-1.5">Efikton</div>
+                <p className="text-xs text-[#0A1628] font-medium leading-[1.6]">{row.efikton}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function ERPReplacement() {
   const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [painRef, painVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
-  const [tableRef, tableVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
 
   return (
     <section
@@ -92,9 +286,7 @@ export function ERPReplacement() {
             Why legacy ERP implementations fail manufacturing operations
           </p>
 
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 border-t border-[rgba(10,22,40,0.1)]"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-[rgba(10,22,40,0.1)]">
             {painPoints.map((point, i) => (
               <div
                 key={point.num}
@@ -106,7 +298,7 @@ export function ERPReplacement() {
                 ].join(' ')}
               >
                 <div
-                  className="text-[11px] font-bold tracking-[0.1em] mb-3 text-[var(--ef-copper-border)]"
+                  className="text-[11px] font-bold tracking-[0.1em] mb-3"
                   style={{ color: 'rgba(193,127,62,0.6)' }}
                   aria-hidden="true"
                 >
@@ -150,104 +342,8 @@ export function ERPReplacement() {
           </ul>
         </div>
 
-        {/* Comparison table */}
-        <div
-          ref={tableRef}
-          className={`animate-reveal${tableVisible ? ' is-visible' : ''}`}
-        >
-          <p className="ef-eyebrow text-[var(--ef-text-secondary)] mb-8">
-            How Efikton compares to traditional ERP
-          </p>
-
-          {/* Desktop comparison — semantic table for accessibility */}
-          <table
-            className="hidden md:table w-full border border-[rgba(10,22,40,0.12)] rounded-[4px] overflow-hidden border-collapse"
-            aria-label="Efikton vs Traditional ERP comparison"
-          >
-            <colgroup>
-              <col style={{ width: '25%' }} />
-              <col style={{ width: '37.5%' }} />
-              <col style={{ width: '37.5%' }} />
-            </colgroup>
-            <thead>
-              <tr className="bg-[var(--ef-navy)]">
-                <th scope="col" className="p-0" />
-                <th
-                  scope="col"
-                  className="px-6 py-4 text-left text-[11px] font-bold tracking-[0.12em] uppercase border-l border-[rgba(255,255,255,0.07)]"
-                  style={{ color: 'rgba(232,228,223,0.45)' }}
-                >
-                  Traditional ERP
-                  <span
-                    className="block text-[10px] font-normal tracking-[0.08em] mt-0.5"
-                    style={{ color: 'rgba(232,228,223,0.25)' }}
-                  >
-                    Oracle · SAP · legacy ERP
-                  </span>
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-4 text-left text-[11px] font-bold text-[var(--ef-copper)] tracking-[0.12em] uppercase border-l border-[var(--ef-copper-border)]"
-                >
-                  Efikton
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparison.map((row, i) => (
-                <tr
-                  key={row.dimension}
-                  className={`border-t border-[rgba(10,22,40,0.08)] ${i % 2 === 0 ? 'bg-[var(--ef-surface)]' : 'bg-[var(--ef-surface-alt)]'}`}
-                >
-                  <th
-                    scope="row"
-                    className="px-6 py-5 text-left text-xs font-semibold text-[#0A1628] tracking-[0.01em] leading-[1.5]"
-                  >
-                    {row.dimension}
-                  </th>
-                  <td
-                    className="px-6 py-5 text-[13px] text-[#4A4540] leading-[1.65] border-l border-[rgba(10,22,40,0.08)]"
-                  >
-                    {row.erp}
-                  </td>
-                  <td
-                    className="px-6 py-5 text-[13px] text-[#0A1628] font-medium leading-[1.65] border-l border-[rgba(193,127,62,0.15)]"
-                  >
-                    {row.efikton}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Mobile comparison: stacked cards */}
-          <div className="md:hidden flex flex-col gap-4">
-            {comparison.map((row) => (
-              <div
-                key={row.dimension}
-                className="border border-[rgba(10,22,40,0.12)] rounded-[4px] overflow-hidden"
-              >
-                <div className="px-4 py-3 bg-[var(--ef-navy)] text-[11px] font-bold text-[var(--ef-text-primary)] tracking-[0.06em] uppercase">
-                  {row.dimension}
-                </div>
-                <div className="grid grid-cols-2">
-                  <div className="p-4 bg-[var(--ef-surface-alt)] border-r border-[rgba(10,22,40,0.08)]">
-                    <div className="text-[10px] font-bold text-[var(--ef-text-secondary)] tracking-[0.1em] uppercase mb-1.5">
-                      Legacy ERP
-                    </div>
-                    <p className="text-xs text-[#4A4540] leading-[1.6]">{row.erp}</p>
-                  </div>
-                  <div className="p-4 bg-[var(--ef-surface)]">
-                    <div className="text-[10px] font-bold text-[var(--ef-copper)] tracking-[0.1em] uppercase mb-1.5">
-                      Efikton
-                    </div>
-                    <p className="text-xs text-[#0A1628] font-medium leading-[1.6]">{row.efikton}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Animated comparison table */}
+        <ComparisonTable />
       </div>
     </section>
   );

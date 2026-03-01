@@ -1,4 +1,26 @@
 import { useInView } from '../hooks/useInView';
+import { useCountUp } from '../hooks/useCountUp';
+
+// Parse metric string → { count, suffix } or null if not numeric
+function parseMetricCount(metric: string): { count: number; suffix: string } | null {
+  const m = metric.match(/^(\d+(?:\.\d+)?)(x|%)?(\s+days)?$/i);
+  if (!m) return null;
+  const num = parseFloat(m[1]);
+  const suffix = m[2] ? m[2].toLowerCase() : m[3] ? m[3] : '';
+  return { count: num, suffix };
+}
+
+function AnimatedResultMetric({ metric, visible }: { metric: string; visible: boolean }) {
+  const parsed = parseMetricCount(metric);
+  const counted = useCountUp({
+    end: parsed?.count ?? 0,
+    duration: 1618,
+    suffix: parsed?.suffix ?? '',
+    enabled: visible && parsed !== null,
+  });
+  if (!parsed) return <>{metric}</>;
+  return <>{visible ? counted : metric}</>;
+}
 
 interface Phase {
   number: string;
@@ -374,7 +396,7 @@ export function CaseStudy() {
                     marginBottom: '8px',
                   }}
                 >
-                  {result.metric}
+                  <AnimatedResultMetric metric={result.metric} visible={resultsVisible} />
                 </div>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#E8E4DF', marginBottom: '4px' }}>
                   {result.label}

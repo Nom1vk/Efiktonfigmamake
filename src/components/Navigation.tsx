@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -12,11 +12,29 @@ const navLinks = [
 export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [phiRotation, setPhiRotation] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+
+      // Throttle phi rotation to rAF
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        const scrollY = window.scrollY;
+        // 1 degree per 100px scroll
+        setPhiRotation(scrollY / 100);
+        lastScrollY.current = scrollY;
+      });
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -67,7 +85,16 @@ export function Navigation() {
               color: '#E8E4DF',
             }}
           >
-            e<span style={{ color: '#C17F3E' }}>φ</span>ikton
+            e<span
+              style={{
+                color: '#C17F3E',
+                display: 'inline-block',
+                transform: `rotate(${phiRotation}deg)`,
+                transition: 'transform 0.05s linear',
+                willChange: 'transform',
+              }}
+              aria-hidden="true"
+            >φ</span>ikton
           </span>
           <span
             style={{
@@ -89,7 +116,7 @@ export function Navigation() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm transition-colors duration-150"
+              className="ef-nav-link text-sm transition-colors duration-150"
               style={{ color: 'rgba(232, 228, 223, 0.55)', fontWeight: 500, letterSpacing: '0.01em' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#E8E4DF')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232, 228, 223, 0.55)')}
@@ -99,7 +126,7 @@ export function Navigation() {
           ))}
           <a
             href="#contact"
-            className="text-sm font-semibold transition-all duration-150"
+            className="ef-cta-btn text-sm font-semibold"
             style={{
               backgroundColor: '#B87333',
               color: '#ffffff',
@@ -141,7 +168,6 @@ export function Navigation() {
         aria-hidden={!mobileOpen}
       >
         <div
-          className="py-6"
           style={{
             borderTop: '1px solid rgba(184, 115, 51, 0.12)',
             padding: '24px 24px',
@@ -166,7 +192,7 @@ export function Navigation() {
             <li className="mt-3">
               <a
                 href="#contact"
-                className="flex items-center justify-center text-sm font-semibold transition-colors"
+                className="ef-cta-btn flex items-center justify-center text-sm font-semibold"
                 style={{ backgroundColor: '#B87333', color: '#fff', minHeight: '48px' }}
                 onClick={() => setMobileOpen(false)}
                 tabIndex={mobileOpen ? 0 : -1}

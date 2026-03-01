@@ -1972,3 +1972,346 @@ main a:not([class]) {
     transparent 100%
   );
 }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   CREATIVE TASK B — Pipeline, Phase, ERP, Micro-interactions, φ Elements
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Pipeline Conveyor Belt Flow ─────────────────────────────────────────── */
+
+/* Individual flow step — slides in from left */
+.flow-step-item {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.flow-step-item.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Connector line between flow steps — draws itself left-to-right */
+.flow-connector {
+  position: relative;
+  width: 32px;
+  height: 2px;
+  background: transparent;
+  flex-shrink: 0;
+  overflow: visible;
+}
+.flow-connector::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: rgba(184, 115, 51, 0.4);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: width;
+}
+.flow-connector.is-visible::before {
+  width: 100%;
+}
+/* Arrow tip at end of connector */
+.flow-connector::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-left: 4px solid rgba(184, 115, 51, 0.4);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.flow-connector.is-visible::after {
+  opacity: 1;
+}
+
+/* Accent glow for first/last step */
+.flow-step-accent {
+  box-shadow: 0 0 0 0 rgba(193, 127, 62, 0.4);
+}
+.flow-step-accent.is-visible {
+  animation: copper-glow-land 0.6s ease forwards;
+}
+@keyframes copper-glow-land {
+  0%   { box-shadow: 0 0 0 0 rgba(193, 127, 62, 0.6); }
+  60%  { box-shadow: 0 0 12px 4px rgba(193, 127, 62, 0.3); }
+  100% { box-shadow: 0 0 6px 2px rgba(193, 127, 62, 0.15); }
+}
+
+/* Pulse that travels left-to-right after all steps land */
+@keyframes pipeline-pulse {
+  0%   { left: -8px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { left: calc(100% + 8px); opacity: 0; }
+}
+.pipeline-track-pulse {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  width: 8px;
+  height: 2px;
+  background: rgba(193, 127, 62, 0.7);
+  border-radius: 1px;
+  transform: translateY(-50%);
+  animation: pipeline-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+}
+.pipeline-track-pulse.is-animating {
+  animation-play-state: running;
+}
+
+/* ── 2. Phase Timeline Construction ─────────────────────────────────────────── */
+
+.phase-bar {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.phase-bar.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.phase-win {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  will-change: opacity;
+}
+.phase-win.is-visible {
+  opacity: 1;
+}
+
+.phase-num {
+  color: rgba(184, 115, 51, 0.3);
+  transition: color 0.4s ease;
+}
+.phase-num.is-visible {
+  color: rgba(184, 115, 51, 0.85);
+}
+
+/* Vertical progress line that draws downward */
+.phase-progress-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 0;
+  background: linear-gradient(to bottom, rgba(184, 115, 51, 0.5), rgba(184, 115, 51, 0.15));
+  transition: height 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: height;
+}
+.phase-progress-line.is-visible {
+  height: 100%;
+}
+
+/* ── 3. ERP Comparison Table Animation ──────────────────────────────────────── */
+
+.erp-row-erp {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.erp-row-erp.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.erp-row-efikton {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.erp-row-efikton.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Border indicator traces in */
+.erp-neg-indicator {
+  border-left: 3px solid transparent;
+  transition: border-color 0.35s ease 0.2s;
+}
+.erp-neg-indicator.is-visible {
+  border-left-color: rgba(220, 50, 50, 0.35);
+}
+
+.erp-pos-indicator {
+  border-left: 3px solid transparent;
+  transition: border-color 0.35s ease 0.2s;
+}
+.erp-pos-indicator.is-visible {
+  border-left-color: rgba(184, 115, 51, 0.6);
+}
+
+/* ── 4a. Nav link copper underline draw ─────────────────────────────────────── */
+
+.ef-nav-link {
+  position: relative;
+  display: inline-block;
+}
+.ef-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #C17F3E;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+.ef-nav-link:hover::after,
+.ef-nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+/* Retract right-to-left on leave */
+.ef-nav-link:not(:hover):not(:focus-visible)::after {
+  transform-origin: right center;
+}
+
+/* ── 4b. CTA "Book a Demo" pulse every 5s ───────────────────────────────────── */
+
+@keyframes demo-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(193, 127, 62, 0.45); }
+  60%  { box-shadow: 0 0 0 10px rgba(193, 127, 62, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(193, 127, 62, 0); }
+}
+
+.ef-cta-btn {
+  animation: demo-pulse 5s ease-out infinite;
+  transition: transform 0.15s ease, background-color 0.15s ease !important;
+}
+.ef-cta-btn:hover,
+.ef-cta-btn:focus-visible {
+  animation: none;
+  transform: scale(1.02);
+}
+
+/* ── 4c. 3D tilt card ────────────────────────────────────────────────────────── */
+
+.ef-tilt-card {
+  will-change: transform;
+  transition: transform 0.15s ease;
+  transform-style: preserve-3d;
+}
+/* On mobile — just scale */
+@media (hover: none) {
+  .ef-tilt-card:active {
+    transform: scale(1.01) !important;
+  }
+}
+
+/* ── 4e. Section divider copper draw ─────────────────────────────────────────── */
+
+.ef-copper-divider-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  overflow: hidden;
+}
+.ef-copper-divider-line {
+  height: 1px;
+  width: 60%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(193, 127, 62, 0.35) 38.2%,
+    rgba(193, 127, 62, 0.55) 61.8%,
+    transparent 100%
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.ef-copper-divider-line.is-visible {
+  transform: scaleX(1);
+}
+
+/* ── 5a. Fibonacci squares SVG divider ───────────────────────────────────────── */
+
+.ef-phi-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+  opacity: 0.055;
+  transition: opacity 0.6s ease;
+}
+.ef-phi-divider.is-visible {
+  opacity: 0.065;
+}
+
+/* ── 5b. Golden spiral ───────────────────────────────────────────────────────── */
+
+.ef-golden-spiral {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.05;
+}
+.ef-golden-spiral svg path {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ef-golden-spiral.is-visible svg path {
+  stroke-dashoffset: 0;
+}
+
+/* ── Reduced motion: kill all custom animations ──────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-step-item,
+  .flow-connector::before,
+  .phase-bar,
+  .phase-win,
+  .phase-num,
+  .phase-progress-line,
+  .erp-row-erp,
+  .erp-row-efikton,
+  .erp-neg-indicator,
+  .erp-pos-indicator,
+  .ef-copper-divider-line,
+  .ef-golden-spiral svg path {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    width: auto !important;
+    height: auto !important;
+    border-left-color: rgba(184, 115, 51, 0.4) !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .erp-neg-indicator {
+    border-left-color: rgba(220, 50, 50, 0.35) !important;
+  }
+  .flow-connector::before { width: 100% !important; }
+  .flow-step-item { opacity: 1 !important; }
+  .ef-cta-btn { animation: none !important; }
+  .pipeline-track-pulse { animation: none !important; }
+  .ef-nav-link::after { transition: none !important; }
+}

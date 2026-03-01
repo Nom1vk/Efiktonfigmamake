@@ -261,67 +261,114 @@ export function Testimonials() {
             className="grid grid-cols-1 md:grid-cols-2"
             style={{ gap: '32px' }}
           >
-            {ownerQuotes.map((quote, i) => (
-              <blockquote
-                key={i}
-                className="ef-quote-card"
-                style={{
-                  padding: '28px 32px 28px 24px',
-                  borderLeft: '2px solid var(--ef-copper)',
-                  backgroundColor: 'rgba(10, 22, 40, 0.04)',
-                }}
-              >
-                <p
+            {ownerQuotes.map((quote, i) => {
+              const staggerBase = i * 150; // ms
+              return (
+                <blockquote
+                  key={i}
+                  className="ef-quote-card ef-testimonial-card"
                   style={{
-                    fontSize: 'clamp(0.9375rem, 1.5vw, 1.125rem)',
-                    fontWeight: 500,
-                    color: '#0A1628',
-                    lineHeight: 1.7,
-                    letterSpacing: '-0.01em',
-                    fontStyle: 'italic',
-                    marginBottom: '16px',
+                    padding: '28px 32px 28px 24px',
+                    borderLeft: '2px solid var(--ef-copper)',
+                    backgroundColor: 'rgba(10, 22, 40, 0.04)',
+                    position: 'relative',
+                    overflow: 'hidden',
                   }}
                 >
-                  "{quote.text}"
-                </p>
-                <cite style={{ fontStyle: 'normal', display: 'block' }}>
+                  {/* Animated large quote mark */}
                   <span
+                    aria-hidden="true"
                     style={{
-                      fontSize: '13px',
-                      fontWeight: 700,
+                      position: 'absolute',
+                      top: '12px',
+                      left: '20px',
+                      fontSize: '72px',
+                      lineHeight: 1,
+                      fontWeight: 800,
+                      color: 'rgba(193,127,62,0.15)',
+                      fontStyle: 'normal',
+                      transform: quotesVisible ? 'scale(1)' : 'scale(0)',
+                      transformOrigin: 'top left',
+                      transition: quotesVisible
+                        ? `transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerBase}ms`
+                        : 'none',
+                      display: 'block',
+                      userSelect: 'none',
+                    }}
+                  >
+                    "
+                  </span>
+
+                  {/* Quote text — fades in 200ms after quote mark */}
+                  <p
+                    style={{
+                      fontSize: 'clamp(0.9375rem, 1.5vw, 1.125rem)',
+                      fontWeight: 500,
                       color: '#0A1628',
+                      lineHeight: 1.7,
                       letterSpacing: '-0.01em',
-                      display: 'block',
-                      marginBottom: '2px',
+                      fontStyle: 'italic',
+                      marginBottom: '16px',
+                      marginTop: '40px',
+                      opacity: quotesVisible ? 1 : 0,
+                      transition: quotesVisible
+                        ? `opacity 0.5s ease ${staggerBase + 200}ms`
+                        : 'none',
                     }}
                   >
-                    {quote.name}
-                  </span>
-                  <span
+                    {quote.text}
+                  </p>
+
+                  {/* Attribution — slides up 200ms after text */}
+                  <cite
                     style={{
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      color: '#C17F3E',
-                      letterSpacing: '0.06em',
-                      textTransform: 'uppercase',
+                      fontStyle: 'normal',
                       display: 'block',
-                      marginBottom: '2px',
+                      transform: quotesVisible ? 'translateY(0)' : 'translateY(10px)',
+                      opacity: quotesVisible ? 1 : 0,
+                      transition: quotesVisible
+                        ? `opacity 0.45s ease ${staggerBase + 400}ms, transform 0.45s cubic-bezier(0.22,1,0.36,1) ${staggerBase + 400}ms`
+                        : 'none',
                     }}
                   >
-                    {quote.title} · {quote.companyType}, {quote.city}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '11px',
-                      color: 'var(--ef-text-secondary)',
-                      letterSpacing: '0.04em',
-                    }}
-                  >
-                    {quote.companySize}
-                  </span>
-                </cite>
-              </blockquote>
-            ))}
+                    <span
+                      style={{
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        color: '#0A1628',
+                        letterSpacing: '-0.01em',
+                        display: 'block',
+                        marginBottom: '2px',
+                      }}
+                    >
+                      {quote.name}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        color: '#C17F3E',
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        display: 'block',
+                        marginBottom: '2px',
+                      }}
+                    >
+                      {quote.title} · {quote.companyType}, {quote.city}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        color: 'var(--ef-text-secondary)',
+                        letterSpacing: '0.04em',
+                      }}
+                    >
+                      {quote.companySize}
+                    </span>
+                  </cite>
+                </blockquote>
+              );
+            })}
           </div>
 
           {/* Case study CTA */}

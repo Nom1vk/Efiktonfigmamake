@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 
 interface UseCountUpOptions {
   end: number;
-  duration?: number; // ms
+  duration?: number; // ms — default 1618 (φ × 1000)
   decimals?: number;
   prefix?: string;
   suffix?: string;
@@ -11,11 +11,12 @@ interface UseCountUpOptions {
 
 /**
  * Animated counter from 0 to `end` when `enabled` becomes true.
+ * Duration: 1618ms (φ-based). Easing: ease-out-expo.
  * Returns formatted string with optional prefix/suffix.
  */
 export function useCountUp({
   end,
-  duration = 1200,
+  duration = 1618,
   decimals = 0,
   prefix = '',
   suffix = '',
@@ -42,8 +43,8 @@ export function useCountUp({
       if (!startTimeRef.current) startTimeRef.current = timestamp;
       const elapsed = timestamp - startTimeRef.current;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
+      // Ease-out-expo: fast start, satisfying settle
+      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       setValue(eased * end);
 
       if (progress < 1) {
@@ -58,7 +59,7 @@ export function useCountUp({
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       startTimeRef.current = null;
     };
-  }, [enabled, end, duration]);
+  }, [enabled, end, duration, prefersReducedMotion]);
 
   const formatted = value.toFixed(decimals);
   return `${prefix}${formatted}${suffix}`;
