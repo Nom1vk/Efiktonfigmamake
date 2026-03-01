@@ -13,6 +13,8 @@
   --ef-text-secondary: #B8B3AD;
   --ef-surface: #F5F2ED;
   --ef-surface-alt: #EDEAE5;
+  --ef-white: #ffffff;
+  --ef-footer-dark: #080E1A;
 
   /* Spacing base: 4px */
   --ef-unit: 4px;
