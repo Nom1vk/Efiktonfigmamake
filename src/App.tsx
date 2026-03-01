@@ -3,6 +3,7 @@ import { Solutions } from './components/Solutions';
 import { Features } from './components/Features';
 import { ERPReplacement } from './components/ERPReplacement';
 import { Testimonials } from './components/Testimonials';
+import { CaseStudy } from './components/CaseStudy';
 import { About } from './components/About';
 import { CTA } from './components/CTA';
 import { Navigation } from './components/Navigation';
@@ -59,7 +60,16 @@ export default function App() {
           }}
         />
         <Testimonials />
-        {/* Section transition: cream → charcoal */}
+        {/* Section transition: cream → navy (case study) */}
+        <div
+          aria-hidden="true"
+          style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent 0%, rgba(184, 115, 51, 0.25) 30%, rgba(184, 115, 51, 0.4) 50%, rgba(184, 115, 51, 0.25) 70%, transparent 100%)',
+          }}
+        />
+        <CaseStudy />
+        {/* Section transition: navy → charcoal */}
         <div
           aria-hidden="true"
           style={{

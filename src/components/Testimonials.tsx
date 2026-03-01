@@ -185,6 +185,29 @@ export function Testimonials() {
                 >
                   {point.industry}
                 </div>
+                {i === 0 && (
+                  <a
+                    href="#case-study"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      marginTop: '20px',
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      color: '#C17F3E',
+                      textDecoration: 'none',
+                      letterSpacing: '0.02em',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#D4A574')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#C17F3E')}
+                  >
+                    Read full case study
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -282,6 +305,32 @@ export function Testimonials() {
                 </cite>
               </blockquote>
             ))}
+          </div>
+
+          {/* Case study CTA */}
+          <div style={{ marginTop: '48px', display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+            <a
+              href="#case-study"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: '13px',
+                fontWeight: 600,
+                color: '#C17F3E',
+                textDecoration: 'none',
+                letterSpacing: '0.04em',
+                borderBottom: '1px solid rgba(193, 127, 62, 0.3)',
+                paddingBottom: '2px',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#A06830'; e.currentTarget.style.borderBottomColor = '#A06830'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = '#C17F3E'; e.currentTarget.style.borderBottomColor = 'rgba(193, 127, 62, 0.3)'; }}
+            >
+              Read the Thermotech Hellas case study
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </div>
 
           {/* Greek anchor */}
