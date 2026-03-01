@@ -21,11 +21,11 @@ const stopUsing = [
 ];
 
 const phases = [
-  { num: '01', name: 'Foundation', timeline: '4–6 weeks', desc: 'Product data, inventory, purchasing, costing', win: 'Single source of truth' },
-  { num: '02', name: 'Planning', timeline: '4–6 weeks', desc: 'Orders, scheduling, capacity', win: 'Reliable delivery dates' },
-  { num: '03', name: 'Execution', timeline: '6–10 weeks', desc: 'Real-time monitoring, production tracking', win: 'Less firefighting' },
-  { num: '04', name: 'Quality', timeline: '4–6 weeks', desc: 'QC, traceability, continuous improvement', win: 'Fewer defects' },
-  { num: '05', name: 'Control', timeline: '4–8 weeks', desc: 'Financials, forecasting, early warnings', win: 'Margin protection' },
+  { num: '01', name: 'Foundation', timeline: '4 to 6 weeks', desc: 'Product data, inventory, purchasing, costing', win: 'Single source of truth' },
+  { num: '02', name: 'Planning', timeline: '4 to 6 weeks', desc: 'Orders, scheduling, capacity', win: 'Reliable delivery dates' },
+  { num: '03', name: 'Execution', timeline: '6 to 10 weeks', desc: 'Real-time monitoring, production tracking', win: 'Less firefighting' },
+  { num: '04', name: 'Quality', timeline: '4 to 6 weeks', desc: 'QC, traceability, continuous improvement', win: 'Fewer defects' },
+  { num: '05', name: 'Control', timeline: '4 to 8 weeks', desc: 'Financials, forecasting, early warnings', win: 'Margin protection' },
 ];
 
 export function Features() {

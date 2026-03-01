@@ -19,7 +19,7 @@ const teamMembers = [
 // Credibility stats
 const credibilityStats = [
   { value: '40+', label: 'Factory implementations', sub: 'Greece, Cyprus, Romania, Egypt' },
-  { value: '12', label: 'Years in manufacturing', sub: 'Not consulting — operations' },
+  { value: '12', label: 'Years in manufacturing', sub: 'Not consulting. Operations.' },
   { value: '8', label: 'Industries served', sub: 'Auto parts to food processing' },
 ];
 
@@ -83,7 +83,7 @@ export function About() {
               className="text-[rgba(232,228,223,0.75)] leading-[1.8] mb-8"
               style={{ fontSize: '1.0625rem', maxWidth: '580px' }}
             >
-              Efikton was built alongside Greek manufacturing teams dealing with real floor-level pressure: delayed purchase orders, ad-hoc planning, and firefighting between departments. We translated that lived reality into a practical operating method — not a consulting slide deck.
+              Efikton was built alongside Greek manufacturing teams dealing with real floor-level pressure: delayed purchase orders, ad-hoc planning, and firefighting between departments. We translated that lived reality into a practical operating method, not a consulting slide deck.
             </p>
             <p
               className="text-[rgba(232,228,223,0.75)] leading-[1.8] mb-8"
@@ -100,7 +100,7 @@ export function About() {
                 className="text-[var(--ef-text-primary)] leading-[1.75] italic font-medium"
                 style={{ fontSize: '0.9375rem' }}
               >
-                "Our four-pillar method was shaped in live factory implementations, then standardized so each deployment compounds operational discipline — not prescribed by academics who have never seen a shop floor."
+                "Our four-pillar method was shaped in live factory implementations, then standardized so each deployment compounds operational discipline. Not prescribed by academics who have never seen a shop floor."
               </p>
               <p
                 className="mt-3 text-[var(--ef-text-secondary)] text-[11px] font-semibold tracking-[0.08em] uppercase"
@@ -182,7 +182,7 @@ export function About() {
                     fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
                     letterSpacing: '-0.03em',
                   }}
-                  aria-label={`${stat.value} — ${stat.label}`}
+                  aria-label={`${stat.value}: ${stat.label}`}
                 >
                   {stat.value}
                 </div>

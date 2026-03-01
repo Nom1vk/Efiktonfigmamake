@@ -4,7 +4,7 @@ const painPoints = [
   {
     num: '01',
     title: 'Consultant dependency',
-    body: 'Every change, every report, every configuration requires the implementer back on-site. Your team never owns the system — they rent access to it.',
+    body: 'Every change, every report, every configuration requires the implementer back on-site. Your team never owns the system. They rent access to it.',
   },
   {
     num: '02',
@@ -14,7 +14,7 @@ const painPoints = [
   {
     num: '03',
     title: 'Process-model mismatch',
-    body: 'Oracle and SAP model how generic manufacturers work. Your factory has specific workflows, bill-of-materials structures, and costing logic. The ERP bent your process to fit its model — not the other way around.',
+    body: 'Oracle and SAP model how generic manufacturers work. Your factory has specific workflows, bill-of-materials structures, and costing logic. The ERP bent your process to fit its model, not the other way around.',
   },
   {
     num: '04',
@@ -26,8 +26,8 @@ const painPoints = [
 const comparison = [
   {
     dimension: 'Implementation timeline',
-    erp: '12–24 months. Often longer.',
-    efikton: 'Phase 1 live in 4–6 weeks.',
+    erp: '12 to 24 months. Often longer.',
+    efikton: 'Phase 1 live in 4 to 6 weeks.',
   },
   {
     dimension: 'Cost profile',
@@ -79,7 +79,7 @@ export function ERPReplacement() {
           <p className="text-[#4A4540] text-[1.0625rem] leading-[1.75] max-w-[560px]">
             If Oracle, SAP, or another legacy ERP forced workarounds instead of control, Efikton
             replaces consultant-heavy rollouts with phased, factory-first delivery. You get a system
-            your team owns — not one you pay to maintain.
+            your team owns, not one you pay to maintain.
           </p>
         </div>
 

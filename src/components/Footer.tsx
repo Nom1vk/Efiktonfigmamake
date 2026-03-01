@@ -63,7 +63,7 @@ export function Footer() {
                 marginBottom: '24px',
               }}
             >
-              The manufacturing operating system. Materials, Time, Money, and Knowledge — managed as one.
+              The manufacturing operating system. Materials, Time, Money, and Knowledge. Managed as one.
             </p>
             <div
               style={{
@@ -74,7 +74,7 @@ export function Footer() {
                 textTransform: 'uppercase',
               }}
             >
-              Εφικτόν — Achievable
+              Εφικτόν. Achievable.
             </div>
           </div>
 

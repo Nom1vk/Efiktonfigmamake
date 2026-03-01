@@ -47,7 +47,7 @@ export function CTA() {
         const company = payload['company'] as string;
         const email = payload['email'] as string;
         const industry = payload['industry'] as string;
-        const subject = encodeURIComponent(`Demo Request — ${company}`);
+        const subject = encodeURIComponent(`Demo Request: ${company}`);
         const body = encodeURIComponent(
           `Name: ${name}\nCompany: ${company}\nEmail: ${email}\nIndustry: ${industry}`
         );
@@ -58,7 +58,7 @@ export function CTA() {
       // Network error — fall back gracefully to mailto
       const name = (data.get('name') as string) || '';
       const company = (data.get('company') as string) || '';
-      const subject = encodeURIComponent(`Demo Request — ${company}`);
+      const subject = encodeURIComponent(`Demo Request: ${company}`);
       const body = encodeURIComponent(`Name: ${name}\nCompany: ${company}`);
       window.location.href = `mailto:hello@efikton.com?subject=${subject}&body=${body}`;
       setFormState('success');
@@ -133,7 +133,7 @@ export function CTA() {
             marginBottom: '64px',
           }}
         >
-          Tell us about your operation. We'll show you exactly where Efikton applies — your factory,
+          Tell us about your operation. We'll show you exactly where Efikton applies. Your factory,
           your numbers, your complexity.
         </p>
 
@@ -382,7 +382,7 @@ export function CTA() {
               </p>
               {[
                 { step: '01', text: 'We review your operation details (24h)' },
-                { step: '02', text: 'A 30-min focused call — your context, your numbers' },
+                { step: '02', text: 'A 30-min focused call. Your context, your numbers.' },
                 { step: '03', text: 'We show you where Efikton wins first in your factory' },
               ].map(({ step, text }) => (
                 <div

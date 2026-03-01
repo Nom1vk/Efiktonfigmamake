@@ -67,16 +67,10 @@ export function Hero() {
         className="relative flex-1 flex flex-col justify-center w-full px-6 lg:px-10 pt-28 pb-0"
         style={{ maxWidth: '1200px', margin: '0 auto' }}
       >
-        {/* Eyebrow */}
-        <div className="ef-hero-item flex items-center gap-3 mb-8" data-delay="1">
-          <div className="ef-eyebrow-rule" aria-hidden="true" />
-          <span className="ef-eyebrow">Manufacturing Operating System</span>
-        </div>
-
         {/* Headline */}
         <h1
           className="ef-hero-item"
-          data-delay="2"
+          data-delay="1"
           style={{
             color: 'var(--ef-text-primary)',
             fontSize: 'clamp(2.5rem, 6.5vw, 5rem)',
@@ -107,7 +101,7 @@ export function Hero() {
             fontWeight: 400,
           }}
         >
-          The manufacturing OS that turns chaos into control — across Materials, Time, Money, and
+          The manufacturing OS that turns chaos into control. Across Materials, Time, Money, and
           Knowledge. One method. One system.
         </p>
 
@@ -143,24 +137,27 @@ export function Hero() {
                 display: 'block',
                 fontSize: '11px',
                 fontWeight: 600,
-                color: 'rgba(139,134,128,0.7)',
+                color: 'var(--ef-copper)',
                 fontStyle: 'normal',
-                letterSpacing: '0.08em',
+                letterSpacing: '0.06em',
                 textTransform: 'uppercase',
               }}
             >
-              — Giorgos K., Auto Parts Manufacturer, Thessaloniki
+              Giorgos K.
+              <span style={{ color: 'rgba(139,134,128,0.6)', fontWeight: 400, letterSpacing: '0.03em' }}>
+                {' '}· Auto Parts Manufacturer, Thessaloniki
+              </span>
             </cite>
           </blockquote>
         </div>
 
         {/* CTAs — hover/focus handled by CSS classes; no JS event handlers */}
-        <div className="ef-hero-item flex flex-col sm:flex-row gap-3" data-delay="5">
-          <a href="#contact" className="ef-cta-primary group">
-            Book a Demo
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+        <div className="ef-hero-item flex flex-wrap gap-3 pl-0" data-delay="5" style={{ marginLeft: 0 }}>
+          <a href="#contact" className="ef-cta-primary group" style={{ whiteSpace: 'nowrap', minWidth: 0 }}>
+            <span style={{ whiteSpace: 'nowrap' }}>Book a Demo</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 flex-shrink-0" aria-hidden="true" />
           </a>
-          <a href="#results" className="ef-cta-secondary">
+          <a href="#results" className="ef-cta-secondary" style={{ whiteSpace: 'nowrap', minWidth: 0 }}>
             See Results →
           </a>
         </div>
@@ -203,7 +200,7 @@ export function Hero() {
                 borderRight: i < 2 ? '1px solid rgba(193, 127, 62, 0.12)' : 'none',
               }}
               role="figure"
-              aria-label={`${stat.value} — ${stat.label}`}
+              aria-label={`${stat.value}: ${stat.label}`}
             >
               <div className="ef-stat-value" aria-hidden="true">
                 {stat.value}
