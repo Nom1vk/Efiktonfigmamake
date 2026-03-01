@@ -91,27 +91,29 @@ This is not decoration. It is the brand promise enacted in motion.
 ### Acceptance Criteria
 
 #### Motion Quality
-- [ ] Headline "From Chaos to" and "Control." enter from opposite horizontal directions and converge to final position — the split is perceptible but not dramatic (30px and 20px respectively)
-- [ ] No element enters before the one above it in the visual hierarchy (headline → subhead → body → quote → CTAs → scroll indicator)
-- [ ] Total entrance sequence completes within 2200ms of mount; no element is invisible for more than its designated delay
-- [ ] Spring easing on primary CTA has max 1 overshoot cycle, settles within 300ms
+- [ ] Headline is split into two spans and enters from opposite horizontal directions: "From Chaos to" `translateX(-30px → 0)`, "Control." `translateX(20px → 0)`; mobile (<640px) uses `-15px` / `10px`
+- [ ] Visual sequence order is preserved with no inversions: headline → subhead → body → quote → CTAs → scroll indicator
+- [ ] Full entrance choreography completes in `<= 2200ms` after mount (including scroll indicator)
+- [ ] Primary CTA spring uses at most one overshoot and reaches steady state in `<= 300ms`
 
-#### First Impression
-- [ ] Headline text is fully readable within 800ms of page load (not hidden behind long entrance delays)
-- [ ] The "Control." word in copper is the last headline element to land — it punctuates, not decorates
-- [ ] On repeat visits (back-button, SPA navigation), animation replays cleanly without flash-of-final-state
+#### Conversion Guardrails
+- [ ] Main headline reaches full readability in `<= 800ms` from mount
+- [ ] Primary CTA is visible and clickable in `<= 1800ms` from mount
+- [ ] Secondary CTA appears after primary by `80–140ms` (stagger present but not sluggish)
+- [ ] Motion supports message clarity ("chaos resolving into control") and does not obscure text at any point
 
 #### Technical / Performance
-- [ ] All animations use `transform` + `opacity` only — no `top`, `left`, `width`, `height`, `margin`, or `padding` animations
-- [ ] CLS = 0.00 for hero section (verified in Lighthouse)
-- [ ] `will-change` properties are cleaned up within 500ms of animation completion
-- [ ] `prefers-reduced-motion: reduce` shows all elements at final state immediately, no decorative motion
-- [ ] No hydration mismatch: server-rendered HTML shows elements in pre-animation state (opacity: 0 / translated), client activates on mount
-- [ ] Works on iOS Safari 16+, Chrome 100+, Firefox 110+ — no prefix-dependent features
+- [ ] Only compositor-friendly properties animate (`transform`, `opacity`); no layout/reflow-triggering properties (`top/left/width/height/margin/padding`)
+- [ ] Hero CLS remains `0.00` in Lighthouse
+- [ ] `will-change` is removed within `<= 500ms` after each element’s animation completes
+- [ ] `prefers-reduced-motion: reduce` renders final state immediately (no decorative movement)
+- [ ] No hydration mismatch between SSR and client mount states
+- [ ] Cross-browser validation passes on iOS Safari 16+, Chrome 100+, Firefox 110+
 
-#### Mobile
-- [ ] On viewports < 640px, horizontal translation distances reduce to 15px / 10px (half of desktop) to avoid content appearing to come from off-screen
-- [ ] Touch scrolling is not blocked or janky during hero entrance animation
+#### Reliability / UX
+- [ ] Back/forward navigation and SPA route transitions replay animation cleanly without flash-of-final-state
+- [ ] No scroll lock, pointer-event blocking, or input jank during entrance sequence
+- [ ] On low-end/mobile devices, animation remains smooth (no sustained stutter > 2 consecutive dropped frames during first 2.2s)
 
 ---
 
