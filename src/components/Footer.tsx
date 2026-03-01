@@ -1,4 +1,5 @@
 import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { useInView } from '../hooks/useInView';
 
 const links = {
   Platform: [
@@ -16,13 +17,16 @@ const links = {
 };
 
 export function Footer() {
+  const [footerRef, footerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
+
   return (
     <footer
       style={{ backgroundColor: '#080E1A' }}
       aria-label="Site footer"
     >
       <div
-        className="px-6 lg:px-10"
+        ref={footerRef}
+        className={`px-6 lg:px-10 animate-reveal${footerVisible ? ' is-visible' : ''}`}
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
