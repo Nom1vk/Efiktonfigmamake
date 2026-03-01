@@ -956,26 +956,109 @@ select:valid:focus:not(:placeholder-shown) {
   z-index: 2; /* above noise overlay */
 }
 
-/* ── CHAOS step — jitter when stage=0 ──────────────────────────────────── */
-/* Only arc-step-0 gets jitter when container is at stage 0 */
+/* ── CHAOS step — container jitter when stage=0 ────────────────────────── */
+/* Amplitude ≤ ±0.5px per ticket spec — subconscious, never distracting */
 .arc-container[data-arc-stage="0"] .arc-step-0 {
-  animation: arc-jitter 0.22s ease-in-out infinite alternate;
+  animation: arc-jitter 0.32s steps(8) infinite;
 }
-
-/* Jitter subsides once progress > 0 but stage still 0 — we handle this
-   by fading the animation via opacity trick isn't possible, so we use
-   data-arc-stage to cleanly stop at stage boundary. At stage=1 it stops. */
 
 @keyframes arc-jitter {
-  0%   { transform: translate(0px, 0px) rotate(0deg); }
-  25%  { transform: translate(2px, -1px) rotate(0.4deg); }
-  50%  { transform: translate(-1px, 1.5px) rotate(-0.3deg); }
-  75%  { transform: translate(1.5px, -0.5px) rotate(0.2deg); }
-  100% { transform: translate(-2px, 0.5px) rotate(-0.5deg); }
+  0%   { transform: translate(0px,    0px)    rotate(0deg); }
+  12%  { transform: translate(0.4px, -0.3px)  rotate(0.15deg); }
+  25%  { transform: translate(-0.5px, 0.2px)  rotate(-0.1deg); }
+  37%  { transform: translate(0.3px,  0.5px)  rotate(0.2deg); }
+  50%  { transform: translate(-0.4px,-0.4px)  rotate(-0.15deg); }
+  62%  { transform: translate(0.5px,  0.1px)  rotate(0.1deg); }
+  75%  { transform: translate(-0.2px, 0.4px)  rotate(-0.2deg); }
+  87%  { transform: translate(0.4px, -0.5px)  rotate(0.12deg); }
+  100% { transform: translate(0px,    0px)    rotate(0deg); }
 }
 
-/* ── Step text slight blur for CHAOS card at stage 0 ───────────────────── */
-/* (Fine blur is handled inline in JSX with JS-computed value) */
+/* ── CHAOS description blur flicker — ~3Hz stepped, max 0.4px ──────────── */
+.arc-container[data-arc-stage="0"] .arc-step-0 p {
+  animation: chaos-blur-flicker 0.34s steps(5) infinite;
+  will-change: filter;
+}
+
+@keyframes chaos-blur-flicker {
+  0%   { filter: blur(0px); }
+  20%  { filter: blur(0.35px); }
+  40%  { filter: blur(0px); }
+  60%  { filter: blur(0.25px); }
+  80%  { filter: blur(0.4px); }
+  100% { filter: blur(0px); }
+}
+
+/* Blur resolves when stage advances — text snaps crisp */
+.arc-container[data-arc-stage="1"] .arc-step-0 p,
+.arc-container[data-arc-stage="2"] .arc-step-0 p,
+.arc-container[data-arc-stage="3"] .arc-step-0 p {
+  animation: none;
+  filter: blur(0);
+  transition: filter 0.4s ease;
+}
+
+/* ── CHAOS dot — arrhythmic pulse with stepped timing ──────────────────── */
+.arc-container[data-arc-stage="0"] .arc-dot-0 {
+  animation: chaos-dot-pulse 0.55s steps(3) infinite !important;
+  background-color: rgba(180, 60, 30, 0.7) !important;
+  will-change: transform, box-shadow;
+}
+
+@keyframes chaos-dot-pulse {
+  0%   { transform: scale(1);    box-shadow: 0 0 0   0px rgba(180, 60, 30, 0); }
+  33%  { transform: scale(1.4);  box-shadow: 0 0 5px 2px rgba(180, 60, 30, 0.5); }
+  66%  { transform: scale(0.85); box-shadow: 0 0 0   0px rgba(180, 60, 30, 0); }
+  100% { transform: scale(1.2);  box-shadow: 0 0 3px 1px rgba(180, 60, 30, 0.3); }
+}
+
+/* Dot calms when stage advances */
+.arc-container[data-arc-stage="1"] .arc-dot-0,
+.arc-container[data-arc-stage="2"] .arc-dot-0,
+.arc-container[data-arc-stage="3"] .arc-dot-0 {
+  animation: none !important;
+  transition: background-color 0.6s ease, transform 0.4s ease !important;
+}
+
+/* ── CHAOS border columns — opacity flicker at stage 0 ─────────────────── */
+.arc-container[data-arc-stage="0"] .arc-step-0,
+.arc-container[data-arc-stage="0"] .arc-step-1 {
+  border-right-color: transparent; /* handled by animation below */
+}
+
+.arc-container[data-arc-stage="0"] .arc-step-0::after,
+.arc-container[data-arc-stage="0"] .arc-step-1::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(10, 22, 40, 0.12);
+  animation: border-flicker 0.7s steps(4) infinite;
+}
+
+@keyframes border-flicker {
+  0%   { opacity: 0.08; }
+  25%  { opacity: 0.15; }
+  50%  { opacity: 0.06; }
+  75%  { opacity: 0.12; }
+  100% { opacity: 0.08; }
+}
+
+/* ── METHOD letter-spacing tightening — handled via inline JSX ──────────── */
+/* Transition is added in JSX for i===1 steps; CSS provides fallback values */
+
+/* ── RESULTS one-shot micro-expansion ──────────────────────────────────── */
+.arc-container.arc-results-expand {
+  animation: arc-results-expand 0.6s ease-out forwards;
+}
+
+@keyframes arc-results-expand {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.005); }
+  100% { transform: scale(1); }
+}
 
 /* ── Copper active accent — slides in from left on step activate ────────── */
 .arc-step-copper-accent {
@@ -1033,9 +1116,15 @@ select:valid:focus:not(:placeholder-shown) {
 /* ── Reduced motion: skip to final state instantly ──────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .arc-container[data-arc-stage="0"] .arc-step-0,
-  .arc-step {
+  .arc-container[data-arc-stage="0"] .arc-step-0 p,
+  .arc-container[data-arc-stage="0"] .arc-dot-0,
+  .arc-container[data-arc-stage="0"] .arc-step-0::after,
+  .arc-container[data-arc-stage="0"] .arc-step-1::after,
+  .arc-step,
+  .arc-container.arc-results-expand {
     animation: none !important;
     transform: none !important;
+    filter: none !important;
     transition: none !important;
   }
   .arc-noise-overlay {
@@ -1048,6 +1137,10 @@ select:valid:focus:not(:placeholder-shown) {
   }
   .arc-progress-bar-complete {
     animation: none !important;
+  }
+  /* Dots show calm colors immediately */
+  .arc-dot-0 {
+    background-color: rgba(10, 22, 40, 0.25) !important;
   }
 }
 .flow-step-item {

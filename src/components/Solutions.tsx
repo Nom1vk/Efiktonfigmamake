@@ -78,11 +78,37 @@ export function Solutions() {
 
   // One-shot RESULTS trigger: fire when stage reaches 3, never reset
   const [resultsFired, setResultsFired] = useState(false);
+  // One-shot RESULTS expansion: micro-scale pulse on arc container
+  const [resultsExpanded, setResultsExpanded] = useState(false);
+
   useEffect(() => {
     if (arcStage >= 3 && !resultsFired) {
       setResultsFired(true);
     }
   }, [arcStage, resultsFired]);
+
+  // Trigger one-shot container expansion when results fire; clean up animationend
+  useEffect(() => {
+    if (!resultsFired || resultsExpanded) return;
+    setResultsExpanded(true);
+    const el = arcScrollRef.current;
+    if (!el) return;
+    const onEnd = () => {
+      el.classList.remove('arc-results-expand');
+      el.style.willChange = 'auto';
+    };
+    el.addEventListener('animationend', onEnd, { once: true });
+    requestAnimationFrame(() => { el.classList.add('arc-results-expand'); });
+    return () => { el.removeEventListener('animationend', onEnd); };
+  }, [resultsFired, resultsExpanded, arcScrollRef]);
+
+  // Clean up will-change on arc-step-0 after turbulence resolves (stage ≥ 1)
+  useEffect(() => {
+    if (arcStage >= 1 && arcScrollRef.current) {
+      const jitterEl = arcScrollRef.current.querySelector('.arc-step-0') as HTMLElement | null;
+      if (jitterEl) jitterEl.style.willChange = 'auto';
+    }
+  }, [arcStage, arcScrollRef]);
 
   // Per-step active state (driven by discrete arcStage — only 4 possible renders)
   const stepActive = [
@@ -242,9 +268,12 @@ export function Solutions() {
                     style={{
                       fontSize: '13px',
                       lineHeight: 1.65,
-                      transition: 'color 0.4s ease, filter 0.6s ease',
+                      transition: i === 1
+                        ? 'color 0.4s ease, filter 0.6s ease, letter-spacing 400ms ease'
+                        : 'color 0.4s ease, filter 0.6s ease',
                       color: isActive || i === 0 ? 'var(--ef-text-secondary)' : 'rgba(139,134,128,0.45)',
                       filter: 'none',
+                      ...(i === 1 ? { letterSpacing: isActive ? '0em' : '0.02em' } : {}),
                     }}
                   >
                     {isResults ? (
