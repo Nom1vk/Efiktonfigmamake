@@ -175,6 +175,11 @@ export function About() {
                 className={`ef-stat-item py-10 ${
                   i < credibilityStats.length - 1 ? 'pr-0 sm:pr-10' : ''
                 } ${i > 0 ? 'pl-0 sm:pl-10' : ''}`}
+                style={{
+                  opacity: statsVisible ? 1 : 0,
+                  transform: statsVisible ? 'translateY(0)' : 'translateY(16px)',
+                  transition: `opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 120}ms, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${i * 120}ms`,
+                }}
               >
                 <div
                   className="font-extrabold text-[var(--ef-copper)] leading-none mb-2"
