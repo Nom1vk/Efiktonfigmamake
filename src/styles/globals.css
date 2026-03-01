@@ -455,10 +455,10 @@ select:valid:focus:not(:placeholder-shown) {
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* 6. Vertical copper rule: draw downward (clipPath top→bottom) */
+/* 6. Vertical copper rule: draw downward (scaleY transform — GPU-composited, no paint) */
 @keyframes hero-rule-draw {
-  from { clip-path: inset(0 0 100% 0); opacity: 1; }
-  to   { clip-path: inset(0 0 0% 0); opacity: 1; }
+  from { transform: scaleY(0); opacity: 1; }
+  to   { transform: scaleY(1); opacity: 1; }
 }
 
 /* 7. Scroll indicator draw + fade */
@@ -483,13 +483,15 @@ select:valid:focus:not(:placeholder-shown) {
 }
 .ef-hero-section.is-mounted .phi-ambient { opacity: 1; }
 
-/* Vertical copper rule: draw downward */
+/* Vertical copper rule: draw downward — transform-origin top for scaleY reveal */
 .ef-hero-section .ef-hero-vert-rule {
-  clip-path: inset(0 0 100% 0);
+  transform: scaleY(0);
+  transform-origin: top;
   opacity: 0;
 }
 .ef-hero-section.is-mounted .ef-hero-vert-rule {
   animation: hero-rule-draw 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0ms both;
+  will-change: transform;
 }
 
 /* Stats bar entry */

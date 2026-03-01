@@ -434,6 +434,7 @@ export function Hero() {
             }}
             onTouchStart={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
             onTouchEnd={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
+            onTouchCancel={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
           >
             <span style={{ whiteSpace: 'nowrap' }}>Book a Demo</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 flex-shrink-0" aria-hidden="true" />
@@ -453,6 +454,10 @@ export function Hero() {
               e.currentTarget.style.borderColor = 'rgba(232, 228, 223, 0.35)';
             }}
             onTouchEnd={(e) => {
+              e.currentTarget.style.opacity = '0.75';
+              e.currentTarget.style.borderColor = 'rgba(232, 228, 223, 0.2)';
+            }}
+            onTouchCancel={(e) => {
               e.currentTarget.style.opacity = '0.75';
               e.currentTarget.style.borderColor = 'rgba(232, 228, 223, 0.2)';
             }}
