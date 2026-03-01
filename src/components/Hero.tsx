@@ -287,7 +287,7 @@ export function Hero() {
 
       {/* Main content */}
       <div
-        className="relative flex-1 flex flex-col justify-center w-full px-5 sm:px-6 lg:px-10 pt-24 sm:pt-28 pb-0"
+        className="relative flex-1 flex flex-col justify-center w-full px-5 sm:px-6 lg:px-10 pt-28 sm:pt-32 lg:pt-28 pb-0"
         style={{ maxWidth: '1200px', margin: '0 auto' }}
       >
         {/* Headline */}

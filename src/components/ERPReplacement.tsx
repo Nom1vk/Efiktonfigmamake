@@ -136,7 +136,7 @@ function ComparisonTable() {
               style={{
                 padding: '20px 24px',
                 fontSize: '13px',
-                color: '#4A4540',
+                color: 'var(--ef-navy)',
                 lineHeight: 1.65,
                 borderLeft: '1px solid rgba(10,22,40,0.08)',
                 transitionDelay: `${i * 200 + 200}ms`,
@@ -227,9 +227,9 @@ function ComparisonTable() {
             <div className="grid grid-cols-2">
               <div className="p-4 bg-[var(--ef-surface-alt)] border-r border-[rgba(10,22,40,0.08)]" style={{ borderLeft: '3px solid rgba(200,60,60,0.3)' }}>
                 <div className="text-[10px] font-bold text-[var(--ef-text-secondary)] tracking-[0.1em] uppercase mb-1.5">Legacy ERP</div>
-                <p className="text-xs text-[#4A4540] leading-[1.6]">{row.erp}</p>
+                <p className="text-xs text-[var(--ef-navy)] leading-[1.6]">{row.erp}</p>
               </div>
-              <div className="p-4 bg-[var(--ef-surface)]" style={{ borderLeft: '3px solid rgba(184,115,51,0.5)' }}>
+              <div className="p-4 bg-[var(--ef-surface)]" style={{ borderLeft: '3px solid var(--ef-copper)' }}>
                 <div className="text-[10px] font-bold text-[var(--ef-copper)] tracking-[0.1em] uppercase mb-1.5">Efikton</div>
                 <p className="text-xs text-[var(--ef-navy)] font-medium leading-[1.6]">{row.efikton}</p>
               </div>
@@ -270,7 +270,7 @@ export function ERPReplacement() {
             Already running an ERP that still leaves your factory in chaos?
           </h2>
 
-          <p className="text-[#4A4540] text-[1.0625rem] leading-[1.75] max-w-[560px]">
+          <p className="text-[var(--ef-navy)] text-[1.0625rem] leading-[1.75] max-w-[560px]">
             If Oracle, SAP, or another legacy ERP forced workarounds instead of control, Efikton
             replaces consultant-heavy rollouts with phased, factory-first delivery. You get a system
             your team owns, not one you pay to maintain.
@@ -291,7 +291,8 @@ export function ERPReplacement() {
               <div
                 key={point.num}
                 className={[
-                  'py-8 border-b border-[rgba(10,22,40,0.1)] pain-point-cell',
+                  'py-8 pl-5 border-b border-[rgba(10,22,40,0.1)] pain-point-cell',
+                  'border-l-2 border-l-[var(--ef-copper)] md:border-l-0',
                   i % 2 === 0
                     ? 'pr-12 md:border-r border-[rgba(10,22,40,0.1)]'
                     : 'md:pl-12',
@@ -307,7 +308,7 @@ export function ERPReplacement() {
                 <h3 className="text-[var(--ef-navy)] text-[1.0625rem] font-bold tracking-[-0.01em] mb-2.5 leading-[1.3]">
                   {point.title}
                 </h3>
-                <p className="text-[#4A4540] text-sm leading-[1.75]">
+                <p className="text-[var(--ef-navy)] text-sm leading-[1.75]">
                   {point.body}
                 </p>
               </div>
@@ -329,14 +330,14 @@ export function ERPReplacement() {
           </h3>
           <ul className="space-y-3" aria-label="Vendor continuity and data portability commitments">
             {[
-              { icon: '↓', text: 'Export your operational data anytime — full CSV and API export, on demand, no request required.' },
-              { icon: '◻', text: 'Open standards and documented schemas. No black-box data structures, no proprietary lock-in.' },
-              { icon: '◎', text: 'Your team owns operations by Phase 3. We transfer control, not dependency.' },
-              { icon: '⊡', text: 'Contractual continuity protection: transition support and data handoff provisions are built into every engagement — regardless of what happens to us.' },
-            ].map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm md:text-[0.9375rem] text-[#4A4540] leading-[1.7]">
-                <span className="text-[var(--ef-copper)] font-bold mt-[2px] shrink-0 text-[15px]" aria-hidden="true">{item.icon}</span>
-                <span>{item.text}</span>
+              'Export your operational data anytime — full CSV and API export, on demand, no request required.',
+              'Open standards and documented schemas. No black-box data structures, no proprietary lock-in.',
+              'Your team owns operations by Phase 3. We transfer control, not dependency.',
+              'Contractual continuity protection: transition support and data handoff provisions are built into every engagement — regardless of what happens to us.',
+            ].map((text, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm md:text-[0.9375rem] text-[var(--ef-navy)] leading-[1.7]">
+                <span className="mt-[7px] shrink-0 w-[6px] h-[6px] rounded-full bg-[var(--ef-copper)]" aria-hidden="true" />
+                <span>{text}</span>
               </li>
             ))}
           </ul>
