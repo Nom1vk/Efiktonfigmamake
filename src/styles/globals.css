@@ -429,6 +429,8 @@
 .ef-hero-section .ef-hero-headline-left  { opacity: 0; display: inline; }
 .ef-hero-section .ef-hero-headline-right { opacity: 0; display: inline; }
 .ef-hero-section .ef-hero-quote-border { transform-origin: top; transform: scaleY(0); }
+.ef-hero-section .ef-hero-cta-primary   { opacity: 0; }
+.ef-hero-section .ef-hero-cta-secondary { opacity: 0; }
 .ef-hero-section .ef-scroll-indicator { opacity: 0; }
 
 /* φ ambient — subtle fade on mount */
