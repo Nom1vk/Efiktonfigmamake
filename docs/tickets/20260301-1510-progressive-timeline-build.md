@@ -96,3 +96,59 @@ Think: Linear's changelog timeline where items build as you scroll. Or Stripe's 
 
 *Review by Nikos Papadopoulos, 2026-03-01 15:02 EET*
 *"If you want me to believe your system builds control step by step, show me step by step. Don't just tell me."*
+
+---
+
+## Ticket Review (Salt) — 2026-03-01 15:10 EET
+
+### Verdict
+**SHIP IT**
+
+### Feasibility (CSS/React)
+Feasible with current stack and patterns already present in the codebase:
+- `useScrollProgress` + CSS custom properties already proven
+- Sequential reveal can be done with class/state thresholds or CSS var gates
+- SVG checkmark stroke draw is straightforward via `stroke-dasharray` / `stroke-dashoffset`
+- No library additions required
+
+### Conversion impact
+This should **increase persuasive momentum** in the proof section if kept disciplined. It visually reinforces step-by-step implementation (how Efikton de-risks change), which maps directly to buyer anxiety in ERP/ops transformations.
+
+### Distraction risk
+Low if constrained. Risk appears only if overshooting with spring bounce, excessive glow, or long delays. Keep motion utilitarian and subordinate to readability.
+
+### Timing & easing check
+Current proposal is directionally strong but needs explicit, testable timing/easing constraints.
+
+### Polished acceptance criteria
+1. **Sequential activation thresholds:**
+   - Phase 01 activates when `--case-phase-progress >= 0.15`
+   - Phase 02 activates when `--case-phase-progress >= 0.45`
+   - Phase 03 activates when `--case-phase-progress >= 0.75`
+2. **Progress line behavior:**
+   - Copper timeline line maps continuously from `0% -> 100%` over section scroll window
+   - No jump discontinuities when scrolling up/down
+3. **Per-phase choreography budget:**
+   - Total phase reveal <= `PHI_DURATION/2` (~809ms)
+   - Number pop: 180–240ms, ease `cubic-bezier(0.22, 1, 0.36, 1)`
+   - Title slide: starts +100ms after number
+   - Body fade: starts +200ms
+   - Win items stagger: 80ms between items
+4. **Pulse restraint:**
+   - Number pulse lasts <= 400ms
+   - Max glow alpha <= 0.6, returns to base <= 0.25
+   - Exactly one pulse per phase activation
+5. **Reduced motion compliance:**
+   - Under `prefers-reduced-motion: reduce`, all phases/line/wins render fully visible immediately
+   - No transform/opacity/stroke animations in reduced mode
+6. **Readability guardrails:**
+   - Text is readable before and during animation (no long hidden state)
+   - No overlap or layout shift > negligible visual jitter
+7. **Performance guardrails:**
+   - No additional runtime dependencies
+   - Scrolling remains smooth on mid-range mobile (no visible stutter)
+8. **Done means done (QA):**
+   - Behavior verified desktop + mobile
+   - Reverse scroll returns states predictably (or remains intentionally latched, but documented)
+   - Build passes with no new warnings/errors
+
