@@ -37,7 +37,7 @@ const comparison = [
   {
     dimension: 'Implementation dependency',
     erp: 'Permanent: changes require vendor or SI involvement. Your team is a user, not an owner.',
-    efikton: 'Transfer of control is part of delivery. Your team runs it independently by Phase 3.',
+    efikton: 'Transfer of control is part of delivery. Your team runs it independently by Phase 3. Legacy ERP can be decommissioned after full rollout.',
   },
   {
     dimension: 'Operational fit',
@@ -121,6 +121,33 @@ export function ERPReplacement() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Vendor continuity / data portability */}
+        <div className="mb-16 border border-[rgba(193,127,62,0.18)] bg-[rgba(10,22,40,0.03)] p-6 md:p-8">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-7 h-px bg-[var(--ef-copper)]" aria-hidden="true" />
+            <span className="text-[var(--ef-copper)] text-[11px] font-semibold tracking-[0.12em] uppercase">
+              Your Data, Your Control
+            </span>
+          </div>
+          <h3 className="text-[#0A1628] font-bold leading-[1.15] tracking-[-0.02em] mb-5" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
+            Your team runs it independently by Phase 3 —<br className="hidden md:block" />
+            <span className="text-[var(--ef-copper)]">and your data stays yours. Always.</span>
+          </h3>
+          <ul className="space-y-3" aria-label="Vendor continuity and data portability commitments">
+            {[
+              { icon: '↓', text: 'Export your operational data anytime — full CSV and API export, on demand, no request required.' },
+              { icon: '◻', text: 'Open standards and documented schemas. No black-box data structures, no proprietary lock-in.' },
+              { icon: '◎', text: 'Your team owns operations by Phase 3. We transfer control, not dependency.' },
+              { icon: '⊡', text: 'Contractual continuity protection: transition support and data handoff provisions are built into every engagement — regardless of what happens to us.' },
+            ].map((item, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm md:text-[0.9375rem] text-[#4A4540] leading-[1.7]">
+                <span className="text-[var(--ef-copper)] font-bold mt-[2px] shrink-0 text-[15px]" aria-hidden="true">{item.icon}</span>
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Comparison table */}

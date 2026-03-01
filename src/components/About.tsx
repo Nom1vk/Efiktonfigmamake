@@ -18,9 +18,9 @@ const teamMembers = [
 
 // Credibility stats
 const credibilityStats = [
-  { value: '40+', label: 'Factory implementations', sub: 'Greece, Cyprus, Romania, Egypt' },
+  { value: '40+', label: 'Factory implementations', sub: 'Greece, Cyprus, Romania, Egypt, and the Middle East' },
   { value: '12', label: 'Years in manufacturing', sub: 'Not consulting. Operations.' },
-  { value: '8', label: 'Industries served', sub: 'Auto parts to food processing' },
+  { value: '8', label: 'Industries served', sub: 'Auto parts, Oil & Gas, Industrial Valves & Fittings, food processing' },
 ];
 
 export function About() {

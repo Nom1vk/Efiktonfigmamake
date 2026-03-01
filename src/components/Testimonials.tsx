@@ -56,6 +56,15 @@ const proofPoints = [
     description: 'Delivery streamlined across the full order-to-cash cycle. Customers trust dates again.',
     industry: 'Multi-Site Operations',
   },
+  {
+    metric: '31%',
+    countEnd: 31,
+    suffix: '%',
+    label: 'Faster Planning Cycles',
+    timeframe: 'In 4 months',
+    description: 'Industrial components manufacturer, Riyadh. Multi-plant operations across 3 facilities. Planning cycle time cut from weeks to days.',
+    industry: 'Industrial Valves & Fittings · Middle East',
+  },
 ];
 
 const ownerQuotes = [
@@ -74,6 +83,14 @@ const ownerQuotes = [
     companyType: 'Industrial Components',
     companySize: '140 employees · €18M revenue',
     city: 'Athens',
+  },
+  {
+    text: 'After an Oracle rollout that consumed 18 months and left us with consultants we could not get rid of, Efikton gave us a system our own plant managers actually run. We turned off the legacy system in month six.',
+    name: 'Operations Director',
+    title: 'Operations Director',
+    companyType: 'Industrial Valves & Fittings Manufacturer',
+    companySize: '~380 employees · Multi-plant, Riyadh',
+    city: 'Middle East',
   },
 ];
 
@@ -134,11 +151,11 @@ export function Testimonials() {
         <div
           style={{ borderTop: '1px solid rgba(10, 22, 40, 0.12)' }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
           {proofPoints.map((point, i) => (
             <div
               key={i}
-              className={`proof-point-item${i === 0 ? ' proof-point-first' : i === 1 ? ' proof-point-mid' : ' proof-point-last'}`}
+              className={`proof-point-item${i === 0 ? ' proof-point-first' : i === proofPoints.length - 1 ? ' proof-point-last' : ' proof-point-mid'}`}
               role="listitem"
               aria-label={`${point.metric} ${point.label} — ${point.timeframe}`}
               data-index={i}
