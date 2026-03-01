@@ -69,7 +69,7 @@ export function Features() {
           >
             One Place for Everything
           </h2>
-          <p style={{ color: '#8B8680', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '480px' }}>
+          <p style={{ color: 'var(--ef-text-secondary)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '480px' }}>
             From order to cash. From supplier to shipment. Run the business on Efikton. No patchwork, no compromises.
           </p>
         </div>
@@ -85,7 +85,7 @@ export function Features() {
             style={{
               fontSize: '11px',
               fontWeight: 600,
-              color: '#8B8680',
+              color: 'var(--ef-text-secondary)',
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
               marginBottom: '24px',
@@ -193,7 +193,7 @@ export function Features() {
             >
               What you can stop using
             </h3>
-            <p style={{ fontSize: '14px', color: '#8B8680', marginBottom: '32px', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '14px', color: 'var(--ef-text-secondary)', marginBottom: '32px', lineHeight: 1.6 }}>
               Replace the patchwork with a single system that covers everything.
             </p>
             <ul
@@ -217,7 +217,7 @@ export function Features() {
                   <span
                     style={{
                       fontSize: '14px',
-                      color: '#8B8680',
+                      color: 'var(--ef-text-secondary)',
                       textDecoration: 'line-through',
                       textDecorationColor: 'rgba(184, 115, 51, 0.5)',
                       textDecorationThickness: '1.5px',
@@ -243,7 +243,7 @@ export function Features() {
             >
               We implement without stopping production
             </h3>
-            <p style={{ fontSize: '14px', color: '#8B8680', marginBottom: '32px', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '14px', color: 'var(--ef-text-secondary)', marginBottom: '32px', lineHeight: 1.6 }}>
               Each phase delivers measurable wins. No big-bang disruption.
             </p>
             <ol
@@ -294,7 +294,7 @@ export function Features() {
                         {phase.timeline}
                       </span>
                     </div>
-                    <div style={{ fontSize: '13px', color: '#8B8680', marginBottom: '8px' }}>
+                    <div style={{ fontSize: '13px', color: 'var(--ef-text-secondary)', marginBottom: '8px' }}>
                       {phase.desc}
                     </div>
                     <div

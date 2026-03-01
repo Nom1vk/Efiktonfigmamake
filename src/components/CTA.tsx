@@ -85,7 +85,7 @@ export function CTA() {
     fontWeight: 600,
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
-    color: '#8B8680',
+    color: 'var(--ef-text-secondary)',
     marginBottom: '8px',
   };
 
@@ -126,7 +126,7 @@ export function CTA() {
         </h2>
         <p
           style={{
-            color: '#8B8680',
+            color: 'var(--ef-text-secondary)',
             fontSize: '1.0625rem',
             lineHeight: 1.75,
             maxWidth: '480px',
@@ -162,7 +162,7 @@ export function CTA() {
                 <p style={{ color: '#E8E4DF', fontWeight: 700, fontSize: '1.125rem', marginBottom: '8px' }}>
                   We'll be in touch shortly.
                 </p>
-                <p style={{ color: '#8B8680', fontSize: '0.9375rem', lineHeight: 1.7 }}>
+                <p style={{ color: 'var(--ef-text-secondary)', fontSize: '0.9375rem', lineHeight: 1.7 }}>
                   Expect a response within 1 business day. For urgent inquiries, reach us at{' '}
                   <a
                     href="mailto:hello@efikton.com"
@@ -357,7 +357,7 @@ export function CTA() {
                   )}
                 </button>
 
-                <p style={{ color: '#8B8680', fontSize: '12px', marginTop: '16px', lineHeight: 1.6 }}>
+                <p style={{ color: 'var(--ef-text-secondary)', fontSize: '12px', marginTop: '16px', lineHeight: 1.6 }}>
                   No spam. No sales pressure. Just a focused conversation about your operation.
                 </p>
               </form>
@@ -371,7 +371,7 @@ export function CTA() {
               <p
                 style={{
                   fontSize: '11px',
-                  color: '#8B8680',
+                  color: 'var(--ef-text-secondary)',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   marginBottom: '24px',
@@ -420,7 +420,7 @@ export function CTA() {
               <p
                 style={{
                   fontSize: '11px',
-                  color: '#8B8680',
+                  color: 'var(--ef-text-secondary)',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   marginBottom: '16px',
@@ -450,7 +450,7 @@ export function CTA() {
               <p
                 style={{
                   fontSize: '11px',
-                  color: '#8B8680',
+                  color: 'var(--ef-text-secondary)',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   marginBottom: '16px',

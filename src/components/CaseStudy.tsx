@@ -170,7 +170,7 @@ export function CaseStudy() {
               { label: 'Heritage', value: cs.revenue },
             ].map((item) => (
               <div key={item.label}>
-                <div style={{ fontSize: '11px', fontWeight: 600, color: '#8B8680', letterSpacing: '0.10em', textTransform: 'uppercase', marginBottom: '4px' }}>
+                <div style={{ fontSize: '11px', fontWeight: 600, color: 'var(--ef-text-secondary)', letterSpacing: '0.10em', textTransform: 'uppercase', marginBottom: '4px' }}>
                   {item.label}
                 </div>
                 <div style={{ fontSize: '14px', color: '#E8E4DF', fontWeight: 500 }}>
@@ -290,7 +290,7 @@ export function CaseStudy() {
                     <h4 style={{ color: '#E8E4DF', fontSize: '17px', fontWeight: 700, letterSpacing: '-0.02em' }}>
                       {phase.title}
                     </h4>
-                    <span style={{ fontSize: '12px', color: '#8B8680', fontWeight: 500, letterSpacing: '0.04em' }}>
+                    <span style={{ fontSize: '12px', color: 'var(--ef-text-secondary)', fontWeight: 500, letterSpacing: '0.04em' }}>
                       {phase.duration}
                     </span>
                   </div>
@@ -379,7 +379,7 @@ export function CaseStudy() {
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#E8E4DF', marginBottom: '4px' }}>
                   {result.label}
                 </div>
-                <div style={{ fontSize: '12px', color: '#8B8680', lineHeight: 1.5 }}>
+                <div style={{ fontSize: '12px', color: 'var(--ef-text-secondary)', lineHeight: 1.5 }}>
                   {result.detail}
                 </div>
               </div>

@@ -84,7 +84,7 @@ export function Solutions() {
             <br className="hidden sm:block" />
             One System.
           </h2>
-          <p style={{ color: '#8B8680', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '480px' }}>
+          <p style={{ color: 'var(--ef-text-secondary)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '480px' }}>
             A <strong style={{ color: '#0A1628', fontWeight: 600 }}>methodology</strong> for running manufacturing with control. The software enforces the method across every dimension of your operation.
           </p>
         </div>
@@ -130,13 +130,13 @@ export function Solutions() {
                       fontWeight: 700,
                       letterSpacing: '0.1em',
                       textTransform: 'uppercase',
-                      color: i === 3 ? '#B87333' : i === 0 ? '#0A1628' : '#8B8680',
+                      color: i === 3 ? '#B87333' : i === 0 ? '#0A1628' : 'var(--ef-text-secondary)',
                     }}
                   >
                     {step.label}
                   </span>
                 </div>
-                <p style={{ fontSize: '13px', color: '#8B8680', lineHeight: 1.65 }}>
+                <p style={{ fontSize: '13px', color: 'var(--ef-text-secondary)', lineHeight: 1.65 }}>
                   {step.desc}
                 </p>
               </div>
@@ -261,7 +261,7 @@ export function Solutions() {
                   <p
                     style={{
                       fontSize: '15px',
-                      color: '#8B8680',
+                      color: 'var(--ef-text-secondary)',
                       lineHeight: 1.75,
                       marginBottom: '20px',
                     }}
@@ -308,7 +308,7 @@ export function Solutions() {
             "Quality becomes stable —{' '}
             <span style={{ color: '#B87333' }}>not a daily fight.</span>"
           </p>
-          <p style={{ marginTop: '12px', fontSize: '14px', color: '#8B8680' }}>
+          <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--ef-text-secondary)' }}>
             When you control Materials, Time, and Money — Quality follows.
           </p>
         </div>

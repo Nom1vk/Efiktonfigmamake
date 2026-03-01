@@ -117,7 +117,7 @@ export function Testimonials() {
         >
           Numbers don't firefight.
         </h2>
-        <p style={{ color: '#8B8680', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '440px' }}>
+        <p style={{ color: 'var(--ef-text-secondary)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '440px' }}>
           Measurable, operational, sustained. These are the outcomes Efikton clients experience.
         </p>
         </div>
@@ -167,10 +167,10 @@ export function Testimonials() {
                 >
                   {point.label}
                 </div>
-                <div style={{ fontSize: '13px', color: '#8B8680', marginBottom: '20px' }}>
+                <div style={{ fontSize: '13px', color: 'var(--ef-text-secondary)', marginBottom: '20px' }}>
                   {point.timeframe}
                 </div>
-                <p style={{ fontSize: '14px', color: '#8B8680', lineHeight: 1.7, maxWidth: '280px' }}>
+                <p style={{ fontSize: '14px', color: 'var(--ef-text-secondary)', lineHeight: 1.7, maxWidth: '280px' }}>
                   {point.description}
                 </p>
                 <div
@@ -232,7 +232,7 @@ export function Testimonials() {
             style={{
               fontSize: '11px',
               fontWeight: 600,
-              color: '#8B8680',
+              color: 'var(--ef-text-secondary)',
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
               marginBottom: '48px',
@@ -296,7 +296,7 @@ export function Testimonials() {
                   <span
                     style={{
                       fontSize: '11px',
-                      color: '#8B8680',
+                      color: 'var(--ef-text-secondary)',
                       letterSpacing: '0.04em',
                     }}
                   >
@@ -346,7 +346,7 @@ export function Testimonials() {
             >
               Εφικτόν.
             </p>
-            <p style={{ marginTop: '8px', fontSize: '14px', color: '#8B8680' }}>
+            <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--ef-text-secondary)' }}>
               From Greek — achievable. That's the promise.
             </p>
           </div>
