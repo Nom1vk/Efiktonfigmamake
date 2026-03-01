@@ -1,34 +1,75 @@
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
-const navLinks = [
-  { label: 'The Method', href: '#solutions' },
-  { label: 'System', href: '#method' },
-  { label: 'Case Study', href: '/1/case-study' },
-  { label: 'Results', href: '#results' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+const caseStudies = [
+  { label: 'Thermotech Hellas', href: 'case-study' },
+  // Add future case studies here
 ];
 
 export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [csOpen, setCsOpen] = useState(false);
   const [phiRotation, setPhiRotation] = useState(0);
   const rafRef = useRef<number | null>(null);
-  const lastScrollY = useRef(0);
+  const csRef = useRef<HTMLDivElement>(null);
+  const { paletteId = '1' } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const basePath = `/${paletteId}/`;
+  const isOnMain = location.pathname === basePath || location.pathname === `/${paletteId}`;
+
+  // Navigate to anchor — works from any page
+  const goToAnchor = (hash: string) => {
+    setMobileOpen(false);
+    setCsOpen(false);
+    if (isOnMain) {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(basePath);
+      // Wait for page to render, then scroll
+      setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
+  const goToHome = () => {
+    setMobileOpen(false);
+    setCsOpen(false);
+    if (isOnMain) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate(basePath);
+    }
+  };
+
+  const goToCaseStudy = (slug: string) => {
+    setMobileOpen(false);
+    setCsOpen(false);
+    navigate(`/${paletteId}/${slug}`);
+  };
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (csRef.current && !csRef.current.contains(e.target as Node)) setCsOpen(false);
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-
-      // Throttle phi rotation to rAF
       if (rafRef.current) return;
       rafRef.current = requestAnimationFrame(() => {
         rafRef.current = null;
-        const scrollY = window.scrollY;
-        // 1 degree per 100px scroll
-        setPhiRotation(scrollY / 100);
-        lastScrollY.current = scrollY;
+        setPhiRotation(window.scrollY / 100);
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -51,6 +92,16 @@ export function Navigation() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
+  const navLinks = [
+    { label: 'The Method', action: () => goToAnchor('#solutions') },
+    { label: 'System', action: () => goToAnchor('#method') },
+    { label: 'Results', action: () => goToAnchor('#results') },
+    { label: 'About', action: () => goToAnchor('#about') },
+    { label: 'Contact', action: () => goToAnchor('#contact') },
+  ];
+
+  const linkStyle = { color: 'rgba(232, 228, 223, 0.55)', fontWeight: 500, letterSpacing: '0.01em' } as const;
+
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
@@ -72,11 +123,11 @@ export function Navigation() {
         style={{ maxWidth: '1200px', margin: '0 auto' }}
       >
         {/* Wordmark */}
-        <a
-          href="#"
+        <button
+          onClick={goToHome}
           className="focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none rounded-sm px-1"
-          aria-label="eφikton — go to top of page"
-          style={{ display: 'flex', flexDirection: 'column', gap: '1px', lineHeight: 1 }}
+          aria-label="eφikton — go to homepage"
+          style={{ display: 'flex', flexDirection: 'column', gap: '1px', lineHeight: 1, background: 'none', border: 'none', cursor: 'pointer' }}
         >
           <span
             style={{
@@ -109,41 +160,95 @@ export function Navigation() {
           >
             Manufacturing Operating System
           </span>
-        </a>
+        </button>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((item) => (
-            <a
+            <button
               key={item.label}
-              href={item.href}
+              onClick={item.action}
               className="ef-nav-link text-sm transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none rounded-sm px-1"
-              style={{ color: 'rgba(232, 228, 223, 0.55)', fontWeight: 500, letterSpacing: '0.01em' }}
+              style={{ ...linkStyle, background: 'none', border: 'none', cursor: 'pointer' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232, 228, 223, 0.55)')}
             >
               {item.label}
-            </a>
+            </button>
           ))}
-          <a
-            href="#contact"
+
+          {/* Case Studies dropdown */}
+          <div ref={csRef} className="relative">
+            <button
+              onClick={() => setCsOpen((o) => !o)}
+              className="ef-nav-link text-sm transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none rounded-sm px-1 flex items-center gap-1"
+              style={{ ...linkStyle, background: 'none', border: 'none', cursor: 'pointer' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
+              onMouseLeave={(e) => { if (!csOpen) e.currentTarget.style.color = 'rgba(232, 228, 223, 0.55)'; }}
+              aria-expanded={csOpen}
+              aria-haspopup="true"
+            >
+              Case Studies
+              <ChevronDown
+                className="w-3 h-3 transition-transform duration-200"
+                style={{ transform: csOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+              />
+            </button>
+            {csOpen && (
+              <div
+                className="absolute top-full mt-2 py-2"
+                style={{
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  minWidth: '200px',
+                  backgroundColor: 'rgba(10, 22, 40, 0.96)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(184, 115, 51, 0.15)',
+                }}
+              >
+                {caseStudies.map((cs) => (
+                  <button
+                    key={cs.href}
+                    onClick={() => goToCaseStudy(cs.href)}
+                    className="w-full text-left px-4 py-2 text-sm transition-colors duration-150"
+                    style={{ color: 'rgba(232, 228, 223, 0.7)', background: 'none', border: 'none', cursor: 'pointer', display: 'block' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--ef-text-primary)';
+                      e.currentTarget.style.backgroundColor = 'rgba(193, 127, 62, 0.08)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'rgba(232, 228, 223, 0.7)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
+                  >
+                    {cs.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={() => goToAnchor('#contact')}
             className="ef-cta-btn text-sm font-semibold focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
             style={{
               backgroundColor: 'var(--ef-copper)',
-              color: 'var(--ef-white)',
+              color: '#fff',
               padding: '9px 20px',
               letterSpacing: '0.01em',
               minHeight: '38px',
               display: 'inline-flex',
               alignItems: 'center',
               borderRadius: '2px',
+              border: 'none',
+              cursor: 'pointer',
               transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
           >
             Book a Demo
-          </a>
+          </button>
         </div>
 
         {/* Mobile toggle */}
@@ -157,6 +262,8 @@ export function Navigation() {
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'transform 0.1s ease, opacity 0.15s ease',
+            background: 'none',
+            border: 'none',
           }}
           onClick={() => setMobileOpen((o) => !o)}
           onTouchStart={(e) => (e.currentTarget.style.opacity = '0.7')}
@@ -174,7 +281,7 @@ export function Navigation() {
         id="mobile-menu"
         className="md:hidden"
         style={{
-          maxHeight: mobileOpen ? '400px' : '0',
+          maxHeight: mobileOpen ? '500px' : '0',
           overflow: 'hidden',
           transition: 'max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
         }}
@@ -189,9 +296,9 @@ export function Navigation() {
           <ul className="flex flex-col gap-1">
             {navLinks.map((item) => (
               <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="flex items-center py-3 text-base font-medium touch-manipulation active:translate-x-1"
+                <button
+                  onClick={item.action}
+                  className="flex items-center w-full py-3 text-base font-medium touch-manipulation active:translate-x-1"
                   style={{
                     color: 'rgba(232, 228, 223, 0.75)',
                     minHeight: '52px',
@@ -202,8 +309,11 @@ export function Navigation() {
                     marginLeft: '-12px',
                     marginRight: '-12px',
                     borderRadius: '4px',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    textAlign: 'left',
                   }}
-                  onClick={() => setMobileOpen(false)}
                   tabIndex={mobileOpen ? 0 : -1}
                   onTouchStart={(e) => {
                     e.currentTarget.style.color = 'var(--ef-text-primary)';
@@ -215,27 +325,86 @@ export function Navigation() {
                   }}
                 >
                   {item.label}
-                </a>
+                </button>
               </li>
             ))}
+
+            {/* Case Studies — expandable in mobile */}
+            <li>
+              <button
+                onClick={() => setCsOpen((o) => !o)}
+                className="flex items-center justify-between w-full py-3 text-base font-medium touch-manipulation"
+                style={{
+                  color: 'rgba(232, 228, 223, 0.75)',
+                  minHeight: '52px',
+                  letterSpacing: '0.01em',
+                  paddingLeft: '12px',
+                  paddingRight: '12px',
+                  marginLeft: '-12px',
+                  marginRight: '-12px',
+                  borderRadius: '4px',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'color 0.2s ease',
+                }}
+                tabIndex={mobileOpen ? 0 : -1}
+                aria-expanded={csOpen}
+              >
+                Case Studies
+                <ChevronDown
+                  className="w-4 h-4 transition-transform duration-200"
+                  style={{ transform: csOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </button>
+              {csOpen && (
+                <ul className="pl-6 flex flex-col gap-1">
+                  {caseStudies.map((cs) => (
+                    <li key={cs.href}>
+                      <button
+                        onClick={() => goToCaseStudy(cs.href)}
+                        className="flex items-center w-full py-2 text-sm touch-manipulation"
+                        style={{
+                          color: 'rgba(193, 127, 62, 0.8)',
+                          minHeight: '44px',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          transition: 'color 0.2s ease',
+                        }}
+                        tabIndex={mobileOpen ? 0 : -1}
+                        onTouchStart={(e) => (e.currentTarget.style.color = 'var(--ef-copper)')}
+                        onTouchEnd={(e) => (e.currentTarget.style.color = 'rgba(193, 127, 62, 0.8)')}
+                      >
+                        {cs.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+
             <li className="mt-4">
-              <a
-                href="#contact"
-                className="ef-cta-btn flex items-center justify-center text-sm font-semibold touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
+              <button
+                onClick={() => goToAnchor('#contact')}
+                className="ef-cta-btn flex items-center justify-center w-full text-sm font-semibold touch-manipulation active:scale-98 focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
                 style={{
                   backgroundColor: 'var(--ef-copper)',
                   color: '#fff',
                   minHeight: '52px',
                   transition: 'background-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease',
                   borderRadius: '2px',
+                  border: 'none',
+                  cursor: 'pointer',
                 }}
-                onClick={() => setMobileOpen(false)}
                 tabIndex={mobileOpen ? 0 : -1}
                 onTouchStart={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
                 onTouchEnd={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
               >
                 Book a Demo
-              </a>
+              </button>
             </li>
           </ul>
         </div>
