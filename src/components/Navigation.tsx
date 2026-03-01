@@ -129,7 +129,7 @@ export function Navigation() {
             className="ef-cta-btn text-sm font-semibold focus-visible:ring-2 focus-visible:ring-[var(--ef-copper-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] outline-none"
             style={{
               backgroundColor: 'var(--ef-copper)',
-              color: '#ffffff',
+              color: 'var(--ef-white)',
               padding: '9px 20px',
               letterSpacing: '0.01em',
               minHeight: '38px',

@@ -21,7 +21,7 @@ export function Footer() {
 
   return (
     <footer
-      style={{ backgroundColor: '#080E1A' }}
+      style={{ backgroundColor: 'var(--ef-footer-dark)' }}
       aria-label="Site footer"
     >
       <div
@@ -102,7 +102,7 @@ export function Footer() {
                   <li key={item.label} style={{ marginBottom: '12px' }}>
                     <a
                       href={item.href}
-                      className="focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080E1A] outline-none rounded-sm"
+                      className="focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-footer-dark)] outline-none rounded-sm"
                       style={{
                         fontSize: 'clamp(13px, 2.2vw, 14px)',
                         color: 'rgba(139, 134, 128, 0.8)',

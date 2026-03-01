@@ -333,7 +333,7 @@ export function CTA() {
                   className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto ef-cta-primary-btn focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ef-navy)] focus-visible:ring-[var(--ef-copper)] outline-none"
                   style={{
                     backgroundColor: formState === 'submitting' ? 'var(--ef-copper-dark)' : 'var(--ef-copper)',
-                    color: '#ffffff',
+                    color: 'var(--ef-white)',
                     padding: '16px 36px',
                     fontSize: '15px',
                     fontWeight: 600,
