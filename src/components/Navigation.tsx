@@ -145,14 +145,24 @@ export function Navigation() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden p-2"
-          style={{ color: 'var(--ef-text-primary)', minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          className="md:hidden p-2 touch-manipulation active:scale-95"
+          style={{
+            color: 'var(--ef-text-primary)',
+            minWidth: '48px',
+            minHeight: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'transform 0.1s ease, opacity 0.15s ease',
+          }}
           onClick={() => setMobileOpen((o) => !o)}
+          onTouchStart={(e) => (e.currentTarget.style.opacity = '0.7')}
+          onTouchEnd={(e) => (e.currentTarget.style.opacity = '1')}
           aria-expanded={mobileOpen}
           aria-controls="mobile-menu"
           aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
         >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
@@ -178,26 +188,47 @@ export function Navigation() {
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="flex items-center py-3 text-base font-medium transition-colors"
-                  style={{ color: 'rgba(232, 228, 223, 0.75)', minHeight: '48px', letterSpacing: '0.01em' }}
+                  className="flex items-center py-3 text-base font-medium touch-manipulation active:translate-x-1"
+                  style={{
+                    color: 'rgba(232, 228, 223, 0.75)',
+                    minHeight: '52px',
+                    letterSpacing: '0.01em',
+                    transition: 'color 0.2s ease, transform 0.15s ease, background-color 0.2s ease',
+                    paddingLeft: '12px',
+                    paddingRight: '12px',
+                    marginLeft: '-12px',
+                    marginRight: '-12px',
+                    borderRadius: '4px',
+                  }}
                   onClick={() => setMobileOpen(false)}
                   tabIndex={mobileOpen ? 0 : -1}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(232, 228, 223, 0.75)')}
+                  onTouchStart={(e) => {
+                    e.currentTarget.style.color = 'var(--ef-text-primary)';
+                    e.currentTarget.style.backgroundColor = 'rgba(193, 127, 62, 0.08)';
+                  }}
+                  onTouchEnd={(e) => {
+                    e.currentTarget.style.color = 'rgba(232, 228, 223, 0.75)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
                 >
                   {item.label}
                 </a>
               </li>
             ))}
-            <li className="mt-3">
+            <li className="mt-4">
               <a
                 href="#contact"
-                className="ef-cta-btn flex items-center justify-center text-sm font-semibold"
-                style={{ backgroundColor: 'var(--ef-copper)', color: '#fff', minHeight: '48px' }}
+                className="ef-cta-btn flex items-center justify-center text-sm font-semibold touch-manipulation active:scale-98"
+                style={{
+                  backgroundColor: 'var(--ef-copper)',
+                  color: '#fff',
+                  minHeight: '52px',
+                  transition: 'background-color 0.2s ease, transform 0.15s ease',
+                }}
                 onClick={() => setMobileOpen(false)}
                 tabIndex={mobileOpen ? 0 : -1}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
+                onTouchStart={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper-light)')}
+                onTouchEnd={(e) => (e.currentTarget.style.backgroundColor = 'var(--ef-copper)')}
               >
                 Book a Demo
               </a>
