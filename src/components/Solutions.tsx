@@ -210,6 +210,7 @@ export function Solutions() {
             };
             const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
               (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+              (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
               if (tiltRef.current) tiltRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
             };
             return (
@@ -220,12 +221,13 @@ export function Solutions() {
               style={{
                 borderBottom: '1px solid rgba(10, 22, 40, 0.1)',
                 cursor: 'default',
-                transition: 'background-color 0.25s ease',
+                transition: 'background-color 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)',
                 borderRadius: '2px',
                 willChange: 'transform',
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(184, 115, 51, 0.035)';
+                (e.currentTarget as HTMLElement).style.transform = 'scale(1.01)';
               }}
               onMouseLeave={handleMouseLeave}
               onMouseMove={handleMouseMove}
