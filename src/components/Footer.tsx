@@ -49,7 +49,7 @@ export function Footer() {
             >
               <span
                 style={{
-                  fontSize: '22px',
+                  fontSize: 'clamp(20px, 3.5vw, 22px)',
                   fontWeight: 800,
                   letterSpacing: '-0.03em',
                   color: 'var(--ef-text-primary)',
@@ -60,7 +60,7 @@ export function Footer() {
             </a>
             <p
               style={{
-                fontSize: '14px',
+                fontSize: 'clamp(13px, 2.2vw, 14px)',
                 color: 'rgba(139, 134, 128, 0.8)',
                 lineHeight: 1.75,
                 maxWidth: '280px',
@@ -102,13 +102,16 @@ export function Footer() {
                   <li key={item.label} style={{ marginBottom: '12px' }}>
                     <a
                       href={item.href}
+                      className="focus-visible:ring-2 focus-visible:ring-[var(--ef-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#080E1A] outline-none rounded-sm"
                       style={{
-                        fontSize: '14px',
+                        fontSize: 'clamp(13px, 2.2vw, 14px)',
                         color: 'rgba(139, 134, 128, 0.8)',
                         textDecoration: 'none',
-                        transition: 'color 0.15s ease',
+                        transition: 'color 0.15s ease, box-shadow 0.15s ease',
                         display: 'inline-block',
                         minHeight: '24px',
+                        padding: '2px 4px',
+                        margin: '-2px -4px',
                       }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--ef-text-primary)')}
                       onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(139, 134, 128, 0.8)')}
