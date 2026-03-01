@@ -244,7 +244,7 @@ export function Solutions() {
                       lineHeight: 1.65,
                       transition: 'color 0.4s ease, filter 0.6s ease',
                       color: isActive || i === 0 ? 'var(--ef-text-secondary)' : 'rgba(139,134,128,0.45)',
-                      filter: i === 0 && arcStage === 0 ? `blur(${(1 - arcProgress / 0.3) * 0.3}px)` : 'none',
+                      filter: 'none',
                     }}
                   >
                     {isResults ? (
