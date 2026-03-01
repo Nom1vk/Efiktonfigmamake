@@ -1863,13 +1863,131 @@ html {
   color: #E8E4DF !important;
 }
 
-/* ── Stop-using list items hover ─────────────────────────────────────────────── */
+/* ── Stop-using list: animated strikethrough ─────────────────────────────────── */
 .stop-using-item {
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0ms;
 }
 
 .stop-using-item:hover {
   background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* The pseudo-element strike line — draws left→right */
+.stop-using-text {
+  position: relative;
+  display: inline;
+}
+
+.stop-using-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, rgba(184, 115, 51, 0.9), rgba(184, 115, 51, 0.45));
+  transform: translateY(-50%);
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0ms;
+  border-radius: 1px;
+}
+
+/* When striking sequence starts: fade + nudge each item */
+.stop-using-list.is-striking .stop-using-item[data-strike-index="0"] {
+  opacity: 0.42;
+  transform: translateX(3px);
+  transition-delay: 300ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="1"] {
+  opacity: 0.42;
+  transform: translateX(3px);
+  transition-delay: 650ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="2"] {
+  opacity: 0.42;
+  transform: translateX(3px);
+  transition-delay: 1000ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="3"] {
+  opacity: 0.42;
+  transform: translateX(3px);
+  transition-delay: 1350ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="4"] {
+  opacity: 0.42;
+  transform: translateX(3px);
+  transition-delay: 1700ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="5"] {
+  opacity: 0.42;
+  transform: translateX(3px);
+  transition-delay: 2050ms;
+}
+
+/* Strike line draws across each item */
+.stop-using-list.is-striking .stop-using-item[data-strike-index="0"] .stop-using-text::after {
+  width: 100%;
+  transition-delay: 300ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="1"] .stop-using-text::after {
+  width: 100%;
+  transition-delay: 650ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="2"] .stop-using-text::after {
+  width: 100%;
+  transition-delay: 1000ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="3"] .stop-using-text::after {
+  width: 100%;
+  transition-delay: 1350ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="4"] .stop-using-text::after {
+  width: 100%;
+  transition-delay: 1700ms;
+}
+.stop-using-list.is-striking .stop-using-item[data-strike-index="5"] .stop-using-text::after {
+  width: 100%;
+  transition-delay: 2050ms;
+}
+
+/* Summary line: "One system. Nothing else." */
+.stop-using-summary {
+  margin-top: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C17F3E;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stop-using-summary.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced motion: skip animation, show final state immediately */
+@media (prefers-reduced-motion: reduce) {
+  .stop-using-item,
+  .stop-using-text::after,
+  .stop-using-summary {
+    transition: none !important;
+    transition-delay: 0ms !important;
+  }
+  .stop-using-list.is-striking .stop-using-item {
+    opacity: 0.42;
+    transform: translateX(3px);
+  }
+  .stop-using-list.is-striking .stop-using-item .stop-using-text::after {
+    width: 100%;
+  }
+  .stop-using-summary {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ── Quote cards hover polish ────────────────────────────────────────────────── */

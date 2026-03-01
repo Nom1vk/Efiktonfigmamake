@@ -333,11 +333,17 @@ function PhaseTimeline() {
 export function Features() {
   const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
   const [colsRef, colsVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
-  const [stopUsingRef, stopUsingInView] = useInView<HTMLUListElement>({ threshold: 0.2 });
+  const [stopUsingRef, stopUsingInView] = useInView<HTMLUListElement>({ threshold: 0.35 });
   const [strikingStarted, setStrikingStarted] = useState(false);
+  const [summaryVisible, setSummaryVisible] = useState(false);
 
   useEffect(() => {
-    if (stopUsingInView && !strikingStarted) setStrikingStarted(true);
+    if (stopUsingInView && !strikingStarted) {
+      setStrikingStarted(true);
+      // Show summary after all 6 items are struck: 300ms settle + 5×350ms stagger + 600ms draw + 450ms pause = ~3450ms
+      const timer = setTimeout(() => setSummaryVisible(true), 3450);
+      return () => clearTimeout(timer);
+    }
   }, [stopUsingInView, strikingStarted]);
 
   return (
@@ -440,6 +446,13 @@ export function Features() {
                     </li>
                   ))}
                 </ul>
+                {/* Summary line — appears after all items are struck */}
+                <p
+                  className={`stop-using-summary${summaryVisible ? ' is-visible' : ''}`}
+                  aria-live="polite"
+                >
+                  One system. Nothing else.
+                </p>
               </div>
 
               {/* Phase timeline — builds like construction */}
