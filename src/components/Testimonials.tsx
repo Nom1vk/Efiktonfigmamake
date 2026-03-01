@@ -70,7 +70,7 @@ const proofPoints = [
 
 const ownerQuotes = [
   {
-    text: "I can sleep — I know what's happening in the factory. Problems are visible early, not discovered when a customer calls to complain.",
+    text: "I can sleep. I know what's happening in the factory. Problems are visible early, not discovered when a customer calls to complain.",
     name: 'Giorgos Konstantinidis',
     title: 'Operations Director',
     companyType: 'Auto Parts Manufacturer',
@@ -78,7 +78,7 @@ const ownerQuotes = [
     city: 'Thessaloniki',
   },
   {
-    text: 'We stopped firefighting. We run the plant now. I can trust our delivery dates again — and so can our customers.',
+    text: 'We stopped firefighting. We run the plant now. I can trust our delivery dates again, and so can our customers.',
     name: 'Nikos Papadimitriou',
     title: 'Managing Director',
     companyType: 'Industrial Components',
@@ -412,7 +412,7 @@ export function Testimonials() {
               Εφικτόν.
             </p>
             <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--ef-text-secondary)' }}>
-              From Greek — achievable. That's the promise.
+              From the Greek, achievable. That is the promise.
             </p>
           </div>
         </div>
