@@ -8,6 +8,7 @@ import { About } from './components/About';
 import { CTA } from './components/CTA';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
+import { FibonacciDivider, CopperDrawDivider } from './components/PhiElements';
 
 export default function App() {
   return (
@@ -24,23 +25,29 @@ export default function App() {
       <Navigation />
       <main id="main-content">
         <Hero />
-        {/* Section transition: navy → off-white */}
+        {/* Section transition: navy → off-white — φ structural divider */}
         <div aria-hidden="true" className="ef-section-divider ef-section-divider--strong" />
+        <FibonacciDivider rotation={0} opacity={0.06} />
         <Solutions />
-        {/* Section transition: off-white → navy */}
+        {/* Section transition: off-white → navy — copper draw + φ */}
+        <CopperDrawDivider />
         <div aria-hidden="true" className="ef-section-divider" />
+        <FibonacciDivider rotation={45} opacity={0.055} />
         <Features />
         {/* Section transition: navy → cream */}
         <div aria-hidden="true" className="ef-section-divider" />
+        <FibonacciDivider rotation={90} opacity={0.06} />
         <ERPReplacement />
         {/* Section transition: cream → off-white */}
+        <CopperDrawDivider />
         <div aria-hidden="true" className="ef-section-divider" />
         <Testimonials />
         {/* Section transition: cream → navy (case study) */}
         <div aria-hidden="true" className="ef-section-divider" />
         <CaseStudy />
-        {/* Section transition: navy → charcoal */}
+        {/* Section transition: navy → charcoal + φ */}
         <div aria-hidden="true" className="ef-section-divider" />
+        <FibonacciDivider rotation={135} opacity={0.055} />
         <About />
         {/* Section transition: charcoal → navy */}
         <div aria-hidden="true" className="ef-section-divider" />
