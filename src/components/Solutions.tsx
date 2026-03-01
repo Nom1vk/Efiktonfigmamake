@@ -3,34 +3,13 @@ import { useInView } from '../hooks/useInView';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 import { useCountUp } from '../hooks/useCountUp';
 
-/** 3D tilt effect — progressive enhancement, skipped on touch devices */
-function useTilt() {
-  const ref = useRef<HTMLElement>(null);
-
-  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const el = ref.current;
-    if (!el || window.matchMedia('(hover: none)').matches) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.transform = `perspective(1200px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
-  };
-
-  const onMouseLeave = () => {
-    if (!ref.current) return;
-    ref.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
-  };
-
-  return { ref, onMouseMove, onMouseLeave };
-}
-
 const pillars = [
   {
     num: '01',
     title: 'Materials',
     headline: 'Know What You Have',
     description:
-      'Full traceability — from raw material lot to finished product. No inventory surprises. You always know what you have, where it is, and what it becomes.',
+      'Full traceability from raw material to finished product. No inventory surprises. You always know what you have, where it is, and what it becomes.',
     outcome: 'Full traceability, zero surprises',
   },
   {
@@ -46,15 +25,15 @@ const pillars = [
     title: 'Money',
     headline: 'True Cost Per Product',
     description:
-      'Know your margin before you quote. Stop leaking profit. Accurate costing from production data — not spreadsheet guesses. Quote with confidence.',
-    outcome: 'Quote with confidence, protect profit',
+      'Accurate costing from production data, not spreadsheet estimates. Know your margin before you quote. Quote with confidence.',
+    outcome: 'Quote with confidence, protect margin',
   },
   {
     num: '04',
     title: 'Knowledge',
     headline: 'Improvements That Stick',
     description:
-      "The factory doesn't reset when people change. Institutional memory. Continuous improvement. Expertise stays in the system — not in someone's head.",
+      "The factory does not reset when people change. Institutional memory and continuous improvement. Expertise stays in the system, not in someone's head.",
     outcome: 'Institutional memory, continuous improvement',
   },
 ];
@@ -91,11 +70,11 @@ function ResultsStat({
 
 export function Solutions() {
   const [headerRef, headerVisible] = useInView<HTMLDivElement>({ threshold: 0.1 });
-  const [arcScrollRef, arcProgress] = useScrollProgress<HTMLDivElement>(0.1);
+  // useScrollProgress now returns [ref, arcStage]: continuous values are written
+  // as CSS custom props directly to the arc-container DOM element, bypassing
+  // React's render cycle for 60fps scroll performance.
+  const [arcScrollRef, arcStage] = useScrollProgress<HTMLDivElement>(0.1);
   const [pillarsRef, pillarsVisible] = useInView<HTMLDivElement>({ threshold: 0.05 });
-
-  // Derived arc stage (0–3)
-  const arcStage = progressToStage(arcProgress);
 
   // One-shot RESULTS trigger: fire when stage reaches 3, never reset
   const [resultsFired, setResultsFired] = useState(false);
@@ -105,17 +84,7 @@ export function Solutions() {
     }
   }, [arcStage, resultsFired]);
 
-  // Jitter intensity: 1.0 at stage 0, ramps to 0 at progress 0.35
-  // Used in CSS via --arc-jitter-intensity
-  const jitterIntensity = Math.max(0, 1 - arcProgress / 0.35);
-
-  // Progress bar width: fills left→right with scroll
-  const progressBarWidth = `${Math.round(arcProgress * 100)}%`;
-
-  // Noise overlay opacity: 0.55 at start, gone by progress 0.45
-  const noiseOpacity = Math.max(0, 0.55 - arcProgress * (0.55 / 0.45));
-
-  // Per-step active state
+  // Per-step active state (driven by discrete arcStage — only 4 possible renders)
   const stepActive = [
     arcStage >= 0, // CHAOS always "entered"
     arcStage >= 1,
@@ -182,17 +151,15 @@ export function Solutions() {
           style={{
             borderTop: '1px solid rgba(10, 22, 40, 0.1)',
             position: 'relative',
-            // Custom props consumed by CSS
-            '--arc-progress': arcProgress,
-            '--arc-jitter': jitterIntensity,
-          } as React.CSSProperties}
+            // CSS custom props (--arc-progress, --arc-jitter-intensity, --arc-noise-opacity)
+            // are written directly by useScrollProgress on every RAF tick — not here.
+          }}
           role="list"
           aria-label="The journey from chaos to results"
         >
-          {/* Noise grain overlay — fades as order emerges */}
+          {/* Noise grain overlay — opacity driven by --arc-noise-opacity CSS var */}
           <div
             className="arc-noise-overlay"
-            style={{ opacity: noiseOpacity }}
             aria-hidden="true"
           />
 
@@ -298,12 +265,13 @@ export function Solutions() {
             })}
           </div>
 
-          {/* Scroll-linked progress bar */}
+          {/* Scroll-linked progress bar — transform:scaleX avoids layout work */}
           <div
             style={{
               position: 'relative',
               height: '2px',
               backgroundColor: 'rgba(10, 22, 40, 0.08)',
+              overflow: 'hidden',
             }}
           >
             <div
@@ -313,10 +281,10 @@ export function Solutions() {
                 left: 0,
                 top: 0,
                 height: '100%',
-                width: progressBarWidth,
+                width: '100%',
                 backgroundColor: 'var(--ef-copper)',
-                transformOrigin: 'left',
-                transition: 'width 0.05s linear',
+                transformOrigin: 'left center',
+                transform: 'scaleX(var(--arc-progress, 0))',
               }}
               aria-hidden="true"
             />
@@ -482,11 +450,11 @@ export function Solutions() {
               maxWidth: '700px',
             }}
           >
-            "Quality becomes stable —{' '}
+            "Quality becomes stable,{' '}
             <span style={{ color: 'var(--ef-copper)' }}>not a daily fight.</span>"
           </p>
           <p style={{ marginTop: '12px', fontSize: '14px', color: 'var(--ef-text-secondary)' }}>
-            When you control Materials, Time, and Money — Quality follows.
+            When you control Materials, Time, and Money, Quality follows.
           </p>
         </div>
       </div>

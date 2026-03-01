@@ -304,28 +304,40 @@ export function Hero() {
             marginBottom: '28px',
           }}
         >
-          Deliver on time.{' '}
-          <br />
-          <span style={{ color: 'var(--ef-copper)' }}>Eliminate</span> problems.
-          <br />
-          Protect margin.
+          From Chaos to{' '}
+          <span style={{ color: 'var(--ef-copper)' }}>Control</span>.
         </h1>
 
         {/* Subhead */}
         <p
           className="ef-hero-item animate-reveal-body"
+          data-delay="2"
+          style={{
+            color: 'var(--ef-text-secondary)',
+            fontSize: 'clamp(1.0625rem, 2vw, 1.375rem)',
+            lineHeight: 1.6,
+            maxWidth: '600px',
+            marginBottom: '20px',
+            fontWeight: 500,
+          }}
+        >
+          The manufacturing operating system for predictable output, protected margin, and fewer problems.
+        </p>
+
+        {/* Body */}
+        <p
+          className="ef-hero-item animate-reveal-body"
           data-delay="3"
           style={{
             color: 'var(--ef-text-secondary)',
-            fontSize: 'clamp(0.9375rem, 1.8vw, 1.2rem)',
+            fontSize: 'clamp(0.9375rem, 1.8vw, 1.125rem)',
             lineHeight: 1.7,
             maxWidth: '520px',
             marginBottom: 'clamp(32px, 5vw, 40px)',
             fontWeight: 400,
           }}
         >
-          The manufacturing OS that turns chaos into control. Across Materials, Time, Money, and
-          Knowledge. One method. One system.
+          Efikton manages Materials, Time, Money, and Knowledge as one disciplined system. From order to cash, from supplier to shipment. One method. Proven results across 40+ factory implementations.
         </p>
 
         {/* Named social proof */}

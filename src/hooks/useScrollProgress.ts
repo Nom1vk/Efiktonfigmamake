@@ -1,44 +1,81 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * Scroll-linked progress hook: returns [ref, progress].
- * progress is 0→1 as the element scrolls through the viewport.
+ * Scroll-linked progress hook — performance-optimised.
  *
- * Calculation:
- *  - progress = 0: element's top edge enters from the bottom of viewport
- *  - progress = 1: element's top edge reaches `topTarget` fraction from viewport top
+ * Writes continuous values directly to the DOM element as CSS custom props on
+ * every RAF tick, bypassing React's render cycle entirely:
  *
- * Respects prefers-reduced-motion: immediately returns 1.0 (final state).
+ *   --arc-progress          (0 → 1)
+ *   --arc-jitter-intensity  (1 → 0 over first 35% of progress)
+ *   --arc-noise-opacity     (0.55 → 0 over first 45% of progress)
+ *
+ * Returns only [ref, arcStage] — React state is updated only on discrete stage
+ * transitions (max 4 updates total per scroll session), keeping the render tree
+ * completely still between transitions.
+ *
+ * Respects prefers-reduced-motion: snaps immediately to final state.
  */
+
+function progressToStage(p: number): number {
+  if (p < 0.3) return 0;
+  if (p < 0.6) return 1;
+  if (p < 0.85) return 2;
+  return 3;
+}
+
 export function useScrollProgress<T extends Element = Element>(
-  topTarget = 0.15, // viewport fraction — element top at this point = progress 1.0
+  topTarget = 0.15,
 ): [React.RefObject<T>, number] {
   const ref = useRef<T>(null);
-  const [progress, setProgress] = useState(0);
+  const [arcStage, setArcStage] = useState(0);
   const rafRef = useRef<number>(0);
+  const stageRef = useRef<number>(0);
 
   useEffect(() => {
-    // Reduced-motion: snap to final state, no animation
+    const el = ref.current as HTMLElement | null;
+
+    // Reduced-motion: snap to final state, write props once, no listeners
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setProgress(1);
+      if (el) {
+        el.style.setProperty('--arc-progress', '1');
+        el.style.setProperty('--arc-jitter-intensity', '0');
+        el.style.setProperty('--arc-noise-opacity', '0');
+      }
+      stageRef.current = 3;
+      setArcStage(3);
       return;
     }
 
     const compute = () => {
-      const el = ref.current;
-      if (!el) return;
+      const target = ref.current as HTMLElement | null;
+      if (!target) return;
 
-      const rect = el.getBoundingClientRect();
+      const rect = target.getBoundingClientRect();
       const vh = window.innerHeight;
-
-      // start: element top is at viewport bottom (just entering)
-      // end: element top is at topTarget% from viewport top
       const startY = vh;
       const endY = vh * topTarget;
 
       const raw = 1 - (rect.top - endY) / (startY - endY);
-      const clamped = Math.max(0, Math.min(1, raw));
-      setProgress(clamped);
+      const progress = Math.max(0, Math.min(1, raw));
+
+      // Write continuous CSS custom props directly — zero React renders here
+      target.style.setProperty('--arc-progress', String(progress));
+      target.style.setProperty(
+        '--arc-jitter-intensity',
+        String(Math.max(0, 1 - progress / 0.35)),
+      );
+      target.style.setProperty(
+        '--arc-noise-opacity',
+        String(Math.max(0, 0.55 - progress * (0.55 / 0.45))),
+      );
+
+      // React state only on discrete stage transition (max 4 updates total)
+      const newStage = progressToStage(progress);
+      if (newStage !== stageRef.current) {
+        stageRef.current = newStage;
+        setArcStage(newStage);
+      }
     };
 
     const onScroll = () => {
@@ -47,8 +84,7 @@ export function useScrollProgress<T extends Element = Element>(
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    // Initial compute (in case section is already visible on mount)
-    compute();
+    compute(); // initial compute in case section is already visible
 
     return () => {
       window.removeEventListener('scroll', onScroll);
@@ -56,5 +92,5 @@ export function useScrollProgress<T extends Element = Element>(
     };
   }, [topTarget]);
 
-  return [ref, progress];
+  return [ref, arcStage];
 }

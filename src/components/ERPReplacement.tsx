@@ -202,7 +202,7 @@ function ComparisonTable() {
               letterSpacing: '-0.01em',
               lineHeight: 1.5,
             }}>
-              Same factory. Same team. Efikton gives you control — without the ERP consultant on speed dial.
+              Same factory. Same team. Efikton gives you control, without permanent consultant dependency.
             </p>
           </div>
         </div>
@@ -325,15 +325,15 @@ export function ERPReplacement() {
             </span>
           </div>
           <h3 className="text-[var(--ef-navy)] font-bold leading-[1.15] tracking-[-0.02em] mb-5" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
-            Your team runs it independently by Phase 3 —<br className="hidden md:block" />
-            <span className="text-[var(--ef-copper)]">and your data stays yours. Always.</span>
+            Your team runs it independently by Phase 3.<br className="hidden md:block" />
+            <span className="text-[var(--ef-copper)]">And your data stays yours. Always.</span>
           </h3>
           <ul className="space-y-3" aria-label="Vendor continuity and data portability commitments">
             {[
-              'Export your operational data anytime — full CSV and API export, on demand, no request required.',
+              'Export your operational data anytime: full CSV and API export, on demand, no request required.',
               'Open standards and documented schemas. No black-box data structures, no proprietary lock-in.',
               'Your team owns operations by Phase 3. We transfer control, not dependency.',
-              'Contractual continuity protection: transition support and data handoff provisions are built into every engagement — regardless of what happens to us.',
+              'Contractual continuity protection: transition support and data handoff provisions are built into every engagement, regardless of what happens to us.',
             ].map((text, i) => (
               <li key={i} className="flex items-start gap-3 text-sm md:text-[0.9375rem] text-[var(--ef-navy)] leading-[1.7]">
                 <span className="mt-[7px] shrink-0 w-[6px] h-[6px] rounded-full bg-[var(--ef-copper)]" aria-hidden="true" />
