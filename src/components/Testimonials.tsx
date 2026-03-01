@@ -262,7 +262,7 @@ export function Testimonials() {
             style={{ gap: '32px' }}
           >
             {ownerQuotes.map((quote, i) => {
-              const staggerBase = i * 150; // ms
+              const staggerBase = i * 180; // ms — slightly longer for elegance
               return (
                 <blockquote
                   key={i}
@@ -273,6 +273,9 @@ export function Testimonials() {
                     backgroundColor: 'rgba(10, 22, 40, 0.04)',
                     position: 'relative',
                     overflow: 'hidden',
+                    transform: quotesVisible ? 'translateY(0)' : 'translateY(12px)',
+                    opacity: quotesVisible ? 1 : 0,
+                    transition: `opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${staggerBase}ms, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) ${staggerBase}ms`,
                   }}
                 >
                   {/* Animated large quote mark */}
@@ -287,10 +290,11 @@ export function Testimonials() {
                       fontWeight: 800,
                       color: 'rgba(193,127,62,0.15)',
                       fontStyle: 'normal',
-                      transform: quotesVisible ? 'scale(1)' : 'scale(0)',
+                      transform: quotesVisible ? 'scale(1) rotate(0deg)' : 'scale(0.8) rotate(-8deg)',
                       transformOrigin: 'top left',
+                      opacity: quotesVisible ? 1 : 0,
                       transition: quotesVisible
-                        ? `transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerBase}ms`
+                        ? `transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${staggerBase + 100}ms, opacity 0.5s ease ${staggerBase + 100}ms`
                         : 'none',
                       display: 'block',
                       userSelect: 'none',
@@ -299,7 +303,7 @@ export function Testimonials() {
                     "
                   </span>
 
-                  {/* Quote text — fades in 200ms after quote mark */}
+                  {/* Quote text — fades in 250ms after quote mark */}
                   <p
                     style={{
                       fontSize: 'clamp(0.9375rem, 1.5vw, 1.125rem)',
@@ -312,22 +316,22 @@ export function Testimonials() {
                       marginTop: '40px',
                       opacity: quotesVisible ? 1 : 0,
                       transition: quotesVisible
-                        ? `opacity 0.5s ease ${staggerBase + 200}ms`
+                        ? `opacity 0.6s ease ${staggerBase + 250}ms`
                         : 'none',
                     }}
                   >
                     {quote.text}
                   </p>
 
-                  {/* Attribution — slides up 200ms after text */}
+                  {/* Attribution — slides up 250ms after text */}
                   <cite
                     style={{
                       fontStyle: 'normal',
                       display: 'block',
-                      transform: quotesVisible ? 'translateY(0)' : 'translateY(10px)',
+                      transform: quotesVisible ? 'translateY(0)' : 'translateY(8px)',
                       opacity: quotesVisible ? 1 : 0,
                       transition: quotesVisible
-                        ? `opacity 0.45s ease ${staggerBase + 400}ms, transform 0.45s cubic-bezier(0.22,1,0.36,1) ${staggerBase + 400}ms`
+                        ? `opacity 0.5s ease ${staggerBase + 500}ms, transform 0.5s cubic-bezier(0.22,1,0.36,1) ${staggerBase + 500}ms`
                         : 'none',
                     }}
                   >
